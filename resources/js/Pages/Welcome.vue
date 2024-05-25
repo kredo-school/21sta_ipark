@@ -30,7 +30,7 @@ function handleImageError() {
     <Head title="Welcome" />
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 h-[100vh] w-[100vw]">
         <div class="">
-            test
+            Test
         </div>
     </div>
 </template>
