@@ -1,0 +1,21 @@
+main{
+    background-color: #fefae0;
+    color: #343A40;
+    font-family: "Inter";
+}
+
+.color1_orange{
+    color: #ff9900;
+}
+
+.color2_red{
+    color: #f54b31;
+}
+
+.color3_bluegray{
+    color: #395470;
+}
+
+.color4_navy{
+    color: #003566;
+}
