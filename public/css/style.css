@@ -19,3 +19,37 @@ main{
 .color4_navy{
     color: #003566;
 }
+
+.text-shadow {
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.underline{
+    border-bottom: 3px solid #ff9900;
+}
+
+.btn-orange{
+    background-color: #ff9900;
+    color: white;
+    border-color: #ff9900;
+    border-width: medium;
+}
+
+.btn-orange:hover {
+    border-color: #ff9900;
+    border-width: medium;
+    color: #ff9900;
+}
+
+.btn-navy{
+    background-color: #003566;
+    color: white;
+    border-color: #003566;
+    border-width: medium;
+}
+
+.btn-navy:hover {
+    border-color: #003566;
+    border-width: medium;
+    color: #003566;
+}
