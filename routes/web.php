@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -8,4 +9,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/parking_list', [HomeController::class, 'showParkingList'])->name('showParkingList');
+Route::get('/parking_place/{id}', [HomeController::class, 'showParkingDetail'])->name('showParkingDetail');
+Route::get('/reservation/{id}', [HomeController::class, 'showReservationForm'])->name('showReservationForm');
