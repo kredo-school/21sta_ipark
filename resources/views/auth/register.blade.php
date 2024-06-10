@@ -4,6 +4,8 @@
 <style>
 .card{
     color: #403734; 
+    background-color: #ff99002a;
+    border-radius: 30px;
 }
 
 .btn{
@@ -47,7 +49,7 @@
 </style>
 <div class="container">
     <div class="row justify-content-center my-5">
-        <div class="card shadow" style="background-color: #ff99002a; border-radius: 30px;">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6 ms-6 mt-5"> 
@@ -58,11 +60,11 @@
                             <div class="row mb-3 mt-5">
                                 <div class="col-md ms-4">
                                    <div class="pic-icon">
-                                        <input id="name" type="text" class="form-control form-element @error('name') is-invalid @enderror name-icon" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="User Name *">
+                                        <input id="username" type="text" class="form-control form-element @error('username') is-invalid @enderror name-icon" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="User Name *">
                                         <i class="fas fa-user"></i>
                                     </div>
 
-                                    @error('name')
+                                    @error('username')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -125,23 +127,23 @@
                             </div>
 
                             <div class="row mb-3">
-                                <form>
-                                    <div class="col-md ms-4">
-                                        <select id="car_type" name="car_type" class="form-control">
-                                            <option value="" disabled selected><i class="fa-solid fa-car"></i>Please select your car type</option>
-                                            <option value="standard">Standard</option>
-                                            <option value="compact">Compact</option>
-                                            <option value="large">Large</option>
-                                        </select>
-                                        
+                                
+                                <div class="col-md ms-4">
+                                    <select id="car_type" name="car_type" class="form-control">
+                                        <option value="" disabled selected><i class="fa-solid fa-car"></i>Please select your car type</option>
+                                        <option value="standard">Standard</option>
+                                        <option value="compact">Compact</option>
+                                        <option value="large">Large</option>
+                                    </select>
+                                    
 
-                                        @error('car_type')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </form>
+                                    @error('car_type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                
                             </div>
 
 
