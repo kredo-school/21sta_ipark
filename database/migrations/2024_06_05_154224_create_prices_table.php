@@ -17,8 +17,8 @@ return new class extends Migration
             $table->time('weekday_night');
             $table->time('holiday_daytime');
             $table->time('holiday_night');
-            $table->integer('maximum');
-            $table->integer('penalty');
+            $table->double('maximum_amount');
+            $table->double('penalty_amount');
 
             $table->foreign('parking_place_id')->references('id')->on('parking_places');
         });
