@@ -8,12 +8,12 @@
     border-radius: 30px;
 }
 
-.btn{
+.btn-r{
     background-color: #ff9900;
     color: white;
 }
 
-.btn:hover {
+.btn-r:hover {
     background-color: #cc7a00;
     color: white;
 }
@@ -149,7 +149,7 @@
 
                             <div class="row mb-0">
                                 <div class="col-md ms-4">
-                                    <button type="submit" class="btn w-100">
+                                    <button type="submit" class="btn btn-r w-100">
                                         {{ __('Register') }}
                                     </button>
                                     <p class="text-center mt-2">Already have an account? <span><a href="{{ route('login') }}" style="color: #F54B31">Login here</a></span></p>
