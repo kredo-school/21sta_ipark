@@ -32,4 +32,11 @@ class ParkingPlaces extends Model
 
         return Carbon::createFromFormat('H:i:s', $time)->format('H:i');
     }
+
+    private $maxNumber;
+    public function countmaxNumber()
+    {
+        $this->maxNumber = ParkingPlaces::where('id', '1')->value('max_number');
+
+    }
 }

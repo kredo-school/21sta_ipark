@@ -82,7 +82,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 main">
             <div class="container">
                 <div class="row justify-content-center">
                     @yield('content')
