@@ -55,14 +55,14 @@ main{
 }
 
 .background-image-parkinglot-reservation-top {
-    background-image: url('/images/parking image_harf_top.jpg'); 
+    background-image: url('/images/parking image_harf_top.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .background-image-parkinglot-reservation-bottom {
-    background-image: url('/images/parking image_harf_bottom.jpg'); 
+    background-image: url('/images/parking image_harf_bottom.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -72,6 +72,28 @@ main{
 .table.table-background-color-none > tbody > tr > td,
 .table.table-background-color-none > tfoot > tr > td {
     background-color: transparent !important;
-    border: none !important; 
+    border: none !important;
     color: #343A40;
+}
+
+.btn-red{
+    background-color: white;
+    color: #f54b31;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.btn-red:hover {
+    background-color: #f54b31;
+    color: white;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.bg-orange{
+    background-color: #FAE9C5;
+}
+
+.border-orange{
+    border-color: #ff9900 !important;
 }
