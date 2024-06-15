@@ -6,8 +6,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
-class ParkingPlaces extends Model
+class ParkingPlace extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -31,5 +32,13 @@ class ParkingPlaces extends Model
         }
 
         return Carbon::createFromFormat('H:i:s', $time)->format('H:i');
+    }
+
+    public function favorites(){
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function isfavorited(){
+        return $this->likes()->where('user_id', Auth::user()->id)->exists();
     }
 }

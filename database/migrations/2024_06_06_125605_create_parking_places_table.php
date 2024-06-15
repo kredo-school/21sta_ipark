@@ -22,6 +22,12 @@ return new class extends Migration
             $table->time('daytime_to');
             $table->longText('image');
             $table->string('contact_number');
+            $table->double('weekday_daytime_amount');
+            $table->double('weekday_night_amount');
+            $table->double('holiday_daytime_amount');
+            $table->double('holiday_night_amount');
+            $table->double('maximum_amount');
+            $table->double('penalty_amount');
             $table->timestamps();
             $table->softDeletes();
         });
