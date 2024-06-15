@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreign('parking_place_id')->references('id')->on('parking_places')->onDelete('cascade');
         });
     }
+
     /**
      * Reverse the migrations.
      */
