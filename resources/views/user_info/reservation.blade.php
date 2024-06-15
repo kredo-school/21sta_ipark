@@ -3,49 +3,6 @@
 @section('title', 'reservation')
 
 @section('content')
-<style>
-.row{
-  text-align: center;
-}
-
-.tab{
-  background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border: 1px solid orange;
-  padding: 10px;
-  margin-bottom: 0px;
-  font-weight: bold;
-}
-
-.tab-link{
-  text-decoration: none;
-  color: orange;
-}
-
-.tab-link-active{
-  text-decoration: none;
-  color: white;
-}
-
-.tab-active{
-  background-color: orange;
-  color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  padding: 10px;
-  margin-bottom: 0px;
-  font-weight: bold;
-}
-
-.card{
-  background-color: white;
-  border-top: 5px solid orange;
-  border-right: none;         
-  border-bottom: none;        
-  border-left: none;  
-}
-</style>
 
 <div class="container">
     <div class="row">
