@@ -39,6 +39,10 @@ class ParkingPlace extends Model
     }
 
     public function isfavorited(){
-        return $this->likes()->where('user_id', Auth::user()->id)->exists();
+        return $this->favorites()->where('user_id', Auth::user()->id)->exists();
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
     }
 }
