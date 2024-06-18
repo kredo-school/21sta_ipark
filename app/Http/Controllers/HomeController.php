@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ParkingPlaces;
+use App\Models\ParkingPlace;
 use Illuminate\Http\Request;
 
 
@@ -16,7 +16,7 @@ class HomeController extends Controller
 
     private $parking_places;
 
-    public function __construct(ParkingPlaces $parking_places)
+    public function __construct(ParkingPlace $parking_places)
     {
         // $this->middleware('auth');
 
@@ -36,27 +36,14 @@ class HomeController extends Controller
                 ->with('recommendation', $recommendation);
     }
 
-    public function showParkingList(Request $request){
-        $search = $request->input('search');
-
-        $parking_places = $this->parking_places
-            ->where('city', 'like', '%'.$search.'%')
-            ->get();
-
-        return view('parking_lots.parking_list', compact('parking_places', 'search'));
-    }
-
-    public function showParkingDetail($id){
-        $parking_places = $this->parking_places->findOrFail($id);
-
-        return view('parking_lots.parking_detail')
-            ->with('parking_places', $parking_places);
-    }
-
     public function showReservationForm($id){
         $parking_places = $this->parking_places->findOrFail($id);
 
         return view('parking_lots.reservation')
             ->with('parking_places', $parking_places);
+    }
+
+    public function login(){
+        return view('auth.login_to_favorite');
     }
 }

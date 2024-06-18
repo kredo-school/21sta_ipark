@@ -98,15 +98,26 @@ main{
     border-color: #ff9900 !important;
 }
 
+.reviews {
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100%;
+    scrollbar-width: thin;
+}
+
+.reviews.collapsed {
+    max-height: 400px;
+}
 
 /* USER PROFILE */
 /* RESERVATION HISTORY */
 /* FAVORITE LIST */
 .row{
     text-align: center;
-  }
+}
   
-  .tab{
+.tab{
     background-color: white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -114,19 +125,19 @@ main{
     padding: 10px;
     margin-bottom: 0px;
     font-weight: bold;
-  }
+}
   
-  .tab-link{
+.tab-link{
     text-decoration: none;
     color: orange;
-  }
+}
   
-  .tab-link-active{
+.tab-link-active{
     text-decoration: none;
     color: white;
-  }
+}
   
-  .tab-active{
+.tab-active{
     background-color: orange;
     color: white;
     border-top-left-radius: 10px;
@@ -134,12 +145,12 @@ main{
     padding: 10px;
     margin-bottom: 0px;
     font-weight: bold;
-  }
+}
   
-  .card{
+.card{
     background-color: white;
     border-top: 5px solid orange;
     border-right: none;         
     border-bottom: none;        
     border-left: none;  
-  }
+}

@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(parking_placesTableSeeder::class);
+
+        $this->call(ReviewSeeder::class);
     }
 }

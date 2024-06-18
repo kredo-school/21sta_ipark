@@ -19,12 +19,12 @@ class FavoriteController extends Controller
         $this->favorite->parking_place_id = $id;
         $this->favorite->save();
 
-        return redirect()->back();
+        return response()->json(['status' => 'success', 'action' => 'added']);
     }
 
     public function destroy($parking_place_id){
         $this->favorite->where('parking_place_id', $parking_place_id)->where('user_id', Auth::id())->delete();
 
-        return redirect()->back();
+        return response()->json(['status' => 'success', 'action' => 'removed']);
     }
 }

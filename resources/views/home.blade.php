@@ -1,4 +1,40 @@
 @extends('layouts.app')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.favorite-form').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const url = form.action;
+                    const method = form.querySelector('input[name="_method"]') ? form.querySelector('input[name="_method"]').value : 'POST';
+                    const token = form.querySelector('input[name="_token"]').value;
+
+                    fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            const icon = form.querySelector('i');
+                            if (data.action === 'added') {
+                                icon.classList.remove('fa-regular');
+                                icon.classList.add('fa-solid', 'text-danger');
+                            } else {
+                                icon.classList.remove('fa-solid', 'text-danger');
+                                icon.classList.add('fa-regular');
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
 
 @section('title', 'Home')
 
@@ -83,8 +119,32 @@
                                     {{$parking_place->parking_place_name}}
                                 </a>
                             </div>
-                            <div class="col-2 text-end h2">
-                                <i class="fa-regular fa-heart"></i>
+                            <div class="col-2 text-end h2 p-0">
+                                @guest
+                                    <a
+                                        href="{{route('login_to_favorite')}}"
+                                        style="color: #343A40;"
+                                    >
+                                        <i class="fa-regular fa-heart me-3"></i>
+                                    </a>
+                                @else
+                                    @if($parking_place->isFavorited())
+                                        <form action="{{route('favorite.destroy', $parking_place->id)}}" method="post" class="favorite-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn p-0">
+                                                <i class="fa-solid fa-heart text-danger me-3 fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{route('favorite.store', $parking_place->id)}}" method="post" class="favorite-form">
+                                            @csrf
+                                            <button class="btn p-0">
+                                                <i class="fa-regular fa-heart me-3 fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endguest
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -124,7 +184,9 @@
                                         {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                                     </div>
                                     <div class="col d-flex align-items-center">
-                                        <span class="color2_red h3 fw-bold me-1 mb-0">¥400</span>
+                                        <span class="color2_red h3 fw-bold me-1 mb-0">
+                                            ¥{{$parking_place->weekday_daytime_amount}}
+                                        </span>
                                         <span>/30mins</span>
                                     </div>
                                 </div>
@@ -140,18 +202,20 @@
                                         {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                                     </div>
                                     <div class="col d-flex align-items-center">
-                                        <span class="color2_red h3 fw-bold me-1 mb-0">¥400</span>
+                                        <span class="color2_red h3 fw-bold me-1 mb-0">
+                                            ¥{{$parking_place->weekday_daytime_amount}}
+                                        </span>
                                         <span>/30mins</span>
                                     </div>
                                 </div>
                                 <div class="row h5 d-flex align-items-center">
                                     <div class="col">
                                         <i class="fa-regular fa-clock"></i>
-                                        {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
+                                        {{ $parking_place->daytime_to }} - {{ $parking_place->daytime_from }}
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            ¥100
+                                            ¥{{$parking_place->weekday_night_amount}}
                                         </span>
                                         <span>/30mins</span>
                                     </div>
@@ -159,7 +223,7 @@
                             @endif
                             <div class="row h5 mt-1">
                                 <div class="col">
-                                    MAX: ¥1500 /24h
+                                    MAX: ¥{{$parking_place->maximum_amount}} /24h
                                 </div>
                             </div>
                         </div>
