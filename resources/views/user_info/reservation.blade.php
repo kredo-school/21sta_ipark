@@ -11,27 +11,27 @@
         </div>
     </div>
 
-    
-    <div class="row ms-1">
-      <div class="col-2 me-3 tab"> 
-        <a href="{{route('profile', ['id' => $user->id])}}" class="tab-link">Profile</a>  
-      </div>
-
-      <div class="col-2 me-3 tab-active">
-        <a href="{{route('reservation', ['id' => $user->id])}}" class="tab-link-active">Reservation</a>
-      </div>
-
-      <div class="col-2 tab">
-        <a href="{{route('favorite', ['id' => $user->id])}}" class="tab-link">Favorite</a>
-      </div>
+  
+  <div class="row ms-1">
+    <div class="col-2 me-3 tab"> 
+      <a href="{{route('profile', ['id' => $user->id])}}" class="tab-link">Profile</a>  
     </div>
-    
 
-    <div class="card profile-card mt-0">
-      <div class="card-body profile-card-body">
-
-      </div>
+    <div class="col-2 me-3 tab-active">
+      <a href="{{route('reservation', ['id' => $user->id])}}" class="tab-link-active">Reservation</a>
     </div>
+
+    <div class="col-2 tab">
+      <a href="{{route('favorite', ['id' => $user->id])}}" class="tab-link">Favorite</a>
+    </div>
+  </div>
+  
+
+  <div class="card mt-0 profile-card">
+    <div class="card-body profile-card-body">
+
+    </div>
+  </div>
 
 </div>
 
