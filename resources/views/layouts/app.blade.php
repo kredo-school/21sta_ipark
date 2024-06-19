@@ -67,7 +67,7 @@
             background-color: #003566;
             z-index: 1000;
         }
-        
+
         #sidebarToggle:checked ~ #sidebar {
             transform: translateX(0);
         }
@@ -96,20 +96,31 @@
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container-fluid">
                     <div class="col-3">
-                        <a class="navbar-brand ms-5" href="{{ url('/') }}">
-                            <!-- Add Logo imege and link of home -->
+                        <a class="navbar-brand ms-5" href="{{ route('home') }}">
+                            {{-- Logo imege and link of home --}}
                             <img src="{{ asset('images/logo.png') }}" alt="iPark" style="height: 50px;">
                         </a>
                     </div>
-                    <!-- Serch-bar -->
+                    {{-- Serch-bar --}}
                     <div class="col-6 justify-content-center d-flex align-items-center">
-                        <form action="" method="get">
+                        <form action="{{route('showParkingList')}}" method="get">
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text rounded-pill rounded-end">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </span>
-                                <input type="text" name="search" placeholder="Search by place name" class="form-control rounded-pill rounded-start" style="width: 300px;">
-                                <a href="" class="btn rounded-pill fw-bold px-4 btn-navy fs-7 btn-sm ms-3">Show parking spaces</a>
+                                <input
+                                    type="text"
+                                    name="search"
+                                    placeholder="Search by place name"
+                                    class="form-control rounded-pill rounded-start"
+                                    style="width: 300px;"
+                                >
+                                <button
+                                    type="submit"
+                                    class="btn rounded-pill fw-bold px-4 btn-navy fs-7 btn-sm ms-3"
+                                >
+                                Show parking spaces
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -128,40 +139,67 @@
                                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                         </li>
                                         <li class="nav-item">
-                                            <!-- Add Bars icon for sidebar -->
-                                            <label for="sidebarToggle" class="btn custom_btn me-5" style="width: 50px;">
+                                            {{-- Add Bars icon for sidebar --}}
+                                            <label for="sidebarToggle" class="btn custom_btn ms-2 me-5" style="width: 50px;">
                                                 <i class="fa fa-bars fa-2x"></i>
                                             </label>
                                         </li>
                                     @endif
                                 @else
                                     <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center border rounded-pill shadow-sm" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a
+                                            id="navbarDropdown"
+                                            class="nav-link dropdown-toggle d-flex align-items-center border rounded-pill shadow-sm"
+                                            href="#"
+                                            role="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-haspopup="true"
+                                            aria-expanded="false"
+                                        >
                                             <i class="fas fa-user-circle fa-2x"></i>
                                             <span class="mx-2">
-                                                {{ Auth::user()->name }}
+                                                {{ Auth::user()->username }}
                                             </span>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            @auth
+                                                @if (Auth::user()->role_id == 1 || request()->is('admin/*'))
+                                                {{-- Admin Controls --}}
+                                                <a href="#" class="dropdown-item">
+                                                    Admin
+                                                </a>
+                                                <hr class="horizontal-divider">
+                                                {{-- Logout Button/Link --}}
+                                                <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
                                                 {{ __('Logout') }}
-                                            </a>
-                                            <hr class="horizontal-divider">
-                                            <a href="#" class="dropdown-item">
-                                                Profile
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
+                                                </a>
+                                                @else
+                                                {{-- Profile Button/Link --}}
+                                                <a href="#" class="dropdown-item">
+                                                    Profile
+                                                </a>
+                                                <hr class="horizontal-divider">
+                                                {{-- Logout Button/Link --}}
+                                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                                    document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                                </a>
+
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                                @endif
+                                            @endauth
+                                            <li class="nav-item">
+                                                {{-- Add Bars icon for sidebar --}}
+                                                <label for="sidebarToggle" class="btn custom_btn ms-2 me-5" style="width: 50px;">
+                                                    <i class="fa fa-bars fa-2x"></i>
+                                                </label>
+                                            </li>
                                         </div>
-                                    </li>
-                                    <li class="nav-item">
-                                    <!-- Add Bars icon for sidebar -->
-                                        <label for="sidebarToggle" class="btn custom_btn ms-2 me-5" style="width: 50px;">
-                                            <i class="fa fa-bars fa-2x"></i>
-                                        </label>
                                     </li>
                                 @endguest
                             </ul>
@@ -171,20 +209,20 @@
             </nav>
         </div>
         <input type="checkbox" id="sidebarToggle">
-        
+
         <div  id="sidebar" class="sidebar d-flex bg_navy p-3 vh-100 ">
             @guest
-                <!-- Guest Sidebar  -->
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
+                {{-- Guest Sidebar --}}
+                <a href="{{ route('home') }}" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
                     <i class="fa fa-home me-3 fa-2x"></i> Home
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a href="{{ route('showParkingList') }}" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
                     <i class="fa fa-car me-3 fa-2x"></i> Parking list
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a href="{{route('login')}}" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
                     <i class="fa fa-sign-in-alt me-3 fa-2x"></i> Login
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a href="{{route('register')}}" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
                     <i class="fa fa-registered me-3 fa-2x"></i> Register
                 </a>
                 <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
@@ -193,85 +231,55 @@
                 <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
-
-
             @else
-                <!-- Registered User Sidebar -->
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
+                {{-- Registered User Sidebar --}}
+                <a href="{{ route('home') }}" class="d-flex align-items-center ms-3 mb-2 mt-3 text-decoration-none fw-bold">
                     <i class="fa fa-home me-3 fa-2x"></i> Home
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a href="{{ route('showParkingList') }}" class="d-flex align-items-center ms-3 mb-2 text-decoration-none fw-bold">
                     <i class="fa fa-car me-3 fa-2x"></i> Parking list
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-1 text-decoration-none fw-bold">
+                <a href="#" class="d-flex align-items-center text-decoration-none fw-bold ms-3">
                     <i class="fa fa-user me-3 fa-2x"></i> User Information
                 </a>
-                <div class="ms-3">
+                <div class="ms-3 mb-2">
                     <div class="ps-3 white_line">
                         <a href="#" class="d-flex align-items-center text-decoration-none">Profile</a>
                         <a href="#" class="d-flex align-items-center text-decoration-none">Favorite</a>
                         <a href="#" class="d-flex align-items-center text-decoration-none">Reservation History</a>
                     </div>
                 </div>
-                <a href="{{ route('logout') }}" class="d-flex align-items-center my-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                {{-- Admin Controls --}}
+                @if (Auth::user()->isAdmin())
+                <div class="sidebar-section admin">
+                    <a href="#" class="d-flex align-items-center text-decoration-none fw-bold ms-3">
+                        <i class="fa fa-user-cog me-3 fa-2x"></i> Admin
+                    </a>
+                    <div class="ms-3 mb-2">
+                        <div class="ps-3 white_line">
+                            <a href="#" class="d-flex align-items-center text-decoration-none text-white">User List</a>
+                            <a href="#" class="d-flex align-items-center text-decoration-none text-white">Parking places list</a>
+                            <a href="#" class="d-flex align-items-center text-decoration-none text-white">Register new parking</a>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                <a
+                    href="{{ route('logout') }}"
+                    class="d-flex align-items-center my-2 ms-3 text-white text-decoration-none fw-bold"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                >
                     <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a href="#" class="d-flex align-items-center ms-3 mb-2 text-decoration-none fw-bold">
                     <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a href="#" class="d-flex align-items-center ms-3 text-decoration-none fw-bold">
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
-
-                <!-- @if (Auth::user()->isAdmin()) -->
-                    <!-- Admin Sidebar -->
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
-                    <i class="fa fa-home me-3 fa-2x"></i> Home
-                    </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
-                        <i class="fa fa-car me-3 fa-2x"></i> Parking list
-                    </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-1 text-decoration-none fw-bold">
-                        <i class="fa fa-user me-3 fa-2x"></i> User Information
-                    </a>
-                    <div class="ms-3">
-                        <div class="ps-3 white_line">
-                            <a href="#" class="d-flex align-items-center text-decoration-none">Profile</a>
-                            <a href="#" class="d-flex align-items-center text-decoration-none">Favorite</a>
-                            <a href="#" class="d-flex align-items-center text-decoration-none">Reservation History</a>
-                        </div>
-                    </div>
-                    <div class="sidebar-section admin mt-3">
-                        <a href="#" class="d-flex align-items-centere text-decoration-none fw-bold ms-3 text-white">
-                            <i class="fa fa-user-cog me-3 fa-2x"></i> Admin
-                        </a>
-                        <div class="ms-3">
-                            <div class="ps-4 white_line">
-                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">User List</a>
-                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">Parking places list</a>
-                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">Register new parking</a>
-                        </div>
-                    </div>
-                    <a href="{{ route('logout') }}" class="d-flex align-items-center mt-3 mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
-                    </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
-                    <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
-                    </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
-                        <i class="fa fa-info-circle me-3 fa-2x"></i> About us
-                    </a>
-
-                <!-- @endif -->
-                    <!-- <a href="{{ route('logout') }}" class="d-flex align-items-center mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form> -->
             @endguest
         </div>
         <main class="py-4">
@@ -281,19 +289,19 @@
                 </div>
             </div>
         </main>
-        <!-- Footer -->
+        {{-- Footer --}}
         <footer class="bg_footer text-white">
             <div class="container-fluid py-4">
                 <div class="row">
                     <div class="col-md-4">
-                        <a class="navbar-brand ms-5" href="{{ url('/') }}">
+                        <a class="navbar-brand ms-5" href="{{ route('home') }}">
                             <img src="{{ asset('images/logo.png') }}" alt="iPark Logo" style="height: 50px;">
                         </a>
                     </div>
                     <div class="col-md-8 d-flex justify-content-end align-items-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">Home</a>
+                                <a class="nav-link text-white" href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white mx-5" href="#">FAQ</a>
