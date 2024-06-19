@@ -8,18 +8,14 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
-    // private $user;
-    // public function __construct(User $user){
-    //     $this->user = $user;
-    // }
+    private $user;
+    public function __construct(User $user){
+        $this->user = $user;
+    }
 
-    // // public function index(){
-    // //     $all_users = $this->user->latest()->get();
-    // //     // return view('admin.users.index')->with('all_users', $all_users);
-    // // }
+    public function RegisterNewParking()
+    {
+        return view('admin.index');
+    }
 
-    // public function index()
-    // {
-    //     return view('admin.index');
-    // }
 }
