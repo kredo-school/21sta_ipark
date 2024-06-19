@@ -24,7 +24,7 @@ class AdminMiddleware
             if (auth()->user() && auth()->user()->role_id == 1) { // assuming role_id 1 is admin
                 return $next($request);
             }
-            return redirect('/home');
+            return redirect('/');
 
     }
 }
