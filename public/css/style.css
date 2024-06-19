@@ -98,6 +98,71 @@ main{
     border-color: #ff9900 !important;
 }
 
+
+/* LOGIN PAGE */
+.ipark-logo{
+    width: 250px;
+    height: 125px;
+}
+
+.card-login{
+    background-color: white;
+    border-radius: 30px;
+    color: #403734;
+    border: none;
+}
+
+/* REGISTER PAGE */
+.card-register{
+    color: #403734; 
+    background-color: #ff99002a;
+    border-radius: 30px;
+}
+
+.btn-r{
+    background-color: #ff9900;
+    color: white;
+}
+
+.btn-r:hover {
+    background-color: #cc7a00;
+    color: white;
+}
+
+.register_img{
+    max-width: 600px;
+    height: 600px;
+}
+
+.pic-icon {
+    position: relative;
+    width: 100%;
+}
+
+.form-element {
+    padding: .5rem .5rem .5rem 2rem;
+    width: 100%;
+}
+
+.form-element+i {
+    position: absolute;
+    top: 50%;
+    left: .5rem;
+    transform: translateY(-50%);
+    content: '';
+    transition: .3s;
+}
+
+.form-element:focus+i {
+    color: #FF9900;
+}
+
+/* USER INFORMATION */
+.row-info{
+    text-align: center;
+}
+  
+
 .reviews {
     max-height: 550px;
     overflow-y: auto;
@@ -110,12 +175,11 @@ main{
     max-height: 400px;
 }
 
-/* USER PROFILE */
-/* RESERVATION HISTORY */
-/* FAVORITE LIST */
+/* USER INFORMATION */
 .row-info{
     text-align: center;
 }
+
 
 .tab{
     background-color: white;
@@ -147,6 +211,56 @@ main{
     font-weight: bold;
 }
 
+  
+.profile-card{
+    background-color: white;
+    border-top: 5px solid orange;
+    border-right: none;         
+    border-bottom: none;        
+    border-left: none;  
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* USER PROFILE */
+.table{
+    width: 70%;
+}
+
+.profile-card-body{
+    padding-left: 250px;
+    padding-right: 0px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.table-profile td{
+  background-color: white;
+  padding: 15px;
+  font-size: 18px;
+}
+
+.btn-edit{
+  margin-right: 20em;
+}
+
+/* MODAL SUCCESS */
+.modal-content{
+    border-radius: 50px;
+}
+
+.btn-green{
+    background-color: #1AAD17;
+    color: white;
+    border-width: medium;
+}
+
+.btn-green:hover {
+    border-color: #1AAD17;
+    border-width: medium;
+    color: #1AAD17;
+}
+
+
 .card{
     background-color: white;
     border-top: 5px solid orange;
@@ -155,10 +269,3 @@ main{
     border-left: none;
 }
 
-  /* Register New Parking */
-  .background-image-newparking {
-    background-image: url('/images/parking image_white.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
