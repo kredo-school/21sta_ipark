@@ -129,7 +129,11 @@
                                     </a>
                                 @else
                                     @if($parking_place->isFavorited())
-                                        <form action="{{route('favorite.destroy', $parking_place->id)}}" method="post" class="favorite-form">
+                                        <form
+                                            action="{{route('favorite.destroy', $parking_place->id)}}"
+                                            method="post"
+                                            class="favorite-form"
+                                        >
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn p-0">
@@ -137,7 +141,11 @@
                                             </button>
                                         </form>
                                     @else
-                                        <form action="{{route('favorite.store', $parking_place->id)}}" method="post" class="favorite-form">
+                                        <form
+                                            action="{{route('favorite.store', $parking_place->id)}}"
+                                            method="post"
+                                            class="favorite-form"
+                                        >
                                             @csrf
                                             <button class="btn p-0">
                                                 <i class="fa-regular fa-heart me-3 fa-2x"></i>
