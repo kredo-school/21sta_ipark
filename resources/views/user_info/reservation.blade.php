@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container">
-    <div class="row">
+    <div class="row text-center">
         <div class="col-md-8 mb-4">
             <div class="h1 text-start"><span class="underline">&nbsp;Res</span>ervation History</div>
         </div>
@@ -27,8 +27,8 @@
     </div>
     
 
-    <div class="card mt-0">
-      <div class="card-body">
+    <div class="card profile-card mt-0">
+      <div class="card-body profile-card-body">
 
       </div>
     </div>

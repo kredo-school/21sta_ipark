@@ -226,7 +226,7 @@
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
 
-                <!-- @if (Auth::user()->isAdmin()) -->
+                @can('admin')
                     <!-- Admin Sidebar -->
                     <a href="#" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
                     <i class="fa fa-home me-3 fa-2x"></i> Home
@@ -265,13 +265,13 @@
                         <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                     </a>
 
-                <!-- @endif -->
-                    <!-- <a href="{{ route('logout') }}" class="d-flex align-items-center mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                @endcan
+                    <a href="{{ route('logout') }}" class="d-flex align-items-center mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
-                    </form> -->
+                    </form>
             @endguest
         </div>
         <main class="py-4">

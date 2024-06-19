@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParkingPlaceController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\ReservationsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,3 +31,7 @@ Route::get('/parking_list', [ParkingPlaceController::class, 'ParkingList'])->nam
 // Favorites
 Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
 Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+
+//Reservations routes
+Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
+Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
