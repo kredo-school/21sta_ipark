@@ -1,40 +1,4 @@
 @extends('layouts.app')
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.favorite-form').forEach(function (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-
-                    const url = form.action;
-                    const method = form.querySelector('input[name="_method"]') ? form.querySelector('input[name="_method"]').value : 'POST';
-                    const token = form.querySelector('input[name="_token"]').value;
-
-                    fetch(url, {
-                        method: method,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': token
-                        },
-                        body: JSON.stringify({})
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            const icon = form.querySelector('i');
-                            if (data.action === 'added') {
-                                icon.classList.remove('fa-regular');
-                                icon.classList.add('fa-solid', 'text-danger');
-                            } else {
-                                icon.classList.remove('fa-solid', 'text-danger');
-                                icon.classList.add('fa-regular');
-                            }
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-                });
-            });
-        });
-    </script>
 
 @section('title', 'Home')
 
@@ -247,4 +211,40 @@
         View more
         <i class="fa-solid fa-angles-right"></i>
     </a>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.favorite-form').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const url = form.action;
+                    const method = form.querySelector('input[name="_method"]') ? form.querySelector('input[name="_method"]').value : 'POST';
+                    const token = form.querySelector('input[name="_token"]').value;
+
+                    fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            const icon = form.querySelector('i');
+                            if (data.action === 'added') {
+                                icon.classList.remove('fa-regular');
+                                icon.classList.add('fa-solid', 'text-danger');
+                            } else {
+                                icon.classList.remove('fa-solid', 'text-danger');
+                                icon.classList.add('fa-regular');
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
 @endsection

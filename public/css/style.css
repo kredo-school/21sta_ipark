@@ -154,3 +154,11 @@ main{
     border-bottom: none;
     border-left: none;
 }
+
+  /* Register New Parking */
+  .background-image-newparking {
+    background-image: url('/images/parking image_white.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
