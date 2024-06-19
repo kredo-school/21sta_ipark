@@ -58,5 +58,9 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role_id === 1;
+
+    public function favorites(){
+        return $this->hasMany(Favorite::class);
+
     }
 }

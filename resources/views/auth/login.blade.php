@@ -1,31 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-
-.logo{
-    width: 250px;
-    height: 125px;
-}
-
-.card{
-    background-color: white;
-    border-radius: 30px;
-    color: #403734;
-    border: none;
-}
-
-</style>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 py-5 text-center">
-            <div class="card p-5 shadow">
+            <div class="card card-login p-5 shadow">
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <img src="{{asset('images/iPark_logo_ss.png')}}" alt="logo" class="logo mb-3">
+                        <img src="{{asset('images/iPark_logo_ss.png')}}" alt="logo" class="ipark-logo mb-3">
                         <h2 class="fw-bold">Welcome Back</h2>
                         <p>Please login to your account</p>
 

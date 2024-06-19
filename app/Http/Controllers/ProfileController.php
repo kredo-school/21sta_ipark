@@ -30,7 +30,9 @@ class ProfileController extends Controller
 
     public function favorite($id){
         $user_a = $this->user->findOrFail($id);
+        $favorites = $user_a->favorites->all();
 
-        return view('user_info.favorite', ['user' => $user_a]);
+        return view('user_info.favorite', ['user' => $user_a])
+                ->with('favorites', $favorites);
     }
 }
