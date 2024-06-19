@@ -23,11 +23,11 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
+    // /**
+    //  * Where to redirect users after registration.
+    //  *
+    //  * @var string
+    //  */
     protected $redirectTo = '/home';
 
     /**
@@ -66,9 +66,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'car_type' => $data['car_type'],
         ]);
     }
 }

@@ -7,6 +7,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParkingPlaceController;
 use App\Http\Controllers\FavoriteController;
 
+# Admin Users
+use App\Http\Controllers\Admin\UsersController;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,3 +33,10 @@ Route::get('/parking_list', [ParkingPlaceController::class, 'ParkingList'])->nam
 // Favorites
 Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
 Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+
+    #### Admin Route for Administrator ####
+    /** prefix means to append\added before it */
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::get('/admin', [UsersController::class, 'index'])->name('admin.index');
+        Route::get('/admin', [UsersController::class, 'UpdateParking'])->name('admin.update_parking');
+    });
