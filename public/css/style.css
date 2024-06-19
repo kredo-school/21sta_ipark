@@ -98,7 +98,7 @@ main{
     border-color: #ff9900 !important;
 }
 
-
+<<<<<<<<< Temporary merge branch 1
 /* LOGIN PAGE */
 .ipark-logo{
     width: 250px;
@@ -156,7 +156,13 @@ main{
 .form-element:focus+i {
     color: #FF9900;
 }
+
+/* USER INFORMATION */
+.row-info{
+    text-align: center;
+}
   
+=========
 .reviews {
     max-height: 550px;
     overflow-y: auto;
@@ -174,7 +180,7 @@ main{
     text-align: center;
 }
 
-
+>>>>>>>>> Temporary merge branch 2
 .tab{
     background-color: white;
     border-top-left-radius: 10px;
@@ -204,7 +210,8 @@ main{
     margin-bottom: 0px;
     font-weight: bold;
 }
-
+<<<<<<<<< Temporary merge branch 1
+  
 .profile-card{
     background-color: white;
     border-top: 5px solid orange;
@@ -252,3 +259,13 @@ main{
     border-width: medium;
     color: #1AAD17;
 }
+=========
+
+.card{
+    background-color: white;
+    border-top: 5px solid orange;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+}
+>>>>>>>>> Temporary merge branch 2
