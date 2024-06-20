@@ -13,7 +13,7 @@ class UsersController extends Controller
         $this->user = $user;
     }
 
-    public function RegisterNewParking()
+    public function index()
     {
         return view('admin.index');
     }
