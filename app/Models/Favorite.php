@@ -13,5 +13,9 @@ class Favorite extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function parkingPlace(){
+        return $this->belongsTo(ParkingPlace::class);
+    }
+
     public $timestamps = false;
 }
