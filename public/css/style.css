@@ -161,7 +161,7 @@ main{
 .row-info{
     text-align: center;
 }
-
+  
 
 .reviews {
     max-height: 550px;
@@ -211,7 +211,7 @@ main{
     font-weight: bold;
 }
 
-
+  
 .profile-card{
     background-color: white;
     border-top: 5px solid orange;
@@ -269,9 +269,3 @@ main{
     border-left: none;
 }
 
-.background-image-newparking {
-    background-image: url('/images/parking image_white.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-}

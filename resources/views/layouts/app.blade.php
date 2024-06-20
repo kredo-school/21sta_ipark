@@ -280,6 +280,53 @@
                 <a href="#" class="d-flex align-items-center ms-3 text-decoration-none fw-bold">
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
+
+                @can('admin')
+                    <!-- Admin Sidebar -->
+                    <a href="#" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
+                    <i class="fa fa-home me-3 fa-2x"></i> Home
+                    </a>
+                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                        <i class="fa fa-car me-3 fa-2x"></i> Parking list
+                    </a>
+                    <a href="#" class="d-flex align-items-center ms-3 mb-1 text-decoration-none fw-bold">
+                        <i class="fa fa-user me-3 fa-2x"></i> User Information
+                    </a>
+                    <div class="ms-3">
+                        <div class="ps-3 white_line">
+                            <a href="#" class="d-flex align-items-center text-decoration-none">Profile</a>
+                            <a href="#" class="d-flex align-items-center text-decoration-none">Favorite</a>
+                            <a href="#" class="d-flex align-items-center text-decoration-none">Reservation History</a>
+                        </div>
+                    </div>
+                    <div class="sidebar-section admin mt-3">
+                        <a href="#" class="d-flex align-items-centere text-decoration-none fw-bold ms-3 text-white">
+                            <i class="fa fa-user-cog me-3 fa-2x"></i> Admin
+                        </a>
+                        <div class="ms-3">
+                            <div class="ps-4 white_line">
+                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">User List</a>
+                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">Parking places list</a>
+                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">Register new parking</a>
+                        </div>
+                    </div>
+                    <a href="{{ route('logout') }}" class="d-flex align-items-center mt-3 mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
+                    </a>
+                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                    <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
+                    </a>
+                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                        <i class="fa fa-info-circle me-3 fa-2x"></i> About us
+                    </a>
+
+                @endcan
+                    <a href="{{ route('logout') }}" class="d-flex align-items-center mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
             @endguest
         </div>
         <main class="py-4">
