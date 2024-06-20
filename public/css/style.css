@@ -98,7 +98,6 @@ main{
     border-color: #ff9900 !important;
 }
 
-
 /* LOGIN PAGE */
 .ipark-logo{
     width: 250px;
@@ -161,7 +160,6 @@ main{
 .row-info{
     text-align: center;
 }
-  
 
 .reviews {
     max-height: 550px;
@@ -176,11 +174,6 @@ main{
 }
 
 /* USER INFORMATION */
-.row-info{
-    text-align: center;
-}
-
-
 .tab{
     background-color: white;
     border-top-left-radius: 10px;
@@ -211,7 +204,6 @@ main{
     font-weight: bold;
 }
 
-  
 .profile-card{
     background-color: white;
     border-top: 5px solid orange;
@@ -260,7 +252,6 @@ main{
     color: #1AAD17;
 }
 
-
 .card{
     background-color: white;
     border-top: 5px solid orange;
@@ -269,3 +260,10 @@ main{
     border-left: none;
 }
 
+.bg-red{
+    background-color: #f54b31;
+}
+
+.bg-navy{
+    background-color: #003566;
+}
