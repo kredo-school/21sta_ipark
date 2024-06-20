@@ -145,6 +145,7 @@
                             Date
                         </div>
                         <div class="col-5 h4 fw-bold  text-end">
+                            {{-- Display in red on weekends --}}
                             {{ date('Y/m/d', strtotime(session('date'))) }}&nbsp;
                             @if (session('dayOfWeek') === 'Sat' || session('dayOfWeek') === 'Sun')
                                 <span class="color2_red">{{ session('dayOfWeek') }}</span>

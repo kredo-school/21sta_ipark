@@ -21,7 +21,7 @@ class ReservationsController extends Controller
     
     public function index()
     {
-        // ユーザー一覧を取得するロジックなどを追加
+        
     }
 
     public function show($id)
@@ -32,14 +32,10 @@ class ReservationsController extends Controller
     }
 
     public function create(ReservationRequest $request)
-    {
-        // dd($request);
-        // return redirect()->back();
-        
+    {    
         if ($request->validated()) {
             // Validation passed
-            
-            $parking_no = $request->parking_no;
+            $parking_no = $request->parking_places_id;
             $date = $request->date;
             $from_time = $request->from_hour . ":" . $request->from_minute;
             $to_time = $request->to_hour . ":" . $request->to_minute;
@@ -51,7 +47,7 @@ class ReservationsController extends Controller
 
             $carbonDate = Carbon::parse($date);
             $dayOfWeek = $carbonDate->shortEnglishDayOfWeek;
-            $isWeekend = ($dayOfWeek === Carbon::SATURDAY || $dayOfWeek === Carbon::SUNDAY);
+            $isWeekend = ($dayOfWeek == "Sat" || $dayOfWeek =="Sun");
 
             $fee = $this->calculateAmount($from_time,$to_time,$isWeekend,$parking_no);
             
@@ -69,26 +65,24 @@ class ReservationsController extends Controller
 
     private function isReservationPossible($date,$from_time,$to_time,$parking_no)
     {
-        $query = DB::table('reservation')
+        $query = DB::table('reservations')
                 ->select(DB::raw('COUNT(*) AS conflicting_reservations'))
                     ->where(function ($query) use ($from_time, $to_time) {
-                        $query->where('from_time', '<=', $to_time)
-                    ->where('to_time', '>=', $from_time);
+                        $query->where('planning_time_from', '<=', $to_time)
+                    ->where('planning_time_to', '>=', $from_time);
                      })
                     ->orWhere(function ($query) use ($from_time, $to_time) {
-                        $query->where('from_time', '>=', $from_time)
-                    ->where('from_time', '<', $to_time);
+                        $query->where('planning_time_from', '>=', $from_time)
+                    ->where('planning_time_from', '<', $to_time);
                     })
-                    ->where('parking_no', $parking_no);
+                    ->where('parking_place_id', $parking_no);
 
-        // クエリの実行
         $conflicting_reservations = $query->first()->conflicting_reservations;
 
-        $maxNumber = DB::table('parkin_places')
+        $maxNumber = DB::table('parking_places')
                 ->where('id', $parking_no)
                 ->value('max_number');
 
-        // 結果を利用して何かを行う
         if ($conflicting_reservations >= $maxNumber) {
             return false;
         } else {
@@ -96,47 +90,76 @@ class ReservationsController extends Controller
         }
     }
 
-    public function calculateAmount($from_time,$to_time,$isWeekend,$parking_no)
+    private function calculateAmount($from_time,$to_time,$isWeekend,$parking_no)
     {
 
-        // 予約時間の計算
-        $fromDateTime = Carbon::createFromFormat('Y-m-d H:i', "$fromTime");
-        $toDateTime = Carbon::createFromFormat('Y-m-d H:i', "$toTime");
-        $durationInMinutes = $toDateTime->diffInMinutes($fromDateTime);
+        // depend on weekend or weekdays
+        if ($isWeekend) {
+            // weekend
+            $parkingPlace = ParkingPlace::select('daytime_from', 'daytime_to', 'holiday_daytime_amount', 'holiday_night_amount', 'maximum_amount')
+            ->where('id', $parking_no)
+            ->first();
+            
+            $daytimeRate = $parkingPlace->holiday_daytime_amount; // fee_holiday_daytime
+            $nighttimeRate = $parkingPlace->holiday_night_amount; // fee_holiday_nighttime
+        } else {
+            // weekdays
 
-        // 駐車場の料金情報を取得
-        $parkingPlace = ParkingPlace::findOrFail($parking_no);
+            $parkingPlace = ParkingPlace::select('daytime_from', 'daytime_to', 'weekday_daytime_amount', 'weekday_night_amount', 'maximum_amount')
+            ->where('id', $parking_no)
+            ->first();
 
-        // 料金計算
-        $rate = $$isWeekend ? 
-            ($fromDateTime->isWeekday() ? $parkingPlace->holiday_daytime_amount : $parkingPlace->holiday_night_amount) :
-            ($fromDateTime->isWeekday() ? $parkingPlace->weekday_daytime_amount : $parkingPlace->weekday_night_amount);
+            $daytimeRate = $parkingPlace->weekday_daytime_amount; // fee_weekday_daytime
+            $nighttimeRate = $parkingPlace->weekday_night_amount; // fee_weekday_nighttime
 
-        // 30分ごとの料金
-        $amount = ceil($durationInMinutes / 30) * $rate;
+        }
+        $daytimeFromDateTime = Carbon::parse($parkingPlace->daytime_from);
+        $daytimeToDateTime = Carbon::parse($parkingPlace->daytime_to);
 
-        // 最大料金を超えないように調整
+        // To convert the start and end times of a reservation to Carbon objects
+        $fromDateTime = Carbon::parse($from_time);
+        $toDateTime = Carbon::parse($to_time);
+
+        $amount = 0;
+
+        // To loop through reservation times in 30-minute intervals.
+        $currentDateTime = $fromDateTime->copy();
+
+        while ($currentDateTime < $toDateTime) {
+            // To get the time 30 minutes later
+            $nextDateTime = $currentDateTime->copy()->addMinutes(30);
+ 
+            // To determine whether the given time period is during daytime or nighttime
+            if ($daytimeFromDateTime <= $currentDateTime  && $currentDateTime < $daytimeToDateTime) {
+                $amount += $daytimeRate;
+            } else {
+                $amount += $nighttimeRate;
+            }
+            
+            $currentDateTime = $nextDateTime;
+        }
+
+        // To adjust so as not to exceed the maximum fee
         if ($amount > $parkingPlace->maximum_amount) {
             $amount = $parkingPlace->maximum_amount;
         }
-
+        
         return $amount;
     }
 
     public function store(Request $request)
     {
-        dd($request);
-        // ユーザーを保存するロジックなどを追加
+
     }
 
     public function edit($id)
     {
-        // ユーザー編集フォームを表示するロジックなどを追加
+        
     }
 
     public function update(Request $request, $id)
     {
-        // ユーザーを更新するロジックなどを追加
+        
     }
 
     public function destroy($id)
