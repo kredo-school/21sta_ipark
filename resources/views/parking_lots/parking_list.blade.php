@@ -1,95 +1,68 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Parking List')
 
 @section('content')
-    <div class="row">
-        <div class="col-7">
-            <h1 class="mt-5 fw-bold text-center display-5 text-shadow">
-                You can
-                <span class="color2_red">FIND and RESERVE</span>
-                <br>
-                parking spaces soon!
-            </h1>
-            <div class="row mt-5 mx-5">
-                <div class="col-8 d-flex align-items-center color3_bluegray">
-                    <span class="h2 me-2">
-                        <i class="fa-solid fa-car"></i>
-                    </span>
-                    <p class="fw-bold mb-2 h5">
-                        more than 100k parking spaces
-                    </p>
+    <div class="row align-items-center">
+        <div class="col h1 fw-bold">
+            <span class="color2_red">
+                <i class="fa-solid fa-location-dot"></i>&nbsp;
+            </span>
+            @if ($search)
+                {{ $search }}
+            @else
+                All parking places
+            @endif
+        </div>
+        <div class="col">
+            <div class="row fw-bold text-center justify-content-center">
+                <div class="col-1 border-bottom border-3 me-2">
+                    <i class="fa-solid fa-angles-left"></i>
                 </div>
-                <div class="col-4 d-flex align-items-center color3_bluegray">
-                    <span class="h2 me-2">
-                        <i class="fa-brands fa-creative-commons-nc-jp"></i>
-                    </span>
-                    <p class="fw-bold mb-2 h5">
-                        free to register
-                    </p>
+                <div class="col-1 border-bottom border-3 border-orange me-2">1</div>
+                <div class="col-1 border-bottom border-3 me-2">2</div>
+                <div class="col-1 border-bottom border-3 me-2">3</div>
+                <div class="col-1 border-bottom border-3 me-2">
+                    <i class="fa-solid fa-ellipsis"></i>
                 </div>
-            </div>
-            <div class="row mt-4"></div>
-            <div class="row mt-5 justify-content-center">
-                <div class="col-7">
-                    <form action="{{route('showParkingList')}}" method="get">
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text rounded-pill rounded-end">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </span>
-                            <input
-                                type="text"
-                                name="search"
-                                placeholder="Search by place name"
-                                class="form-control rounded-pill rounded-start"
-                            >
-                        </div>
-                        <div class="text-center mt-4">
-                            <button
-                                type="submit"
-                                class="btn rounded-pill fw-bold px-4 btn-navy fs-5 btn-sm"
-                            >
-                                Show parking spaces
-                            </button>
-                        </div>
-                    </form>
+                <div class="col-1 border-bottom border-3 me-2">5</div>
+                <div class="col-1 border-bottom border-3">
+                    <i class="fa-solid fa-angles-right"></i>
                 </div>
             </div>
         </div>
-        <div class="col-5">
-            <img
-                src="{{asset('images/Parking-illustration.png')}}"
-                alt="main_img"
-                class="img-fluid"
-            >
+        <div class="col h1 text-end">
+            <i class="fa-solid fa-filter"></i>
         </div>
     </div>
-
-    {{-- Recommendation --}}
-    <div class="h1 fw-bold mt-5">
-        <span class="underline ms-1">&nbsp;Rec</span>ommendation
-    </div>
-    <div class="row mt-4">
-        @foreach ($recommendation->take(3) as $parking_place)
+    <div class="row mt-4 px-3">
+        @forelse ($parking_places as $parking_place)
             <div class="col-4">
                 <div class="row">
-                    <div class="col bg-white p-4 shadow m-3">
-                        <div class="row">
-                            <div class="col-10">
-                                <a
-                                    href="{{route('showParkingDetail', $parking_place->id)}}"
-                                    class="h3 text-decoration-none"
-                                >
-                                    {{$parking_place->parking_place_name}}
-                                </a>
+                    <div class="col bg-white p-4 shadow m-3 border border-2 border-orange rounded-4">
+                        <div class="row ms-0 me-2 d-flex align-items-center">
+                            <div
+                                class="col-2 bg-navy rounded-circle text-white shadow
+                                       d-flex justify-content-center align-items-center"
+                                style="width: 70px; height: 70px;"
+                            >
+                                OPEN
                             </div>
-                            <div class="col-2 text-end h2 p-0">
+                            <div class="col ms-1">
+                                <div class="row h4 fw-bold justify-content-center text-center">
+                                    {{ $parking_place->parking_place_name }}
+                                </div>
+                                <div class="row h6 justify-content-center">
+                                    {{ $parking_place->street }}
+                                </div>
+                            </div>
+                            <div class="col-1 float-end h2">
                                 @guest
                                     <a
                                         href="{{route('login_to_favorite')}}"
                                         style="color: #343A40;"
                                     >
-                                        <i class="fa-regular fa-heart me-3"></i>
+                                        <i class="fa-regular fa-heart"></i>
                                     </a>
                                 @else
                                     @if($parking_place->isFavorited())
@@ -101,7 +74,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn p-0">
-                                                <i class="fa-solid fa-heart text-danger me-3 fa-2x"></i>
+                                                <i class="fa-solid fa-heart text-danger fa-2x"></i>
                                             </button>
                                         </form>
                                     @else
@@ -112,48 +85,34 @@
                                         >
                                             @csrf
                                             <button class="btn p-0">
-                                                <i class="fa-regular fa-heart me-3 fa-2x"></i>
+                                                <i class="fa-regular fa-heart fa-2x"></i>
                                             </button>
                                         </form>
                                     @endif
                                 @endguest
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row mt-3">
                             <a href="{{route('showParkingDetail', $parking_place->id)}}">
                                 <img
                                     class="w-100"
                                     {{-- src="{{$parking_place->image}}" --}}
                                     src="{{asset('images/parking_space_image.jpg')}}"
                                     alt="{{$parking_place->parking_place_name}}"
-                                    style="height:200px"
+                                    style="height:150px"
                                 >
                             </a>
                         </div>
-                        <div class="row mt-3">
-                            <div class="h4 color2_red">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="row mt-2">
-                            <h4>
-                                <i class="fa-solid fa-location-dot"></i>&nbsp;
-                                {{$parking_place->city}}
-                            </h4>
-                        </div>
-                        <div class="row mt-2">
-                            <h4>Price</h4>
-                        </div>
-                        <div class="row px-2">
-                            @if ( $parking_place->daytime_from == '00:00' && $parking_place->daytime_to == '24:00')
+                        <div class="row mt-3 justify-content-center">
+                            @if (
+                                $parking_place->daytime_from == '00:00'
+                                && $parking_place->daytime_to == '24:00'
+                            )
                                 <div class="row h5 d-flex align-items-center">
                                     <div class="col">
                                         <i class="fa-regular fa-clock"></i>
-                                        {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
+                                        {{ $parking_place->daytime_from }}
+                                        - {{ $parking_place->daytime_to }}
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
@@ -171,7 +130,8 @@
                                 <div class="row h5 d-flex align-items-center">
                                     <div class="col">
                                         <i class="fa-regular fa-clock"></i>
-                                        {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
+                                        {{ $parking_place->daytime_from }}
+                                        - {{ $parking_place->daytime_to }}
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
@@ -183,7 +143,8 @@
                                 <div class="row h5 d-flex align-items-center">
                                     <div class="col">
                                         <i class="fa-regular fa-clock"></i>
-                                        {{ $parking_place->daytime_to }} - {{ $parking_place->daytime_from }}
+                                        {{ $parking_place->daytime_to }}
+                                        - {{ $parking_place->daytime_from }}
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
@@ -199,10 +160,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center mt-4">
+                        <div class="text-center mt-2">
                             <a
                                 href="{{route('showReservationForm', $parking_place->id)}}"
-                                class="btn rounded-pill px-5 btn-orange fw-bold fs-5"
+                                class="btn btn-sm rounded-pill px-5 btn-orange fw-bold fs-5"
                             >
                                 Reserve now
                             </a>
@@ -210,15 +171,13 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="col-12">
+                <p class="text-center">No parking places found in {{ $search }}.</p>
+            </div>
+        @endforelse
     </div>
-    <a
-        href="{{route('showParkingList')}}"
-        class="mt-4 text-end me-5 h3 text-decoration-none"
-    >
-        View more
-        <i class="fa-solid fa-angles-right"></i>
-    </a>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.favorite-form').forEach(function (form) {
