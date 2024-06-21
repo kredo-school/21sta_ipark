@@ -260,12 +260,78 @@ main{
     color: #1AAD17;
 }
 
+/* ADMIN (Users) */
+.admin-parking{
+    border-bottom: 3px solid #343A40;
+    vertical-align: text-bottom;
+}
 
-.card{
+.admin-users{
+    border-bottom: 3px solid #ff9900;
+    vertical-align: text-bottom;
+}
+
+.select-icon {
+    position: relative;
+}
+
+.select-icon::after{
+    content: "▼";
+    position: absolute;
+    left: 15rem;
+    top: 75%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 1rem;
+    color: #000;
+}
+
+.select-icon select {
+    padding-right: 2rem;
+}
+
+.user-search{
     background-color: white;
-    border-top: 5px solid orange;
-    border-right: none;
-    border-bottom: none;
-    border-left: none;
+    border: none;
+}
+
+.custom-select-width {
+    width: 50%;
+}
+
+.admin-user_btn{
+    color: #f54b31;
+    
+}
+
+.btn-red-opposite{
+    background-color: #f54b31;
+    color: white;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.btn-red-opposite:hover {
+    background-color: white;
+    color: #f54b31;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.apply-btn{
+    padding-top: 30px;
+}
+
+.apply-ft-btn{
+    width: 25%;
+}
+
+.user-search input,
+.user-search select{
+    border-color: #f54b31;
+}
+
+.dlt-user-btn{
+    width: 50%;
 }
 

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Register')
+
 @section('content')
 <style>
 .card{
@@ -130,7 +132,7 @@
                                 
                                 <div class="col-md ms-4">
                                     <select id="car_type" name="car_type" class="form-control">
-                                        <option value="" disabled selected><i class="fa-solid fa-car"></i>Please select your car type</option>
+                                        <option value="null" disabled selected><i class="fa-solid fa-car"></i>Please select your car type</option>
                                         <option value="standard">Standard</option>
                                         <option value="compact">Compact</option>
                                         <option value="large">Large</option>
