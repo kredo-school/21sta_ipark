@@ -30,7 +30,24 @@ Route::get('/parking_list', [ParkingPlaceController::class, 'ParkingList'])->nam
 Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
 Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
-Route::group(["middleware"=>"auth"], function(){
+
+
+#### Admin Route for Administrator ####
+/** prefix means to append\added before it */
+Route::middleware(['auth', 'admin'])->group(function () 
+{
+    Route::get('/admin', [UsersController::class, 'index'])->name('admin.index');
+    Route::get('/admin', [UsersController::class, 'UpdateParking'])->name('admin.update_parking');
+
+    // ADMIN(users)
+    Route::get('/admin/users', [UsersController::class, 'usersList'])->name('admin.users_list');
+});
+
+Route::group(["middleware"=>"auth"], function()
+{
+
+Route::group(["middleware"=>"auth"], function()
+{
     // Profiles
     Route::get('/user_info/{id}/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user_info/{id}/reservation', [ProfileController::class, 'reservation'])->name('reservation');
@@ -48,7 +65,8 @@ Route::group(["middleware"=>"auth"], function(){
 
 });
 
-Route::group(["middleware"=>"auth"], function(){
+Route::group(["middleware"=>"auth"], function()
+{
     // Profiles
     Route::get('/user_info/{id}/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user_info/{id}/reservation', [ProfileController::class, 'reservation'])->name('reservation');
