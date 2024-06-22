@@ -11,12 +11,26 @@
         <div class="col-10">
             {{-- Register new parking --}}
             <div class="row main background-image-newparking">
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 {{-- Parking place name --}}
-                <form action="" method="get">
+                <form action="{{ route('admin.parking.store') }}" method="post">
                     <div class="row justify-content-center py-5 px-5" style="font-family:'Inter'">
                         <div class="col-5">
                             <div class="table-background-color-none text-aline-center-d-inline">
-                                <label for="plaename" class="h5 form-label fw-bold ms-2 my-0">
+                                <label for="parking_place_name" class="h5 form-label fw-bold ms-2 my-0">
                                     Parking place name
                                     <span class="color2_red">*</span>
                                 </label>
@@ -24,10 +38,10 @@
                                 <input
                                     type="text"
                                     class="form-control rounded-pill"
-                                    id="plaename"
-                                    name="plaename"
+                                    id="parking_place_name"
+                                    name="parking_place_name"
                                 >
-                                <label for="postalcode" class="h5 form-label fw-bold mt-3 ms-2 mb-0">
+                                <label for="postal_code" class="h5 form-label fw-bold mt-3 ms-2 mb-0">
                                     Address
                                     <span class="color2_red">*</span>
                                 </label>
@@ -36,8 +50,8 @@
                                         <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="postalcode"
-                                            name="postalcode" placeholder="Postalcode"
+                                            id="postal_code"
+                                            name="postal_code" placeholder="Postalcode"
                                         >
                                     </div>
                                     <div class="col-6">
@@ -59,8 +73,8 @@
                                         <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="feedaytime"
-                                            name="feedaytime"
+                                            id="daytime_from"
+                                            name="daytime_from"
                                             placeholder="For daytime"
                                         >
                                     </div>
@@ -68,23 +82,23 @@
                                         <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="feenighttime"
-                                            name="feenighttime"
+                                            id="daytime_to"
+                                            name="daytime_to"
                                             placeholder="For night"
                                         >
                                     </div>
                                 </div>
-                                <label for="feemax" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
+                                <label for="maximum_amount" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
                                     Max fee for 24 hours
                                     <span class="color2_red">*</span>
                                 </label>
                                 <input
                                     type="text"
                                     class="form-control rounded-pill"
-                                    id="feenighttime"
-                                    name="feemax"
+                                    id="maximum_amountv"
+                                    name="maximum_amount"
                                 >
-                                <label for="period" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
+                                <label for="amount" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
                                     Daytime Period
                                     <span class="color2_red">*</span>
                                 </label>
@@ -93,8 +107,8 @@
                                         <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="periodfrom"
-                                            name="periodfrom"
+                                            id="weekday_daytime_amount"
+                                            name="weekday_daytime_amount"
                                             placeholder="From"
                                         >
                                     </div>
@@ -102,8 +116,8 @@
                                             <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="periodto"
-                                            name="periodto"
+                                            id="weekday_night_amount"
+                                            name="weekday_night_amount"
                                             placeholder="To"
                                         >
                                     </div>
@@ -119,8 +133,8 @@
                             <input
                                 type="text"
                                 class="form-control rounded-pill"
-                                id="contactnumber"
-                                name="contactnumber"
+                                id="contact_number"
+                                name="contact_number"
                             >
                             <p class="pt-4"></p>
                             <input
@@ -130,7 +144,7 @@
                                 name="street"
                                 placeholder="Street"
                             >
-                            <label for="feeholi" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
+                            <label for="holiday_amount" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
                                 Fee for horiday
                                 <span class="color2_red">*</span>
                             </label>
@@ -139,8 +153,8 @@
                                     <input
                                         type="text"
                                         class="form-control rounded-pill"
-                                        id="feeholidaytime"
-                                        name="feeholidaytime"
+                                        id="holiday_daytime_amount"
+                                        name="holiday_daytime_amount"
                                         placeholder="For daytime"
                                     >
                                 </div>
@@ -148,8 +162,8 @@
                                     <input
                                         type="text"
                                         class="form-control rounded-pill"
-                                        id="feeholinighttime"
-                                        name="feeholinighttime"
+                                        id="holiday_night_amount"
+                                        name="holiday_night_amount"
                                         placeholder="For night"
                                     >
                                 </div>
@@ -161,8 +175,8 @@
                             <input
                                 type="text"
                                 class="form-control rounded-pill"
-                                id="slotnumber"
-                                name="slotnumber"
+                                id="max_number"
+                                name="max_number"
                             >
                             <label for="slotimage" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
                                 Image
@@ -170,8 +184,8 @@
                             <input
                                 type="text"
                                 class="form-control rounded-pill"
-                                id="slotimage"
-                                name="slotimage"
+                                id="image"
+                                name="image"
                                 placeholder="Add slot image"
                             >
                         </div>

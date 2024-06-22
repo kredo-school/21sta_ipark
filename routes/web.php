@@ -8,6 +8,7 @@ use App\Http\Controllers\ParkingPlaceController;
 use App\Http\Controllers\FavoriteController;
 
 # Admin Users
+use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ReservationsController;
 
@@ -34,7 +35,7 @@ Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])-
 
 #### Admin Route for Administrator ####
 /** prefix means to append\added before it */
-Route::middleware(['auth', 'admin'])->group(function () 
+Route::middleware(['auth', 'admin'])->group(function ()
 {
     Route::get('/admin', [UsersController::class, 'index'])->name('admin.index');
     Route::get('/admin', [UsersController::class, 'UpdateParking'])->name('admin.update_parking');
@@ -43,8 +44,6 @@ Route::middleware(['auth', 'admin'])->group(function ()
     Route::get('/admin/users', [UsersController::class, 'usersList'])->name('admin.users_list');
 });
 
-Route::group(["middleware"=>"auth"], function()
-{
 
 Route::group(["middleware"=>"auth"], function()
 {
@@ -56,12 +55,6 @@ Route::group(["middleware"=>"auth"], function()
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
-
-    #### Admin Route for Administrator ####
-    /** prefix means to append\added before it */
-    Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/admin', [UsersController::class, 'index'])->name('admin.index');
-    });
 
 });
 
@@ -75,15 +68,17 @@ Route::group(["middleware"=>"auth"], function()
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
-
-    #### Admin Route for Administrator ####
-    /** prefix means to append\added before it */
-    Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('/admin', [UsersController::class, 'index'])->name('admin.index');
-    });
 
 });
 
 //Reservations
 Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
 Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
+
+
+#### Admin Route for Administrator ####
+/** prefix means to append\added before it */
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/parking', [AdminParkingController::class, 'RegisterNewParking'])->name('admin.parking.index');
+    Route::post('/admin/parking', [AdminParkingController::class,'store'])->name('admin.parking.store');
+});
