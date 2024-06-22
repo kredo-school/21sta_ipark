@@ -35,6 +35,13 @@ main{
     border-width: medium;
 }
 
+.btn-white{
+    background-color:white;
+    color: #ff9900;
+    border-color: #ff9900;
+    border-width: medium;
+}
+
 .btn-orange:hover {
     border-color: #ff9900;
     border-width: medium;

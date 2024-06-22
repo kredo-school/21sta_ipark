@@ -169,9 +169,10 @@
                     </div>
                 </div>
                 <div class="col-3 mt-5 mb-5 d-flex flex-column justify-content-end">
-                    <button type="submit" class="btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm">
+                    <button type="submit" class="btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm" data-bs-toggle="modal" data-bs-target="#reservationCheckModal">
                         Reserve
                     </button>
+                    @include('Parking_lots.models.Reservation_check')
                 </div>
             </div>
         </div>
