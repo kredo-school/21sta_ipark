@@ -4,7 +4,6 @@
         padding: 2px 4px;
     }
 </style>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="modal fade" id="reservationCheckModal">
@@ -25,18 +24,18 @@
                         </div>
                         <div class="row justify-content-center mb-3">
                             <div class="col">
-                                <table class="table user-info mx-auto table-condensed table-borderless"> <!-- mx-auto を追加 -->
+                                <table class="table user-info mx-auto table-condensed table-borderless">
                                     <tr>
                                         <th>Name</th>
-                                        <td>Nekota Neko</td>
+                                        <td>{{Auth::user()->username}}</td>
                                     </tr>
                                     <tr>
                                         <th>Mail</th>
-                                        <td>cat1@gmail.com</td>
+                                        <td>{{Auth::user()->email}}</td>
                                     </tr>
                                     <tr>
                                         <th>Phone</th>
-                                        <td>222-2222</td>
+                                        <td>{{Auth::user()->phone}}</td>
                                     </tr>
                                     <tr>
                                         <th></th>
@@ -55,20 +54,24 @@
                                         <td></td> 
                                     </tr>
                                     <tr>
+                                        <th>Parking place Name</th>
+                                        <td>{{$parking_places->parking_place_name}}</td> 
+                                    </tr>
+                                    <tr>
                                         <th>Date</th>
-                                        <td>2024/06/28</td>
+                                        <td>{{ date('d/m/Y', strtotime(session('date'))) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Time</th>
-                                        <td>8:00 - 18:00</td>
+                                        <td>{{ session('from_time') }} - {{ session('to_time') }}</td>
                                     </tr>
                                     <tr>
                                         <th>Car type</th>
-                                        <td>Standard</td>
+                                        <td>{{ session('cartype') }}</td>
                                     </tr>
                                     <tr>
                                         <th>Fee</th>
-                                        <td>￥ 1,500</td>
+                                        <td>￥ {{ session('fee') }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -84,7 +87,9 @@
                                 >
                                     Cancel
                                 </a>
-                                <button type="submit" class="btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm">Proceed to Payment</button>
+                                <button type="submit" class="btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm">
+                                    Proceed to Payment
+                                </button>
                             </form>
                         </div>
                     </div>

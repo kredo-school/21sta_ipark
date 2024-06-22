@@ -50,10 +50,11 @@ class ReservationsController extends Controller
             $isWeekend = ($dayOfWeek == "Sat" || $dayOfWeek =="Sun");
 
             $fee = $this->calculateAmount($from_time,$to_time,$isWeekend,$parking_no);
-            
+
             return redirect()->back()
             ->withInput()
             ->with('date', $date)
+            ->with('cartype', $request->cartype)
             ->with('from_time', $from_time)
             ->with('to_time', $to_time)
             ->with('dayOfWeek', $dayOfWeek)
@@ -149,7 +150,7 @@ class ReservationsController extends Controller
 
     public function store(Request $request)
     {
-
+        return view('Parking_lots.payment');
     }
 
     public function edit($id)
