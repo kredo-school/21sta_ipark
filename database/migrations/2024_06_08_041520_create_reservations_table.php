@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('date');
             $table->time('planning_time_from');
             $table->time('planning_time_to');
-            $table->time('actual_start_time');
-            $table->time('actual_end_time');
+            $table->time('actual_start_time')->nullable();
+            $table->time('actual_end_time')->nullable();
             $table->string('car_type');
             $table->timestamps();
             $table->softDeletes();
