@@ -77,9 +77,8 @@
                             </div>
                         </div>
                         <div class="bottom text-center justify-content-center">
-                            <form action="" method="post">
+                            <form action="{{route('reservation.store')}}" method="post">
                                 @csrf
-                                @method('PATCH')
                                 <a class="btn rounded-pill fw-bold px-4 btn-white fs-5 btn-sm" 
                                     data-bs-dismiss="modal"
                                     onmouseover="this.style.color='#ff9900';"

@@ -342,3 +342,8 @@ main{
 .bg-navy{
     background-color: #003566;
 }
+
+/* Payment */
+.radius-size{
+    border-radius: 30px;
+}
