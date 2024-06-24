@@ -168,6 +168,7 @@ main{
     text-align: center;
 }
 
+
 .reviews {
     max-height: 550px;
     overflow-y: auto;
@@ -210,6 +211,8 @@ main{
     margin-bottom: 0px;
     font-weight: bold;
 }
+
+
 
 .profile-card{
     background-color: white;
@@ -301,7 +304,7 @@ main{
 
 .admin-user_btn{
     color: #f54b31;
-    
+
 }
 
 .btn-red-opposite{
@@ -339,8 +342,11 @@ main{
     background-color: #f54b31;
 }
 
-.bg-navy{
-    background-color: #003566;
+.background-image-newparking {
+    background-image: url('/images/parking image_white.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 /* Payment */

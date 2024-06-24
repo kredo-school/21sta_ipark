@@ -45,4 +45,22 @@ class ParkingPlace extends Model
     public function reviews(){
         return $this->hasMany(Review::class);
     }
+
+    protected $fillable = [
+        'parking_place_name',
+        'postal_code',
+        'city',
+        'street',
+        'max_number',
+        'daytime_from',
+        'daytime_to',
+        'image',
+        'contact_number',
+        'weekday_daytime_amount',
+        'weekday_night_amount',
+        'holiday_daytime_amount',
+        'holiday_night_amount',
+        'maximum_amount',
+        'penalty_amount',
+    ];
 }
