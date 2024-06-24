@@ -45,9 +45,6 @@ Route::middleware(['auth', 'admin'])->group(function ()
 
 Route::group(["middleware"=>"auth"], function()
 {
-
-Route::group(["middleware"=>"auth"], function()
-{
     // Profiles
     Route::get('/user_info/{id}/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user_info/{id}/reservation', [ProfileController::class, 'reservation'])->name('reservation');
@@ -87,3 +84,5 @@ Route::group(["middleware"=>"auth"], function()
 //Reservations
 Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
 Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
+
+Route::post('/payment/{id}', [ReservationsController::class, 'sotre'])->name('reservation.sotre');
