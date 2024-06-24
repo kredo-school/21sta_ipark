@@ -26,7 +26,8 @@
                 </div>
                 @endif
                 {{-- Parking place name --}}
-                <form action="{{ route('admin.parking.store') }}" method="post">
+                <form action="{{ route('admin.parking.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="row justify-content-center py-5 px-5" style="font-family:'Inter'">
                         <div class="col-5">
                             <div class="table-background-color-none text-aline-center-d-inline">
@@ -73,8 +74,8 @@
                                         <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="daytime_from"
-                                            name="daytime_from"
+                                            id="weekday_daytime_amount"
+                                            name="weekday_daytime_amount"
                                             placeholder="For daytime"
                                         >
                                     </div>
@@ -82,8 +83,8 @@
                                         <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="daytime_to"
-                                            name="daytime_to"
+                                            id="weekday_night_amount"
+                                            name="weekday_night_amount"
                                             placeholder="For night"
                                         >
                                     </div>
@@ -107,8 +108,8 @@
                                         <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="weekday_daytime_amount"
-                                            name="weekday_daytime_amount"
+                                            id="daytime_from"
+                                            name="daytime_from"
                                             placeholder="From"
                                         >
                                     </div>
@@ -116,8 +117,8 @@
                                             <input
                                             type="text"
                                             class="form-control rounded-pill"
-                                            id="weekday_night_amount"
-                                            name="weekday_night_amount"
+                                            id="daytime_to"
+                                            name="daytime_to"
                                             placeholder="To"
                                         >
                                     </div>
@@ -182,12 +183,16 @@
                                 Image
                             </label>
                             <input
-                                type="text"
-                                class="form-control rounded-pill"
-                                id="image"
+                                type="file"
                                 name="image"
-                                placeholder="Add slot image"
+                                id="image"
+                                class="form-control rounded-pill"
+                                aria-describedby="image-info"
                             >
+                            @error('image')
+                                <p class="text-danger small">{{ $message }}</p>
+                            @enderror
+
                         </div>
 
                         <div class="col-10 mt-4">
