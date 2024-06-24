@@ -47,7 +47,6 @@ Route::middleware(['auth', 'admin'])->group(function ()
     Route::post('/admin/parking', [AdminParkingController::class,'store'])->name('admin.parking.store');
 });
 
-
 Route::group(["middleware"=>"auth"], function()
 {
     // Profiles
@@ -64,5 +63,3 @@ Route::group(["middleware"=>"auth"], function()
 //Reservations
 Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
 Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
-
-
