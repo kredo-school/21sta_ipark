@@ -78,7 +78,7 @@
                             <div class="col-10">
                                 <a
                                     href="{{route('showParkingDetail', $parking_place->id)}}"
-                                    class="h3 text-decoration-none"
+                                    class="h3 text-decoration-none fw-bold"
                                 >
                                     {{$parking_place->parking_place_name}}
                                 </a>
@@ -132,11 +132,15 @@
                         </div>
                         <div class="row mt-3">
                             <div class="h4 color2_red">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= floor($parking_place->average_star))
+                                        <i class="fa-solid fa-star"></i>
+                                    @elseif ($i == ceil($parking_place->average_star))
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                    @else
+                                        <i class="fa-regular fa-star"></i>
+                                    @endif
+                                @endfor
                             </div>
                         </div>
                         <div class="row mt-2">

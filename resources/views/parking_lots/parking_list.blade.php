@@ -16,24 +16,12 @@
         </div>
         <div class="col">
             <div class="row fw-bold text-center justify-content-center">
-                <div class="col-1 border-bottom border-3 me-2">
-                    <i class="fa-solid fa-angles-left"></i>
-                </div>
-                <div class="col-1 border-bottom border-3 border-orange me-2">1</div>
-                <div class="col-1 border-bottom border-3 me-2">2</div>
-                <div class="col-1 border-bottom border-3 me-2">3</div>
-                <div class="col-1 border-bottom border-3 me-2">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </div>
-                <div class="col-1 border-bottom border-3 me-2">5</div>
-                <div class="col-1 border-bottom border-3">
-                    <i class="fa-solid fa-angles-right"></i>
-                </div>
+                {{ $parking_places->links('vendor.pagination.custom') }}
             </div>
         </div>
-        <div class="col h1 text-end">
+        <a href="" class="col h1 text-end">
             <i class="fa-solid fa-filter"></i>
-        </div>
+        </a>
     </div>
     <div class="row mt-4 px-3">
         @forelse ($parking_places as $parking_place)
@@ -41,13 +29,16 @@
                 <div class="row">
                     <div class="col bg-white p-4 shadow m-3 border border-2 border-orange rounded-4">
                         <div class="row ms-0 me-2 d-flex align-items-center">
-                            <div
-                                class="col-2 bg-navy rounded-circle text-white shadow
-                                       d-flex justify-content-center align-items-center"
-                                style="width: 70px; height: 70px;"
-                            >
-                                OPEN
-                            </div>
+                            @if ( $parking_place->isReservationPossible() )
+                                <div class="col-2 bg-navy rounded-circle text-white shadow d-flex justify-content-center align-items-center" style="width: 70px; height: 70px;">
+                                    OPEN
+                                </div>
+                            @else
+                                <div class="col-2 bg-red rounded-circle text-white shadow d-flex justify-content-center align-items-center" style="width: 70px; height: 70px;">
+                                    FULL
+                                </div>
+                            @endif
+
                             <div class="col ms-1">
                                 <div class="row h4 fw-bold justify-content-center text-center">
                                     {{ $parking_place->parking_place_name }}
@@ -173,7 +164,7 @@
             </div>
         @empty
             <div class="col-12">
-                <p class="text-center">No parking places found in {{ $search }}.</p>
+                <p class="text-center h3 my-5">No parking places found in {{ $search }}.</p>
             </div>
         @endforelse
     </div>

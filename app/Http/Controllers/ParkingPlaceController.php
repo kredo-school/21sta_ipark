@@ -30,7 +30,7 @@ class ParkingPlaceController extends Controller
 
         $parking_places = $this->parking_places
             ->where('city', 'like', '%'.$search.'%')
-            ->get();
+            ->paginate(9);
 
         return view('parking_lots.parking_list', compact('parking_places', 'search'));
     }
