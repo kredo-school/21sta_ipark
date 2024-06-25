@@ -51,6 +51,7 @@ class ReservationsController extends Controller
 
             $fee = $this->calculateAmount($from_time,$to_time,$isWeekend,$parking_no);
 
+            $request->session()->put('reservation_data', $request->all());
             return redirect()->back()
             ->withInput()
             ->with('date', $date)
@@ -150,12 +151,41 @@ class ReservationsController extends Controller
 
     public function store(Request $request)
     {
-        return view('Parking_lots.payment');
+        // session([
+        //     'cartype' => $request->cartype,
+        //     'date' => $request->date,
+        //     // 他のフォームデータも同様にセッションに保存
+        // ]);
+
+        $reservationData = $request->session()->get('reservation_data');
+
+        // reservation_data 配列内の各要素にアクセス
+        $parkingPlacesId = $reservationData['parking_places_id'];
+        $cartype = $reservationData['cartype'];
+        $date = $reservationData['date'];
+        $fromHour = $reservationData['from_hour'];
+        $fromMinute = $reservationData['from_minute'];
+        $toHour = $reservationData['to_hour'];
+        $toMinute = $reservationData['to_minute'];
+
+        // 配列に詰める
+        $reservationdata = compact(
+            'parkingPlacesId',
+            'cartype',
+            'date',
+            'fromHour',
+            'fromMinute',
+            'toHour',
+            'toMinute'
+        );
+
+        return view('Parking_lots.payment')
+                ->with('reservationdata', $reservationdata);
     }
 
-    public function edit($id)
+    public function pay(Request $request)
     {
-        
+        return view('login');
     }
 
     public function update(Request $request, $id)
