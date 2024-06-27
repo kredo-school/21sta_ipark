@@ -4,7 +4,6 @@
 
 @section('content')
 
-    
     <div class="container">
         <div class="row mt-4 fs-5">
             <div class="col-2">

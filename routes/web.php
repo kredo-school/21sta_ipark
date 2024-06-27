@@ -41,8 +41,9 @@ Route::middleware(['auth', 'admin'])->group(function ()
     Route::get('/admin/users', [UsersController::class, 'usersList'])->name('admin.users_list');
 
     // ADMIN(parking)
-    Route::get('/admin/parking', [AdminParkingController::class, 'index'])->name('admin.parking.index');
-    Route::post('/admin/parking', [AdminParkingController::class,'store'])->name('admin.parking.store');
+    Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
+    Route::get('/admin/register', [AdminParkingController::class, 'index'])->name('admin.parking.index');
+    Route::post('/admin/register', [AdminParkingController::class,'store'])->name('admin.parking.store');
 });
 
 Route::group(["middleware"=>"auth"], function()
@@ -55,6 +56,12 @@ Route::group(["middleware"=>"auth"], function()
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+
+});
+
+//Reservations
+Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
+Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
 
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
