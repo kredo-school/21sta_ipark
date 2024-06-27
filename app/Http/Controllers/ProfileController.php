@@ -43,7 +43,7 @@ class ProfileController extends Controller
     }
 
     public function holiday(){
-        $api_key = 'AIzaSyDK11HPOxbRiTFnzCGg6PuX9KKSj5DISMg';
+        $api_key = env('GOOGLE_API_KEY');
         $calendar_id = urlencode('japanese__ja@holiday.calendar.google.com');
         $start = date('2024-01-01\T00:00:00\Z');
         $end = date('2026-12-31\T00:00:00\Z');
