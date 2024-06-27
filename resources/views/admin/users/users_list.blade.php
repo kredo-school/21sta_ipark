@@ -74,6 +74,45 @@
                     {{-- page bar --}}
                 </div>
             </div>
+
+            <table class="parking-list h6 table-hover align-center text-center w-100">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="fa-solid fa-check"></i>
+                        </th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th><i class="fa-solid fa-car fa-2x"></i></th>
+                        <th>Registered Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white">
+                    <tr>
+                        <td><input type="checkbox" name="" id=""></td>
+                        <td>ayane</td>
+                        <td>ayane@gmail.com</td>
+                        <td>09012345678</td>
+                        <td>standard</td>
+                        <td>2021/06/12</td>
+                        <td>
+                            <button class="btn btn-status rounded-pill">Activate</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="" id=""></td>
+                        <td>ayane</td>
+                        <td>ayane@gmail.com</td>
+                        <td>09012345678</td>
+                        <td>standard</td>
+                        <td>2021/06/12</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </form>
     </div>
 
