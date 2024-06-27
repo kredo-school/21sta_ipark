@@ -353,6 +353,20 @@ main{
     background-position: center center;
 }
 
+.pagination .page-item .page-link {
+    color: #343A40;
+    background: none;
+    border: none;
+    padding: 0 10px;
+    margin: 0 5px;
+}
+
+.pagination .page-item.active .page-link {
+    color: #FFA500;
+    font-weight: bold;
+    border-bottom: 2px solid #FFA500;
+}
+
 /* Payment */
 .radius-size{
     border-radius: 30px;

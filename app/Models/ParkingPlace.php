@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ParkingPlace extends Model
 {
@@ -14,6 +16,8 @@ class ParkingPlace extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+    protected $table = 'parking_places';
 
     public function getDaytimeFromAttribute($value)
     {
@@ -44,6 +48,23 @@ class ParkingPlace extends Model
 
     public function reviews(){
         return $this->hasMany(Review::class);
+    }
+
+    public function reservations(){
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function isReservationPossible(){
+        $numberOfCurrentReservations
+            = $this->reservations()
+                ->where('date', today())
+                ->where('planning_time_from', '<', now()->addHours(9)->format('H:i:s'))
+                ->where('planning_time_to', '>', now()->addHours(9)->format('H:i:s'))
+                ->count();
+
+        $maxNumber = $this->max_number;
+
+        return $numberOfCurrentReservations < $maxNumber;
     }
 
     protected $fillable = [

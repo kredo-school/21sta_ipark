@@ -30,7 +30,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $recommendation = $this->parking_places->get();
+        $recommendation = $this->parking_places->get()->map(function ($parking_place) {
+            $parking_place->average_star = $parking_place->reviews->avg('star');
+            return $parking_place;
+        });
 
         return view('home')
                 ->with('recommendation', $recommendation);
