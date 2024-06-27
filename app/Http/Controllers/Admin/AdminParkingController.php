@@ -13,6 +13,11 @@ class AdminParkingController extends Controller
     //     $this->parkingPlace = $parkingPlace;
     // }
 
+    public function parkingsList()
+    {
+        return view('admin.parking.parkings_list');
+    }
+
     public function index()
     {
         return view('admin.parking.index');
