@@ -161,7 +161,11 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            ¥{{$parking_place->weekday_daytime_amount}}
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                            @endif
                                         </span>
                                         <span>/30mins</span>
                                     </div>
@@ -179,7 +183,11 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            ¥{{$parking_place->weekday_daytime_amount}}
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                            @endif
                                         </span>
                                         <span>/30mins</span>
                                     </div>
@@ -191,7 +199,11 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            ¥{{$parking_place->weekday_night_amount}}
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_night_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_night_amount}}
+                                            @endif
                                         </span>
                                         <span>/30mins</span>
                                     </div>
