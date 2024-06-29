@@ -404,3 +404,25 @@ main{
 .radius-size{
     border-radius: 30px;
 }
+
+/* Parking list */
+.search-bar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+}
+
+.parking-place-search{
+    background-color: white;
+    border: none;
+}
+
+.parking-place-search input,
+.parking-place-search select{
+    border-color: #f54b31;
+}
