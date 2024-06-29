@@ -39,6 +39,8 @@ Route::middleware(['auth', 'admin'])->group(function ()
 
     // ADMIN(users)
     Route::get('/admin/users', [UsersController::class, 'usersList'])->name('admin.users_list');
+    Route::delete('/admin/users/deactivate', [UsersController::class, 'deactivate'])->name('admin.users.deactivate');
+    Route::patch('/admin/users/activate', [UsersController::class, 'activate'])->name('admin.users.activate');
 
     // ADMIN(parking)
     Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
@@ -57,17 +59,14 @@ Route::group(["middleware"=>"auth"], function()
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
-});
+
 
 //Reservations
 Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
 Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
 
-    //Reservations
-    Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
-    Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
+//Payment
+Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
 
-    //Payment
-    Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
 });
 
