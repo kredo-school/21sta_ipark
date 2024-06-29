@@ -45,7 +45,7 @@
                         >
                             @csrf
                             @method('DELETE')
-                            <button class="btn p-0 mt-3">
+                            <button class="btn p-0">
                                 <i class="fa-solid fa-heart text-danger fa-2x"></i>
                             </button>
                         </form>
@@ -56,7 +56,7 @@
                             class="favorite-form"
                         >
                             @csrf
-                            <button class="btn p-0 mt-3">
+                            <button class="btn p-0">
                                 <i class="fa-regular fa-heart fa-2x"></i>
                             </button>
                         </form>
