@@ -8,14 +8,14 @@
     </div>
 
     {{-- Reservation --}}
-    <div class="main background-image-parkinglot-reservation-top"> 
+    <div class="main background-image-parkinglot-reservation-top">
         {{-- Parking lot adress --}}
         <div class="row pt-5 px-5">
             <div class="title">
                 <div class="h2 color3_bluegray fw-bold">
                     {{$parking_places->parking_place_name}}
                 </div>
-                <i class="fa-solid fa-location-dot "></i> 
+                <i class="fa-solid fa-location-dot "></i>
                 {{$parking_places->parking_place_name}} , {{$parking_places->city}}
             </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="row p-3 mb-3">
                 <div class="col-8">
                     <div class="form text-center fw-bold">
-                        <table 
+                        <table
                             class="table table-background-color-none text-aline-center d-inline"
                         >
                             <tr>
@@ -35,9 +35,9 @@
                                     <label for="cartype" class = "form-label">Car type</label>
                                 </td>
                                 <td colspan="3">
-                                    <select 
-                                        name="cartype" 
-                                        id="cartype" 
+                                    <select
+                                        name="cartype"
+                                        id="cartype"
                                         class ='form-select'
                                         value="{{ old('cartype') }}"
                                     >
@@ -52,7 +52,7 @@
                                     <label for="date" class = "form-label">Date</label>
                                 </td>
                                 <td colspan="3">
-                                    <input 
+                                    <input
                                         type="date"
                                         class="form-control"
                                         id="date"
@@ -67,7 +67,7 @@
                                 </td>
                                 <td>
                                     <select name="from_hour" id="from_hour" class="form-select" value="{{ old('from_hour') }}">
-                                        <?php    
+                                        <?php
                                         for ($i = 0; $i < 24; $i++) {
                                             $selected = old('from_hour') == $i ? 'selected' : '';
                                         ?>
@@ -93,7 +93,7 @@
                                 </td>
                                 <td style="width: 25%;">
                                     <select name="to_hour" id="to_hour" class="form-select">
-                                        <?php    
+                                        <?php
                                         for ($i = 0; $i < 25; $i++) {
                                             $selected = old('to_hour') == $i ? 'selected' : '';
                                         ?>
@@ -130,13 +130,13 @@
                         Calculate
                     </button>
                 </div>
-            </div>  
-        </form> 
+            </div>
+        </form>
     </div>
 
     @if (session('date'))
         {{-- Reservation result fee/date --}}
-        <div class="main background-image-parkinglot-reservation-bottom"> 
+        <div class="main background-image-parkinglot-reservation-bottom">
             <div class="row">
                 <div class="col-8 mt-5 mb-5">
                     {{-- Reservation result date --}}
@@ -146,15 +146,15 @@
                         </div>
                         <div class="col-5 h4 fw-bold  text-end">
                             {{-- Display in red on weekends --}}
-                            {{ date('d/m/Y', strtotime(session('date'))) }}&nbsp;
-                            @if (session('dayOfWeek') === 'Sat' || session('dayOfWeek') === 'Sun')
+                            {{ date('Y/m/d', strtotime(session('date'))) }}&nbsp;
+                            @if ( session('isWeekend') )
                                 <span class="color2_red">{{ session('dayOfWeek') }}</span>
                             @else
                                 {{ session('dayOfWeek') }}
                             @endif
                         </div>
                         <div class="col-4 h4 fw-bold">
-                            {{ session('from_time') }} - {{ session('to_time') }} 
+                            {{ session('from_time') }} - {{ session('to_time') }}
                         </div>
                     </div>
                     {{-- Reservation result fee --}}
@@ -178,5 +178,5 @@
         </div>
     @endif
 </div>
-    
+
 @endsection

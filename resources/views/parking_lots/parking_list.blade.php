@@ -19,10 +19,170 @@
                 {{ $parking_places->links('vendor.pagination.custom') }}
             </div>
         </div>
-        <a href="" class="col h1 text-end">
+        <a href="javascript:void(0);" class="col h1 text-end filter-button">
             <i class="fa-solid fa-filter"></i>
         </a>
     </div>
+
+    <div class="row search-bar d-flex justify-content-center" style="display: none;">
+        <div class="col-10">
+            <form action="#" method="get">
+                <div class="card parking-place-search">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <a
+                                    href="javascript:void(0);"
+                                    class="btn btn-red fw-bold rounded-pill btn-sm close-search-bar"
+                                >
+                                    <i class="fa-solid fa-angles-left"></i>
+                                    Back
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mb-3">
+                            <div class="col-md-5">
+                                <label
+                                    for="parking_place_name"
+                                    class="h5 form-label fw-bold mt-2 ms-2 mb-0"
+                                >
+                                    Parking place Name
+                                </label>
+                                <input
+                                    type="text"
+                                    class="form-control rounded-pill"
+                                    id="parking_place_name"
+                                    name="parking_place_name"
+                                >
+                                <div class="row">
+                                    <div class="col-7">
+                                        <label
+                                            for="address"
+                                            class="h5 form-label fw-bold mt-3 ms-2 mb-0"
+                                        >
+                                            Address
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <input
+                                                    type="text"
+                                                    class="form-control rounded-pill"
+                                                    id="postal_code"
+                                                    name="postal_code"
+                                                    placeholder="Postal code"
+                                                >
+                                            </div>
+                                            <div class="col-7">
+                                                <input
+                                                    type="text"
+                                                    id="city"
+                                                    name="city"
+                                                    class="form-control rounded-pill"
+                                                    placeholder="City"
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <label
+                                            for="inputStatus"
+                                            class="h5 form-label fw-bold mt-3 ms-2 mb-0"
+                                        >
+                                            Only Open
+                                        </label><br>
+                                        <input type="checkbox" name="only_open" value="open" class="form-check-input ms-2 mt-2">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label
+                                            for="date"
+                                            class="h5 form-label fw-bold mt-2 ms-2 mb-0"
+                                        >
+                                            Date
+                                        </label>
+                                        <input
+                                            type="date"
+                                            class="form-control rounded-pill"
+                                            id="date"
+                                            name="date"
+                                        >
+                                    </div>
+                                </div>
+                                <label
+                                    class="h5 form-label fw-bold mt-3 ms-2 mb-0"
+                                >
+                                    Time
+                                </label>
+                                <div class="input-group">
+                                    <select name="from_hour" id="from_hour" class="form-select rounded-pill" value="{{ old('from_hour') }}">
+                                        <?php
+                                        for ($i = 0; $i < 24; $i++) {
+                                            $selected = old('from_hour') == $i ? 'selected' : '';
+                                        ?>
+                                            <option value="{{$i}}" <?php echo $selected; ?>>
+                                                {{$i}}
+                                            </option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <span class="text-center fw-bold mx-2 mt-1">:</span>
+                                    <select name="from_minute" id="from_minute" class="form-select rounded-pill" value="{{ old('date') }}">
+                                        <option value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}>00</option>
+                                        <option value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}>30</option>
+                                    </select>
+                                    <span class="mx-2 mt-1">〜</span>
+                                    <select name="to_hour" id="to_hour" class="form-select rounded-pill">
+                                        <?php
+                                        for ($i = 0; $i < 25; $i++) {
+                                            $selected = old('to_hour') == $i ? 'selected' : '';
+                                        ?>
+                                            <option value="{{$i}}" <?php echo $selected; ?>>
+                                                {{$i}}
+                                            </option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <span class="text-center fw-bold mx-2 mt-1">:</span>
+                                    <select name="to_minute" id="to_minute" class="form-select rounded-pill">
+                                        <option value="00" {{ old('to_minute') == '00' ? 'selected' : '' }}>00</option>
+                                        <option value="30" {{ old('to_minute') == '30' ? 'selected' : '' }}>30</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-4">
+                                <div class="row my-3">
+                                    <div class="col-6">
+                                        <button
+                                            type="button"
+                                            class="btn btn-red rounded-pill w-100 fw-bold"
+                                        >
+                                            Clear All Filter
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button
+                                            type="button"
+                                            class="btn btn-red-opposite rounded-pill w-100 fw-bold"
+                                        >
+                                            Apply Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="row mt-4 px-3">
         @forelse ($parking_places as $parking_place)
             <div class="col-4">
@@ -107,7 +267,11 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            ¥{{$parking_place->weekday_daytime_amount}}
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                            @endif
                                         </span>
                                         <span>/30mins</span>
                                     </div>
@@ -126,7 +290,11 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            ¥{{$parking_place->weekday_daytime_amount}}
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                            @endif
                                         </span>
                                         <span>/30mins</span>
                                     </div>
@@ -139,7 +307,11 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            ¥{{$parking_place->weekday_night_amount}}
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_night_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_night_amount}}
+                                            @endif
                                         </span>
                                         <span>/30mins</span>
                                     </div>
@@ -171,6 +343,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // favorite styles
             document.querySelectorAll('.favorite-form').forEach(function (form) {
                 form.addEventListener('submit', function (e) {
                     e.preventDefault();
@@ -203,6 +376,27 @@
                     .catch(error => console.error('Error:', error));
                 });
             });
+
+            // filter button
+            document.querySelector('.filter-button').addEventListener('click', function () {
+                const searchBar = document.querySelector('.search-bar');
+                if (searchBar.style.display === 'none' || searchBar.style.display === '') {
+                    searchBar.style.display = 'flex';
+                    searchBar.style.transition = 'all 0.5s';
+                    searchBar.style.transform = 'translateY(0)';
+                } else {
+                    searchBar.style.display = 'none';
+                    searchBar.style.transform = 'translateY(-100%)';
+                }
+            });
+
+            // close search bar
+            document.querySelector('.close-search-bar').addEventListener('click', function () {
+                const searchBar = document.querySelector('.search-bar');
+                searchBar.style.display = 'none';
+                searchBar.style.transform = 'translateY(-100%)';
+            });
         });
     </script>
+
 @endsection

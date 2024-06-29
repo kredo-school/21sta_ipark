@@ -59,14 +59,12 @@ Route::group(["middleware"=>"auth"], function()
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
+    //Reservations
+    Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
+    Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
 
-
-//Reservations
-Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
-Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
-
-//Payment
-Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
+    // Payment
+    Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
 
 });
 
