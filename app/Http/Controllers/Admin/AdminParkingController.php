@@ -8,20 +8,43 @@ use App\Models\ParkingPlace;
 
 class AdminParkingController extends Controller
 {
-    // private $parkingPlace;
-    // public function __construct(ParkingPlace $parkingPlace){
-    //     $this->parkingPlace = $parkingPlace;
-    // }
+    private $parkingPlace;
+    public function __construct(ParkingPlace $parkingPlace){
+        $this->parkingPlace = $parkingPlace;
+    }
 
     public function parkingsList()
     {
-        return view('admin.parking.parkings_list');
+        $all_parkings = $this->parkingPlace->withTrashed()->latest()->paginate(5);
+        return view('admin.parking.parkings_list')->with('all_parkings', $all_parkings);
     }
 
     public function index()
     {
         return view('admin.parking.index');
     }
+
+    // Deactivate Parking Place
+    public function deactivate(Request $request){
+        $selectedIds = $request->input('selected');
+        $this->parkingPlace->whereIn('id', $selectedIds)->delete();
+        return redirect()->back();
+    }
+
+    // Activate Parking Place
+    public function activate($id){
+        $this->parkingPlace->onlyTrashed()->findOrFail($id)->restore();
+        return redirect()->back();
+    }
+
+    // filter search
+    // public function search(Request $request){
+    //     if($request->filled('serch')){
+    //         $parkingPlaces = $this->parkingPlace->where('parking_place_name','like', '%'. $request->search .'%')->get();
+    //     }
+
+    //     return view('admin.parking.search')->with('parking_place_name', $parkingPlaces)->with('search', $request->search);
+    // }
 
     public function store(Request $request)
     {

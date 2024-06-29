@@ -44,6 +44,9 @@ Route::middleware(['auth', 'admin'])->group(function ()
     Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
     Route::get('/admin/register', [AdminParkingController::class, 'index'])->name('admin.parking.index');
     Route::post('/admin/register', [AdminParkingController::class,'store'])->name('admin.parking.store');
+    Route::delete('/admin/parking/deactivate', [AdminParkingController::class, 'deactivate'])->name('admin.parking.deactivate');
+    Route::patch('/admin/parking/{id}/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
+    Route::get('/admin/parking/search', [AdminParkingController::class, 'search'])->name('admin.parking.search');
 });
 
 Route::group(["middleware"=>"auth"], function()
@@ -57,17 +60,13 @@ Route::group(["middleware"=>"auth"], function()
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
-});
-
-//Reservations
-Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
-Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
-
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
     Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
 
     //Payment
     Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
+
 });
+
 
