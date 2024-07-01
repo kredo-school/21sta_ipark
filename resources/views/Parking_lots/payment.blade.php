@@ -27,65 +27,66 @@
                 class="w-100 mb-3"
                 src="{{asset('images/card_5brand.png')}}"
                 >
-                <form id="paymentForm" action="{{ route('payment.process') }}" method="POST">
+                <form action="{{ route('payment.process') }}" method="post">
                     @csrf
+
+                    <input type="hidden" name="parkingPlacesId" value="{{ $reservationdata['parkingPlacesId'] }}">
+                    <input type="hidden" name="date" value="{{ $reservationdata['date'] }}">
+                    <input type="hidden" name="fromtime" value="{{ $reservationdata['fromtime'] }}">
+                    <input type="hidden" name="totime" value="{{ $reservationdata['totime'] }}">
+                    <input type="hidden" name="cartype" value="{{ $reservationdata['cartype'] }}">
+
+                    {{$reservationdata['parkingPlacesId']}} 
+                    {{$reservationdata['date']}} 
+                    {{$reservationdata['fromtime']}} 
+                    {{$reservationdata['totime']}} 
+                    {{$reservationdata['cartype']}} 
+
                     <div class="mb-3">
                         <label for="cardNumber" class="form-label fw-bold">Card Number <span class="color2_red">*</span></label>
-                        <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number"required>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" value="{{ old('cardNumber') }}" placeholder="Enter card number">
                     </div>
                     <div class="mb-3">
                         <label for="cardholderName" class="form-label fw-bold">Cardholder Name <span class="color2_red">*</span></label>
-                        <input type="text" class="form-control " id="cardholderName" placeholder="Enter cardholder name"required>
+                        <input type="text" class="form-control " id="cardholderName" name="cardholderName" value="{{ old('cardholderName') }}" placeholder="Enter cardholder name">
                     </div>
                     <div class="mb-3">
                         <label for="expiryDate" class="form-label  fw-bold">Expiration Date <span class="color2_red">*</span></label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="expiryMonth" placeholder="MM" maxlength="2"required>
-                            <input type="text" class="form-control" id="expiryYear" placeholder="YY" maxlength="2"required>
+                            <input type="text" class="form-control" id="expiryMonth"  name="expiryMonth" value="{{ old('expiryMonth') }}" placeholder="MM" maxlength="2">
+                            <input type="text" class="form-control" id="expiryYear" name="expiryYear" value="{{ old('expiryYear') }}" placeholder="YY" maxlength="2">
                             <span class="input-group-text">/</span>
-                            <input type="text" class="form-control" id="cvv" placeholder="CVV"required>
+                            <input type="text" class="form-control" id="cvv" name="cvv" value="{{ old('cvv') }}" placeholder="CVV">
                         </div>
                     </div>
-                    {{-- <button type="button" class="btn btn-orange w-100 btn-block" data-bs-toggle="modal" data-bs-target="#paymentModal">Pay</button>
-                    @include('Parking_lots.models.payment') --}}
-                    <button type="submit" class="btn btn-orange w-100 btn-block" id="payButton">Pay</button>
+                    @include('Parking_lots.models.payment')
+                    <button type="submit" class="btn btn-orange w-100 btn-block" id="payButton" data-bs-toggle="modal" data-bs-target="#paymentModal" >Pay</button>
+                    @if ($errors->any())
+                        <div class="alert text-center color2_red fw-bold">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }} <br>
+                            @endforeach
+                        </div>
+                    @endif
                 </form>
             </div>
         </div>
     </div>        
 </div>
+@endsection
 
-<!-- Payment Modal -->
-<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="paymentModalLabel">Confirm Payment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>You are about to proceed with the payment.</p>
-                <p>Card Number: <span id="modalCardNumber"></span></p>
-                <p>Cardholder Name: <span id="modalCardholderName"></span></p>
-                <p>Expiration Date: <span id="modalExpiryDate"></span></p>
-                <p>CVV: <span id="modalCvv"></span></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="confirmPaymentBtn">Confirm Payment</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-@if ($errors->any())
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+@if ($success)
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-            paymentModal.show();
+        $(document).ready(function() {
+            $('#paymentModal').modal('show');
         });
     </script>
 @endif
 
-@endsection
 

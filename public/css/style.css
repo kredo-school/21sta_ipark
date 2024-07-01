@@ -20,6 +20,10 @@ main{
     color: #003566;
 }
 
+.color5_green{
+    color:#1AAD17;
+}
+
 .text-shadow {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
@@ -253,6 +257,7 @@ main{
 .btn-green{
     background-color: #1AAD17;
     color: white;
+    border-color: #1AAD17;
     border-width: medium;
 }
 
@@ -340,6 +345,10 @@ main{
 
 .bg-red{
     background-color: #f54b31;
+}
+
+.bg-navy{
+    background-color: #003566;
 }
 
 .background-image-newparking {

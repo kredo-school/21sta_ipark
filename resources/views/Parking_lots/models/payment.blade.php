@@ -1,36 +1,25 @@
 <div class="container">
     <div class="row justify-content-center">
-        <div class="modal fade" id="paymentModal">
+        <div class="modal fade" id="paymentModal" data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-green">
                     <div class="modal-body">
                         <div class="header text-center">
                             <div class="row h1">
-                                <i class="fa-solid fa-circle-exclamation color1_orange"></i>
+                                <i class="fa-solid fa-circle-check color5_green"></i>
                             </div>
                             <div class="row h1">
-                                <div class=" color1_orange">Reservation Success</div>
+                                <div class="col">Reservation Success</div>
                             </div>
                         </div>
                         <div class="row justify-content-center mb-3">
-                            <div class="col">
-                                {{ $reservationdata['parkingPlacesId'] }}
-                                {{ $reservationdata['cartype']}}
+                            <div class="col text-center mt-3">
+                                Thank you for your reservation. <br>
+                                You can check it from Reservation History.
                             </div>
-                        <div class="bottom text-center justify-content-center">
-                                <form action="{{ route('reservation.pay') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="parking_places_id" value="{{ $reservationdata['parkingPlacesId'] }}">
-                                    <input type="hidden" name="cartype" value="{{ $reservationdata['cartype']}}">
-                                    <input type="hidden" name="date" value="{{ $reservationdata['date']}}">
-                                    <input type="hidden" name="from_hour" value="{{ $reservationdata['fromHour']}}">
-                                    <input type="hidden" name="from_minute" value="{{ $reservationdata['fromMinute']}}">
-                                    <input type="hidden" name="to_hour" value="{{ $reservationdata['toHour']}}">
-                                    <input type="hidden" name="to_minute" value="{{ $reservationdata['toMinute']}}">
-
-                                </form>
-                                <a href="" class="tab-link">Go to History Page</a>
-                                
+                            <div class="bottom text-center justify-content-center">
+                                <a href="{{ route('home') }}" class="btn rounded-pill fw-bold px-4 btn-green fs-5 btn-sm mt-3">Go to History Page</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,5 +27,3 @@
         </div>
     </div>
 </div>
-
-{{-- {{route('reservation', ['id' => $user->id])}} --}}

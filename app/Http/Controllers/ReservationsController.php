@@ -149,7 +149,7 @@ class ReservationsController extends Controller
         return $amount;
     }
 
-    public function store(Request $request)
+    public function payment(Request $request)
     {
         // session([
         //     'cartype' => $request->cartype,
@@ -163,20 +163,16 @@ class ReservationsController extends Controller
         $parkingPlacesId = $reservationData['parking_places_id'];
         $cartype = $reservationData['cartype'];
         $date = $reservationData['date'];
-        $fromHour = $reservationData['from_hour'];
-        $fromMinute = $reservationData['from_minute'];
-        $toHour = $reservationData['to_hour'];
-        $toMinute = $reservationData['to_minute'];
+        $fromtime = $reservationData['from_hour'] . ':' . $reservationData['from_minute'];
+        $totime = $reservationData['to_hour'] . ':' .$reservationData['to_minute'];
 
         // 配列に詰める
         $reservationdata = compact(
             'parkingPlacesId',
             'cartype',
             'date',
-            'fromHour',
-            'fromMinute',
-            'toHour',
-            'toMinute'
+            'fromtime',
+            'totime'
         );
 
         return view('Parking_lots.payment')

@@ -10,7 +10,8 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content border-orange">
                     <div class="modal-body">
-                        <form action="{{route('reservation.store')}}" method="post">
+                        <form action="{{route('reservation.payment')}}" method="GET">
+                            @csrf
                             <div class="header text-center">
                                 <div class="row h1">
                                     <i class="fa-solid fa-circle-exclamation color1_orange"></i>
