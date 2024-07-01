@@ -40,6 +40,8 @@ Route::middleware(['auth', 'admin'])->group(function ()
 
     // ADMIN(users)
     Route::get('/admin/users', [UsersController::class, 'usersList'])->name('admin.users_list');
+    Route::delete('/admin/users/deactivate', [UsersController::class, 'deactivate'])->name('admin.users.deactivate');
+    Route::patch('/admin/users/activate', [UsersController::class, 'activate'])->name('admin.users.activate');
 
     // ADMIN(parking)
     Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
@@ -63,8 +65,10 @@ Route::group(["middleware"=>"auth"], function()
     Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
 
     //Payment
+    Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
     Route::get('/payment', [ReservationsController::class, 'payment'])->name('reservation.payment');
     Route::post('/pay/process', [PaymentController::class, 'process'])->name('payment.process');
     Route::get('/pay/success', [PaymentController::class, 'success'])->name('payment.success');
+
 });
 
