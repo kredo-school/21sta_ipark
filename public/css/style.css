@@ -343,6 +343,38 @@ main{
     width: 50%;
 }
 
+.parking-list {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.parking-list th,
+.parking-list tbody td {
+    padding: 10px;
+    border-bottom: 3px solid #D9D9D9;
+    text-align: center;
+}
+
+.parking-list th {
+    background-color: #003566;
+    color: white;
+    border: solid 1px white;
+}
+
+.parking-list tbody tr:last-child th,
+.parking-list tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.btn-status{
+    color: #1AAD17;
+    border: 1px solid #1AAD17;
+}
+
+
+/*PARKING LIST */
 .bg-red{
     background-color: #f54b31;
 }
@@ -351,6 +383,11 @@ main{
     background-color: #003566;
 }
 
+.bg-navy{
+    background-color: #003566;
+}
+
+/* REGISTER NEW PARKING */
 .background-image-newparking {
     background-image: url('/images/parking image_white.jpg');
     background-size: cover;
@@ -375,4 +412,26 @@ main{
 /* Payment */
 .radius-size{
     border-radius: 30px;
+}
+
+/* Parking list */
+.search-bar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+}
+
+.parking-place-search{
+    background-color: white;
+    border: none;
+}
+
+.parking-place-search input,
+.parking-place-search select{
+    border-color: #f54b31;
 }

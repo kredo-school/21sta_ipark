@@ -18,10 +18,10 @@ class ReservationsController extends Controller
     {
         $this->parkingPlace = $parkingPlace;
     }
-    
+
     public function index()
     {
-        
+
     }
 
     public function show($id)
@@ -32,7 +32,7 @@ class ReservationsController extends Controller
     }
 
     public function create(ReservationRequest $request)
-    {    
+    {
         if ($request->validated()) {
             // Validation passed
             $parking_no = $request->parking_places_id;
@@ -47,7 +47,7 @@ class ReservationsController extends Controller
 
             $carbonDate = Carbon::parse($date);
             $dayOfWeek = $carbonDate->shortEnglishDayOfWeek;
-            $isWeekend = ($dayOfWeek == "Sat" || $dayOfWeek =="Sun");
+            $isWeekend = ($dayOfWeek == "Sat" || $dayOfWeek == "Sun" || $this->isHoliday($date));
 
             $fee = $this->calculateAmount($from_time,$to_time,$isWeekend,$parking_no);
 
@@ -59,7 +59,8 @@ class ReservationsController extends Controller
             ->with('from_time', $from_time)
             ->with('to_time', $to_time)
             ->with('dayOfWeek', $dayOfWeek)
-            ->with('fee', $fee);
+            ->with('fee', $fee)
+            ->with('isWeekend', $isWeekend);
         } else {
             return redirect()->back()->withErrors($request)->withInput();
         }
@@ -101,7 +102,7 @@ class ReservationsController extends Controller
             $parkingPlace = ParkingPlace::select('daytime_from', 'daytime_to', 'holiday_daytime_amount', 'holiday_night_amount', 'maximum_amount')
             ->where('id', $parking_no)
             ->first();
-            
+
             $daytimeRate = $parkingPlace->holiday_daytime_amount; // fee_holiday_daytime
             $nighttimeRate = $parkingPlace->holiday_night_amount; // fee_holiday_nighttime
         } else {
@@ -130,14 +131,14 @@ class ReservationsController extends Controller
         while ($currentDateTime < $toDateTime) {
             // To get the time 30 minutes later
             $nextDateTime = $currentDateTime->copy()->addMinutes(30);
- 
+
             // To determine whether the given time period is during daytime or nighttime
             if ($daytimeFromDateTime <= $currentDateTime  && $currentDateTime < $daytimeToDateTime) {
                 $amount += $daytimeRate;
             } else {
                 $amount += $nighttimeRate;
             }
-            
+
             $currentDateTime = $nextDateTime;
         }
 
@@ -145,8 +146,41 @@ class ReservationsController extends Controller
         if ($amount > $parkingPlace->maximum_amount) {
             $amount = $parkingPlace->maximum_amount;
         }
-        
+
         return $amount;
+    }
+
+    public function holiday(){
+        $api_key = env('GOOGLE_API_KEY');
+        $calendar_id = urlencode('japanese__ja@holiday.calendar.google.com');
+        $start = date('2024-01-01\T00:00:00\Z');
+        $end = date('2026-12-31\T00:00:00\Z');
+
+        $url = "https://www.googleapis.com/calendar/v3/calendars/" . $calendar_id . "/events?";
+        $query = [
+            'key' => $api_key,
+            'timeMin' => $start,
+            'timeMax' => $end,
+            'maxResults' => 50,
+            'orderBy' => 'startTime',
+            'singleEvents' => 'true'
+        ];
+
+        $results = [];
+        if ($data = file_get_contents($url. http_build_query($query), true)) {
+            $data = json_decode($data);
+            foreach ($data->items as $row) {
+                $results[] = $row->start->date;
+            }
+        }
+
+        return $results;
+    }
+
+    public function isHoliday($date){
+        $holidays = $this->holiday();
+
+        return in_array($date, $holidays);
     }
 
     public function payment(Request $request)
@@ -186,7 +220,7 @@ class ReservationsController extends Controller
 
     public function update(Request $request, $id)
     {
-        
+
     }
 
     public function destroy($id)
