@@ -39,6 +39,8 @@ Route::middleware(['auth', 'admin'])->group(function ()
 
     // ADMIN(users)
     Route::get('/admin/users', [UsersController::class, 'usersList'])->name('admin.users_list');
+    Route::delete('/admin/users/deactivate', [UsersController::class, 'deactivate'])->name('admin.users.deactivate');
+    Route::patch('/admin/users/activate', [UsersController::class, 'activate'])->name('admin.users.activate');
 
     // ADMIN(parking)
     Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
@@ -63,5 +65,6 @@ Route::group(["middleware"=>"auth"], function()
 
     // Payment
     Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
+
 });
 
