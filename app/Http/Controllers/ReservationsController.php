@@ -70,15 +70,17 @@ class ReservationsController extends Controller
     {
         $query = DB::table('reservations')
                 ->select(DB::raw('COUNT(*) AS conflicting_reservations'))
-                    ->where(function ($query) use ($from_time, $to_time) {
-                        $query->where('planning_time_from', '<=', $to_time)
-                    ->where('planning_time_to', '>=', $from_time);
-                     })
-                    ->orWhere(function ($query) use ($from_time, $to_time) {
-                        $query->where('planning_time_from', '>=', $from_time)
-                    ->where('planning_time_from', '<', $to_time);
-                    })
-                    ->where('parking_place_id', $parking_no);
+                ->where('date', '=', $date)
+                ->where(function ($query) use ($from_time, $to_time) {
+                    $query->where('planning_time_from', '<=', $to_time)
+                        ->where('planning_time_to', '>=', $from_time);
+                })
+                ->orWhere(function ($query) use ($date, $from_time, $to_time) {
+                    $query->where('date', '=', $date)
+                        ->where('planning_time_from', '>=', $from_time)
+                        ->where('planning_time_from', '<', $to_time);
+                })
+                ->where('parking_place_id', $parking_no);
 
         $conflicting_reservations = $query->first()->conflicting_reservations;
 
