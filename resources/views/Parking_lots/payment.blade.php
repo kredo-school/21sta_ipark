@@ -30,17 +30,13 @@
                 <form action="{{ route('payment.process') }}" method="post">
                     @csrf
 
-                    <input type="hidden" name="parkingPlacesId" value="{{ $reservationdata['parkingPlacesId'] }}">
-                    <input type="hidden" name="date" value="{{ $reservationdata['date'] }}">
-                    <input type="hidden" name="fromtime" value="{{ $reservationdata['fromtime'] }}">
-                    <input type="hidden" name="totime" value="{{ $reservationdata['totime'] }}">
-                    <input type="hidden" name="cartype" value="{{ $reservationdata['cartype'] }}">
-
-                    {{$reservationdata['parkingPlacesId']}} 
-                    {{$reservationdata['date']}} 
-                    {{$reservationdata['fromtime']}} 
-                    {{$reservationdata['totime']}} 
-                    {{$reservationdata['cartype']}} 
+                    @if (!$success)
+                        <input type="hidden" name="parkingPlacesId" value="{{ $reservationdata['parkingPlacesId'] }}">
+                        <input type="hidden" name="date" value="{{ $reservationdata['date'] }}">
+                        <input type="hidden" name="fromtime" value="{{ $reservationdata['fromtime'] }}">
+                        <input type="hidden" name="totime" value="{{ $reservationdata['totime'] }}">
+                        <input type="hidden" name="cartype" value="{{ $reservationdata['cartype'] }}">
+                    @endif
 
                     <div class="mb-3">
                         <label for="cardNumber" class="form-label fw-bold">Card Number <span class="color2_red">*</span></label>
@@ -59,8 +55,13 @@
                             <input type="text" class="form-control" id="cvv" name="cvv" value="{{ old('cvv') }}" placeholder="CVV">
                         </div>
                     </div>
-                    @include('Parking_lots.models.payment')
-                    <button type="submit" class="btn btn-orange w-100 btn-block" id="payButton" data-bs-toggle="modal" data-bs-target="#paymentModal" >Pay</button>
+                    @if ($success)
+                        @include('Parking_lots.models.payment')
+                    @endif
+
+                    <button type="submit" class="btn btn-orange w-100 btn-block" id="payButton" data-bs-toggle="modal" data-bs-target="#paymentModal" >
+                        Pay
+                    </button>
                     @if ($errors->any())
                         <div class="alert text-center color2_red fw-bold">
                             @foreach ($errors->all() as $error)

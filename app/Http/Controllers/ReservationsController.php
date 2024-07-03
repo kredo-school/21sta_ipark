@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Reservations;
 use App\Models\ParkingPlace;
+use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -69,18 +70,18 @@ class ReservationsController extends Controller
     private function isReservationPossible($date,$from_time,$to_time,$parking_no)
     {
         $query = DB::table('reservations')
-                ->select(DB::raw('COUNT(*) AS conflicting_reservations'))
-                ->where('date', '=', $date)
-                ->where(function ($query) use ($from_time, $to_time) {
-                    $query->where('planning_time_from', '<=', $to_time)
-                        ->where('planning_time_to', '>=', $from_time);
-                })
-                ->orWhere(function ($query) use ($date, $from_time, $to_time) {
-                    $query->where('date', '=', $date)
-                        ->where('planning_time_from', '>=', $from_time)
-                        ->where('planning_time_from', '<', $to_time);
-                })
-                ->where('parking_place_id', $parking_no);
+            ->select(DB::raw('COUNT(*) AS conflicting_reservations'))
+            ->where('date', '=', $date)
+            ->where(function ($query) use ($from_time, $to_time) {
+                $query->where('planning_time_from', '<', $to_time)
+                    ->where('planning_time_to', '>', $from_time); // planning_time_to > $from_time
+            })
+            ->orWhere(function ($query) use ($date, $from_time, $to_time) {
+                $query->where('date', '=', $date)
+                    ->where('planning_time_from', '>', $from_time)
+                    ->where('planning_time_from', '<', $to_time);
+            })
+            ->where('parking_place_id', $parking_no);
 
         $conflicting_reservations = $query->first()->conflicting_reservations;
 
@@ -187,11 +188,6 @@ class ReservationsController extends Controller
 
     public function payment(Request $request)
     {
-        // session([
-        //     'cartype' => $request->cartype,
-        //     'date' => $request->date,
-        //     // 他のフォームデータも同様にセッションに保存
-        // ]);
 
         $reservationData = $request->session()->get('reservation_data');
 
@@ -210,14 +206,65 @@ class ReservationsController extends Controller
             'fromtime',
             'totime'
         );
-
+        $success = false;
         return view('Parking_lots.payment')
-                ->with('reservationdata', $reservationdata);
+                ->with('reservationdata', $reservationdata)
+                ->with('success', $success);
     }
 
     public function pay(Request $request)
     {
         return view('login');
+    }
+
+    public function store(Request $request)
+    {
+
+        $reservations = new Reservation();
+        $reservations->parking_place_id = $request->parkingPlacesId;
+        $reservations->parking_slot_id 
+            = $this->findAvailableParkingSlot($request->parkingPlacesId,$request->date,$request->fromtime,$request->totime);
+        $reservations->user_id = auth()->id();
+        $reservations->date = $request->date;
+        $reservations->planning_time_from = $request->fromtime;
+        $reservations->planning_time_to = $request->totime;
+        $reservations->actual_start_time = "00:00:00";
+        $reservations->actual_end_time = "00:00:00";
+        $reservations->car_type = $request->cartype;
+
+        $reservations->save();
+
+    }
+
+    function findAvailableParkingSlot($parking_no, $date, $from_time, $to_time) {
+        // 予約済みのスロットを取得するクエリ
+        $reservedSlots = DB::table('reservations')
+                            ->select('parking_slot_id') // SELECT句にparking_slot_idを指定
+                            ->where('date', '=', $date)
+                            ->where(function ($query) use ($from_time, $to_time) {
+                                $query->where('planning_time_from', '<', $to_time)
+                                    ->where('planning_time_to', '>', $from_time);
+                            })
+                            ->orWhere(function ($query) use ($date, $from_time, $to_time) {
+                                $query->where('date', '=', $date)
+                                    ->where('planning_time_from', '>', $from_time)
+                                    ->where('planning_time_from', '<', $to_time);
+                            })
+                            ->where('parking_place_id', $parking_no)
+                            ->pluck('parking_slot_id') // parking_slot_idのみを取得して配列にする
+                            ->toArray();
+
+        // 駐車場の最大スロット数を取得
+        $maxSlots = DB::table('parking_places')
+                        ->where('id', $parking_no)
+                        ->value('max_number');
+
+        // 空いているスロットを決定する
+        for ($slotId = 1; $slotId <= $maxSlots; $slotId++) {
+            if (!in_array($slotId, $reservedSlots)) {
+                return $slotId;
+            }
+        }
     }
 
     public function update(Request $request, $id)
