@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="col-8">
+
     <a
         href="javascript:history.back()"
         class="btn btn-red fw-bold rounded-pill btn-sm"
@@ -26,28 +27,67 @@
                 class="w-100 mb-3"
                 src="{{asset('images/card_5brand.png')}}"
                 >
-                <form>
+                <form action="{{ route('payment.process') }}" method="post">
+                    @csrf
+
+                    @if (!$success)
+                        <input type="hidden" name="parkingPlacesId" value="{{ $reservationdata['parkingPlacesId'] }}">
+                        <input type="hidden" name="date" value="{{ $reservationdata['date'] }}">
+                        <input type="hidden" name="fromtime" value="{{ $reservationdata['fromtime'] }}">
+                        <input type="hidden" name="totime" value="{{ $reservationdata['totime'] }}">
+                        <input type="hidden" name="cartype" value="{{ $reservationdata['cartype'] }}">
+                    @endif
+
                     <div class="mb-3">
                         <label for="cardNumber" class="form-label fw-bold">Card Number <span class="color2_red">*</span></label>
-                        <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number">
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" value="{{ old('cardNumber') }}" placeholder="Enter card number">
                     </div>
                     <div class="mb-3">
                         <label for="cardholderName" class="form-label fw-bold">Cardholder Name <span class="color2_red">*</span></label>
-                        <input type="text" class="form-control " id="cardholderName" placeholder="Enter cardholder name">
+                        <input type="text" class="form-control " id="cardholderName" name="cardholderName" value="{{ old('cardholderName') }}" placeholder="Enter cardholder name">
                     </div>
                     <div class="mb-3">
                         <label for="expiryDate" class="form-label  fw-bold">Expiration Date <span class="color2_red">*</span></label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="expiryMonth" placeholder="MM" maxlength="2">
-                            <input type="text" class="form-control" id="expiryYear" placeholder="YY" maxlength="2">
+                            <input type="text" class="form-control" id="expiryMonth"  name="expiryMonth" value="{{ old('expiryMonth') }}" placeholder="MM" maxlength="2">
+                            <input type="text" class="form-control" id="expiryYear" name="expiryYear" value="{{ old('expiryYear') }}" placeholder="YY" maxlength="2">
                             <span class="input-group-text">/</span>
-                            <input type="text" class="form-control" id="cvv" placeholder="CVV">
+                            <input type="text" class="form-control" id="cvv" name="cvv" value="{{ old('cvv') }}" placeholder="CVV">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-orange w-100 btn-block">Pay</button>
+                    @if ($success)
+                        @include('Parking_lots.models.payment')
+                    @endif
+
+                    <button type="submit" class="btn btn-orange w-100 btn-block" id="payButton" data-bs-toggle="modal" data-bs-target="#paymentModal" >
+                        Pay
+                    </button>
+                    @if ($errors->any())
+                        <div class="alert text-center color2_red fw-bold">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }} <br>
+                            @endforeach
+                        </div>
+                    @endif
                 </form>
             </div>
         </div>
     </div>        
 </div>
 @endsection
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+@if ($success)
+    <script>
+        $(document).ready(function() {
+            $('#paymentModal').modal('show');
+        });
+    </script>
+@endif
+
+

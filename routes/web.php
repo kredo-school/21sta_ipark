@@ -11,6 +11,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,14 +60,16 @@ Route::group(["middleware"=>"auth"], function()
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
-
-
+<<<<<<<<< Temporary merge branch 1
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
     Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
 
-// Payment
-Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
+    //Payment
+    Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
+    Route::get('/payment', [ReservationsController::class, 'payment'])->name('reservation.payment');
+    Route::post('/pay/process', [PaymentController::class, 'process'])->name('payment.process');
+    Route::get('/pay/success', [PaymentController::class, 'success'])->name('payment.success');
 
 });
 
