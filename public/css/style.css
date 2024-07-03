@@ -274,6 +274,9 @@ main{
     color: #343A40;
 }
 
+.admin-users-icon{
+    color: #ff9900;
+}
 
 .admin-users{
     border-bottom: 3px solid #ff9900;
@@ -282,17 +285,6 @@ main{
 
 .select-icon {
     position: relative;
-}
-
-.select-icon::after{
-    content: "▼";
-    position: absolute;
-    left: 15rem;
-    top: 75%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 1rem;
-    color: #000;
 }
 
 .select-icon select {
