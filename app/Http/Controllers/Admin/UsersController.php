@@ -21,9 +21,41 @@ class UsersController extends Controller
 
     public function usersList(Request $request)
     {
-       $all_users = $this->user->orderBy('username')->withTrashed()->paginate(10);
 
-        return view('admin.users.users_list')->with('all_users', $all_users);
+        $query = User::query();
+
+        if ($request->filled('username')) {
+            $query->where('username', 'like', '%' . $request->input('username') . '%');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('email', 'like', '%' . $request->input('email') . '%');
+        }
+
+        if ($request->filled('phone')) {
+            $query->where('phone', 'like', '%' . $request->input('phone') . '%');
+        }
+
+        if ($request->filled('registeredDateFrom')) {
+            $query->where('created_at', '>=', $request->input('registeredDateFrom'));
+        }
+
+        if ($request->filled('registeredDateTo')) {
+            $query->where('created_at', '<=', $request->input('registeredDateTo'));
+        }
+
+        if ($request->filled('status')) {
+            if($request->input('status') == 'active'){
+                $query->whereNull('deleted_at');
+            }elseif($request->input('status') == 'inactive'){
+                $query->whereNotNull('deleted_at');
+            }
+        }
+
+        $all_users = $query->orderBy('username')->withTrashed()->paginate(10); 
+
+        return view('admin.users.users_list', compact('all_users'));
+       
     }
 
     public function deactivate(Request $request)
@@ -44,4 +76,25 @@ class UsersController extends Controller
         return redirect()->back();
     }
 
+    public function search(Request $request)
+    {
+       
+        $query = $this->user->newQuery();
+
+        if($request->filled('username')){
+            $query->where('username', 'like', '%'. $request->input('username') . '%');
+        }
+
+        if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('username', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('email', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+       $users = $query->orderBy('username')->withTrashed()->paginate(10);
+
+        return view('admin.users.users_list', compact('users'));
+    }
 }
