@@ -269,6 +269,12 @@ main{
     vertical-align: text-bottom;
 }
 
+.admin-parking-link{
+    text-decoration: none;
+    color: #343A40;
+}
+
+
 .admin-users{
     border-bottom: 3px solid #ff9900;
     vertical-align: text-bottom;
@@ -334,10 +340,69 @@ main{
     border-color: #f54b31;
 }
 
-.dlt-user-btn{
-    width: 50%;
+.activate-logo{
+    color: #1AAD17;
 }
 
+.deactivate-logo{
+    color: #f54b31;
+}
+
+.btn-status:hover{
+    color: white;
+    border: 2px solid #1AAD17;
+    background-color: #1AAD17;
+}
+
+.admin-username{
+    color: #343A40;
+}
+
+.restore-btn{
+    background-color: #003566;
+    color: white;
+    border-color: #003566;
+    border-width: medium;
+}
+
+.restore-btn:hover{
+    background-color: white;
+    color: #003566;
+    border-color: #003566;
+    border-width: medium;
+}
+
+.parking-list {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.parking-list th,
+.parking-list tbody td {
+    padding: 15px;
+    border-bottom: 3px solid #D9D9D9;
+    text-align: center;
+}
+
+.parking-list th {
+    background-color: #395470;
+    color: white;
+    border: solid 1px white;
+}
+
+.parking-list tbody tr:last-child th,
+.parking-list tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.checked-row {
+    background-color: #F9E8C4;
+}
+
+
+/*PARKING LIST */
 .bg-red{
     background-color: #f54b31;
 }
@@ -346,6 +411,7 @@ main{
     background-color: #003566;
 }
 
+/* REGISTER NEW PARKING */
 .background-image-newparking {
     background-image: url('/images/parking image_white.jpg');
     background-size: cover;
@@ -370,4 +436,26 @@ main{
 /* Payment */
 .radius-size{
     border-radius: 30px;
+}
+
+/* Parking list */
+.search-bar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+}
+
+.parking-place-search{
+    background-color: white;
+    border: none;
+}
+
+.parking-place-search input,
+.parking-place-search select{
+    border-color: #f54b31;
 }
