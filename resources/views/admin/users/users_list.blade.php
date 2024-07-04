@@ -13,7 +13,7 @@
                 </span>
             </div>
             <div class="col-2 d-flex align-items-center justify-content-center">
-                <i class="fa-solid fa-user fa-2x"></i>
+                <i class="fa-solid fa-user fa-2x admin-users-icon"></i>
                 <span class="ms-2">
                     <span class="admin-users h4"> Users</span>
                 </span>
@@ -21,57 +21,57 @@
         </div>
 
         <form action="{{ route('admin.users_list')}}" method="get"></form>
-
-        <div class="card user-search mt-3">
-            <div class="row justify-content-center">
-                <div class="col-10 mt-3">
-                    <div class="card-body fw-bold h5">
-                        <div class="row">
-                            <div class="col-md-5 ms-5">
-                                <label for="inputUserName" class="form-label">User Name</label>
-                                <input type="text" class="form-control rounded-pill">
-                            </div>
-                            <div class="col-md-6 ms-3">
-                                <label class="form-label">Registered Date</label>
-                                <div class="input-group">
-                                    <input type="date" class="form-control rounded-pill" id="registeredDateFrom" name="registeredDateFrom" placeholder="From">
-                                    <span class="mx-2 pt-2">〜</span>
-                                    <input type="date" class="form-control rounded-pill" id="registeredDateTo" name="registeredDateTo" placeholder="To">
+            <div class="card user-search mt-3">
+                <div class="row justify-content-center">
+                    <div class="col-10 mt-3">
+                        <div class="card-body fw-bold h5">
+                            <div class="row">
+                                <div class="col-md-5 ms-5">
+                                    <label for="inputUserName" class="form-label">User Name</label>
+                                    <input type="text" class="form-control rounded-pill" name="username" value="{{ request('username') }}">
+                                </div>
+                                <div class="col-md-6 ms-3">
+                                    <label class="form-label">Registered Date</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control rounded-pill" id="registeredDateFrom" name="registeredDateFrom" placeholder="From" value="{{ request('registeredDateFrom') }}">
+                                        <span class="mx-2 pt-2">〜</span>
+                                        <input type="date" class="form-control rounded-pill" id="registeredDateTo" name="registeredDateTo" placeholder="To" value="{{ request('registeredDateTo') }}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row mt-4">
-                            <div class="col-md-5 ms-5">
-                                <label for="inputEmail" class="form-label">E-mail</label>
-                                <input type="text" class="form-control rounded-pill">
+                            <div class="row mt-4">
+                                <div class="col-md-5 ms-5">
+                                    <label for="inputEmail" class="form-label">E-mail</label>
+                                    <input type="text" class="form-control rounded-pill" name="email" value="{{ request('email') }}">
+                                </div>
+                                <div class="col-md-6 ms-3 select-icon">
+                                    <label for="inputStatus" class="form-label">Status</label>
+                                    <select name="status" id="status" class="form-control rounded-pill pic-icon custom-select-width">
+                                        <option value="" disabled selected>Please select type</option>
+                                        <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-6 ms-3 select-icon">
-                                <label for="inputStatus" class="form-label">Status</label>
-                                <select name="status" id="status" class="form-control rounded-pill pic-icon custom-select-width">
-                                    <option value="" disabled selected></option>
-                                    <option value="activate">Activate</option>
-                                    <option value="inactivate">Inactivate</option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <div class="row my-4">
-                            <div class="col-md-5 ms-5">
-                                <label for="inputPhone" class="form-label">Phone Number</label>
-                                <input type="number" class="form-control rounded-pill">
-                            </div>
-                            <div class="col-md-6 ms-3 apply-btn">
-                                <div class="d-flex">
-                                    <button type="button" class="btn btn-red me-2 rounded-pill">Clean All Filter</button>
-                                    <button type="button" class="btn btn-red-opposite rounded-pill apply-ft-btn">Apply Filter</button>
+                            <div class="row my-4">
+                                <div class="col-md-5 ms-5">
+                                    <label for="inputPhone" class="form-label">Phone Number</label>
+                                    <input type="number" class="form-control rounded-pill" name="phone" value="{{ request('phone') }}">
+                                </div>
+                                <div class="col-md-6 ms-3 apply-btn">
+                                    <div class="d-flex">
+                                        <a href="{{ route('admin.users_list') }}" class="btn btn-red me-2 rounded-pill">Clean All Filter</a>
+                                        <button type="submit" class="btn btn-red-opposite rounded-pill apply-ft-btn">Apply Filter</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
         <div class="row mt-5">
             <div class="col-md-8">

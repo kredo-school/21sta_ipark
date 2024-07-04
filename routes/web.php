@@ -11,6 +11,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -69,6 +70,9 @@ Route::group(["middleware"=>"auth"], function()
 
     // Payment
     Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
+    Route::get('/payment', [ReservationsController::class, 'payment'])->name('reservation.payment');
+    Route::post('/pay/process', [PaymentController::class, 'process'])->name('payment.process');
+    Route::get('/pay/success', [PaymentController::class, 'success'])->name('payment.success');
 
 });
 
