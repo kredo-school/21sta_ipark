@@ -8,20 +8,96 @@ use App\Models\ParkingPlace;
 
 class AdminParkingController extends Controller
 {
-    // private $parkingPlace;
-    // public function __construct(ParkingPlace $parkingPlace){
-    //     $this->parkingPlace = $parkingPlace;
-    // }
-
     public function parkingsList()
     {
-        return view('admin.parking.parkings_list');
+        $parkingPlaces = ParkingPlace::withTrashed()->latest()->paginate(5);
+        return view('admin.parking.parkings_list', compact('parkingPlaces'));
     }
 
     public function index()
     {
         return view('admin.parking.index');
     }
+
+    // Deactivate Parking Place
+    public function deactivate(Request $request)
+    {
+        $selectedIds = $request->input('selected');
+        // ParkingPlace::whereIn('id', $selectedIds)->delete();
+
+        if (is_array($selectedIds) && count($selectedIds) > 0) {
+            ParkingPlace::whereIn('id', $selectedIds)->delete();
+        }
+
+        // Cookieから検索条件を取得
+        $searchConditions = json_decode($request->cookie('search_conditions'), true);
+
+        return redirect()->route('admin.parking.search')->withInput($searchConditions);
+
+        // return redirect()->back();
+    }
+
+    // Activate Parking Place
+    public function activate($id)
+    {
+        // ParkingPlace::onlyTrashed()->findOrFail($id)->restore();
+        // return redirect()->back();
+
+        $parkingPlace = ParkingPlace::withTrashed()->findOrFail($id);
+        $parkingPlace->restore();
+
+        $searchConditions = json_decode(request()->cookie('search_conditions'), true);
+
+        return redirect()->route('admin.parking.search')->withInput($searchConditions);
+
+    }
+
+    // filter search
+    public function search(Request $request)
+    {
+        $query = ParkingPlace::query();
+        // setCookie("search","abcd");
+
+
+        if ($request->filled('parking_place_name')) {
+            $query->withTrashed()->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
+        }
+
+        if ($request->filled('postal_code')) {
+            $query->withTrashed()->where('postal_code', 'like', '%' . $request->postal_code . '%');
+        }
+
+        if ($request->filled('city')) {
+            $query->withTrashed()->where('city', 'like', '%' . $request->city . '%');
+        }
+
+        if ($request->filled('status')) {
+            if ($request->status === 'open') {
+                $query->whereNull('deleted_at');
+            } elseif ($request->status === 'closed') {
+                $query->onlyTrashed();
+            }
+        }
+
+        if ($request->filled('number_of_slots_from')) {
+            $query->withTrashed()->where('max_number', '>=', $request->number_of_slots_from);
+        }
+
+        if ($request->filled('number_of_slots_to')) {
+            $query->withTrashed()->where('max_number', '<=', $request->number_of_slots_to);
+        }
+
+        $parkingPlaces = $query->get();
+
+        // 検索条件をCookieに保存
+        $response = response()->view('admin.parking.parkings_list', compact('parkingPlaces'));
+        $response->withCookie(cookie('search_conditions', json_encode($request->all()), 60));
+
+        return $response;
+    }
+
+    //     return view('admin.parking.parkings_list', compact('parkingPlaces'));
+    // }
 
     public function store(Request $request)
     {
