@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Parking List')
+@section('title', 'Parking Place List')
 
 @section('content')
     <div class="row align-items-center">
@@ -11,7 +11,7 @@
             @if ($search)
                 {{ $search }}
             @else
-                All parking places
+                Parking Place List
             @endif
         </div>
         <div class="col">
@@ -24,9 +24,11 @@
         </a>
     </div>
 
+    {{-- search bar --}}
     <div class="row search-bar d-flex justify-content-center" style="display: none;">
         <div class="col-10">
-            <form action="#" method="get">
+            <form action="{{route('showParkingList')}}" method="GET">
+                @csrf
                 <div class="card parking-place-search">
                     <div class="card-body">
                         <div class="row">
@@ -85,12 +87,17 @@
                                     </div>
                                     <div class="col-5">
                                         <label
-                                            for="inputStatus"
+                                            for="only_open"
                                             class="h5 form-label fw-bold mt-3 ms-2 mb-0"
                                         >
                                             Only Open
                                         </label><br>
-                                        <input type="checkbox" name="only_open" value="open" class="form-check-input ms-2 mt-2">
+                                        <input
+                                            type="checkbox"
+                                            name="only_open"
+                                            value="open"
+                                            class="form-check-input ms-2 mt-2"
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +124,12 @@
                                     Time
                                 </label>
                                 <div class="input-group">
-                                    <select name="from_hour" id="from_hour" class="form-select rounded-pill" value="{{ old('from_hour') }}">
+                                    <select
+                                        name="from_hour"
+                                        id="from_hour"
+                                        class="form-select rounded-pill"
+                                        value="{{ old('from_hour') }}"
+                                    >
                                         <?php
                                         for ($i = 0; $i < 24; $i++) {
                                             $selected = old('from_hour') == $i ? 'selected' : '';
@@ -130,9 +142,22 @@
                                         ?>
                                     </select>
                                     <span class="text-center fw-bold mx-2 mt-1">:</span>
-                                    <select name="from_minute" id="from_minute" class="form-select rounded-pill" value="{{ old('date') }}">
-                                        <option value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}>00</option>
-                                        <option value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}>30</option>
+                                    <select
+                                        name="from_minute"
+                                        id="from_minute"
+                                        class="form-select rounded-pill"
+                                        value="{{ old('date') }}"
+                                    >
+                                        <option
+                                            value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}
+                                        >
+                                            00
+                                        </option>
+                                        <option
+                                            value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}
+                                        >
+                                            30
+                                        </option>
                                     </select>
                                     <span class="mx-2 mt-1">〜</span>
                                     <select name="to_hour" id="to_hour" class="form-select rounded-pill">
@@ -149,8 +174,16 @@
                                     </select>
                                     <span class="text-center fw-bold mx-2 mt-1">:</span>
                                     <select name="to_minute" id="to_minute" class="form-select rounded-pill">
-                                        <option value="00" {{ old('to_minute') == '00' ? 'selected' : '' }}>00</option>
-                                        <option value="30" {{ old('to_minute') == '30' ? 'selected' : '' }}>30</option>
+                                        <option
+                                            value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}
+                                        >
+                                            00
+                                        </option>
+                                        <option
+                                            value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}
+                                        >
+                                            30
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -168,7 +201,7 @@
                                     </div>
                                     <div class="col-6">
                                         <button
-                                            type="button"
+                                            type="submit"
                                             class="btn btn-red-opposite rounded-pill w-100 fw-bold"
                                         >
                                             Apply Filter
@@ -183,6 +216,7 @@
         </div>
     </div>
 
+    {{-- list body --}}
     <div class="row mt-4 px-3">
         @forelse ($parking_places as $parking_place)
             <div class="col-4">
@@ -190,21 +224,39 @@
                     <div class="col bg-white p-4 shadow m-3 border border-2 border-orange rounded-4">
                         <div class="row ms-0 me-2 d-flex align-items-center">
                             @if ( $parking_place->isReservationPossible() )
-                                <div class="col-2 bg-navy rounded-circle text-white shadow d-flex justify-content-center align-items-center" style="width: 70px; height: 70px;">
+                                <div
+                                    class="col-2 bg-navy rounded-circle text-white shadow
+                                            d-flex justify-content-center align-items-center"
+                                    style="width: 70px; height: 70px;"
+                                >
                                     OPEN
                                 </div>
                             @else
-                                <div class="col-2 bg-red rounded-circle text-white shadow d-flex justify-content-center align-items-center" style="width: 70px; height: 70px;">
+                                <div
+                                    class="col-2 bg-red rounded-circle text-white shadow
+                                            d-flex justify-content-center align-items-center"
+                                    style="width: 70px; height: 70px;"
+                                >
                                     FULL
                                 </div>
                             @endif
 
                             <div class="col ms-1">
                                 <div class="row h4 fw-bold justify-content-center text-center">
-                                    {{ $parking_place->parking_place_name }}
+                                    <a
+                                        href="{{route('showParkingDetail', $parking_place->id)}}"
+                                        class="text-decoration-none"
+                                        style="color: #343A40"
+                                    >
+                                        {{$parking_place->parking_place_name}}
+                                    </a>
                                 </div>
                                 <div class="row h6 justify-content-center">
-                                    {{ $parking_place->street }}
+                                    @if ($search)
+                                        {{ $parking_place->street }}
+                                    @else
+                                        {{ $parking_place->street }}, {{ $parking_place->city }}
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-1 float-end h2">

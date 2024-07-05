@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\ParkingPlace;
 
+use App\Models\ParkingPlace;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -28,10 +29,64 @@ class ParkingPlaceController extends Controller
 
     public function ParkingList(Request $request){
         $search = $request->input('search');
+        $date = $request->input('date');
+        $fromTime = $request->from_hour . ":" . $request->from_minute;
+        $toTime = $request->to_hour . ":" . $request->to_minute;
 
-        $parking_places = $this->parking_places
+        $query = $this->parking_places->query();
+        // $query = ParkingPlace::query();
+        // $query = DB::table('parking_places');
+
+        // $parking_place = ParkingPlace::all();
+
+        if ($request->has('parking_place_name') && $request->parking_place_name) {
+            $query->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
+        }
+
+        if ($request->has('postal_code') && $request->postal_code) {
+            $query->where('postal_code', $request->postal_code);
+        }
+
+        if ($request->has('city') && $request->city) {
+            $query->where('city', 'like', '%' . $request->city . '%');
+        }
+
+        // if ($request->has('only_open') && $request->only_open == 'open') {
+        //     $parking_places = $query->get()->filter(function ($parking_place) {
+        //         return $parking_place->isReservationPossible();
+        //     });
+        // } else {
+        //     $parking_places = $query->get();
+        // }
+
+        // $date = $request->date;
+        // $fromTime = $request->from_hour . ":" . $request->from_minute;
+        // $toTime = $request->to_hour . ":" . $request->to_minute;
+
+        if ($request->has('only_open') && $request->only_open == 'open') {
+            $query = $query->get()->filter(function ($parking_place) use ($date, $fromTime, $toTime) {
+                return $parking_place->isReservationPossible($date, $fromTime, $toTime);
+            });
+        } else {
+            $query = $query->get();
+        }
+
+        $parking_places = $query;
+
+        if ($date && $fromTime && $toTime) {
+            $query->where('date', $date)
+                    ->where('planning_time_from', '<=', $toTime)
+                    ->where('planning_time_to', '>=', $fromTime);
+            ;
+        }
+
+        $filteredIds = $parking_places->pluck('id');
+
+        $parking_places = $this->parking_places->whereIn('id', $filteredIds)
             ->where('city', 'like', '%'.$search.'%')
             ->paginate(9);
+
+        // $parking_places = $query->paginate(9);
 
         $isTodayHoliday = $this->isTodayHoliday();
         $isTodayWeekend = $this->isTodayWeekend();
@@ -79,5 +134,9 @@ class ParkingPlaceController extends Controller
         $isWeekend = ($dayOfWeek == "Sat" || $dayOfWeek == "Sun");
 
         return $isWeekend;
+    }
+
+    public function filters(Request $request){
+
     }
 }

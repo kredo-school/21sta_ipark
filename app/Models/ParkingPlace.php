@@ -54,12 +54,31 @@ class ParkingPlace extends Model
         return $this->hasMany(Reservation::class);
     }
 
-    public function isReservationPossible(){
+    public function isReservationPossible($date = null, $fromTime = null, $toTime = null){
+        // $date = $date ?: today();
+        // $fromTime = $fromTime ?: now()->addHours(9)->format('H:i:s');
+        // $toTime = $toTime ?: now()->addHours(9)->format('H:i:s');
+
+        if (!$date) {
+            $date = today();
+        }
+        if (!$fromTime) {
+            $fromTime = now()->addHours(9)->format('H:i:s');
+        }
+        if (!$toTime) {
+            $toTime = now()->addHours(9)->format('H:i:s');
+        }
+
+        Log::info("Checking reservations for date: {$date}, from: {$fromTime}, to: {$toTime}");
+
+
         $numberOfCurrentReservations
             = $this->reservations()
-                ->where('date', today())
-                ->where('planning_time_from', '<', now()->addHours(9)->format('H:i:s'))
-                ->where('planning_time_to', '>', now()->addHours(9)->format('H:i:s'))
+                ->where('date', $date)
+                ->where(function($query) use ($fromTime, $toTime) {
+                    $query->where('planning_time_from', '<=', $toTime)
+                        ->where('planning_time_to', '>=', $fromTime);
+                    })
                 ->count();
 
         $maxNumber = $this->max_number;
