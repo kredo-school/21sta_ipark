@@ -279,6 +279,7 @@ main{
     color: #343A40;
 }
 
+
 .admin-users-icon{
     color: #ff9900;
 }
@@ -337,8 +338,18 @@ main{
     border-color: #f54b31;
 }
 
-.dlt-user-btn{
-    width: 50%;
+.activate-logo{
+    color: #1AAD17;
+}
+
+.deactivate-logo{
+    color: #f54b31;
+}
+
+.btn-status:hover{
+    color: white;
+    border: 2px solid #1AAD17;
+    background-color: #1AAD17;
 }
 
 .activate-logo{
@@ -412,10 +423,6 @@ main{
     background-color: #003566;
 }
 
-.bg-navy{
-    background-color: #003566;
-}
-
 /* REGISTER NEW PARKING */
 .background-image-newparking {
     background-image: url('/images/parking image_white.jpg');
@@ -477,3 +484,4 @@ main{
 .reservation-History tbody tr:last-child td {
     border-bottom: none;
 }
+

@@ -20,8 +20,7 @@
             </div>
         </div>
 
-        <form action="{{ route('admin.users_list')}}" method="get">
-
+        <form action="{{ route('admin.users_list')}}" method="get"></form>
             <div class="card user-search mt-3">
                 <div class="row justify-content-center">
                     <div class="col-10 mt-3">

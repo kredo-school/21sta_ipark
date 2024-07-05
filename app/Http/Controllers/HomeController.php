@@ -71,6 +71,7 @@ class HomeController extends Controller
             'orderBy' => 'startTime',
             'singleEvents' => 'true'
         ];
+
         $results = [];
         if ($data = file_get_contents($url. http_build_query($query), true)) {
             $data = json_decode($data);
