@@ -472,6 +472,11 @@ main{
     border-color: #f54b31;
 }
 
+/* Update profile */
+.border-red{
+    border-color: #f54b31 !important;
+}
+
 /* Reservation History */
 .reservation-History th,
 .reservation-History tbody td {
@@ -484,4 +489,3 @@ main{
 .reservation-History tbody tr:last-child td {
     border-bottom: none;
 }
-
