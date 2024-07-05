@@ -52,6 +52,7 @@ Route::group(["middleware"=>"auth"], function()
     Route::get('/user_info/{id}/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user_info/{id}/reservation', [ProfileController::class, 'reservation'])->name('reservation');
     Route::get('/user_info/{id}/favorite', [ProfileController::class, 'favorite'])->name('favorite');
+    Route::get('/user_info/{id}/update', [ProfileController::class, 'update'])->name('update_profile');
 
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');

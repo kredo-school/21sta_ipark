@@ -426,3 +426,7 @@ main{
 .parking-place-search select{
     border-color: #f54b31;
 }
+
+.border-red{
+    border-color: #f54b31 !important;
+}
