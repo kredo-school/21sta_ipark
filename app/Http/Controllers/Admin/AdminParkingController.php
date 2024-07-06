@@ -124,5 +124,9 @@ class AdminParkingController extends Controller
         $parkingPlace->save();
 
         return redirect()->route('admin.parking.index')->with('success', 'Parking place registered successfully.');
-}
+    }
+
+    public function updateParking(){
+        return view('admin.parking.update_parking');
+    }
 }

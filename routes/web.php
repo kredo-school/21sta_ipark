@@ -46,7 +46,6 @@ Route::get('/faq',[HomeController::class, 'faq'])->name('faq');
 Route::middleware(['auth', 'admin'])->group(function ()
 {
     Route::get('/admin', [UsersController::class, 'index'])->name('admin.index');
-    Route::get('/admin', [UsersController::class, 'UpdateParking'])->name('admin.update_parking');
 
     // ADMIN(users)
     Route::get('/admin/users', [UsersController::class, 'usersList'])->name('admin.users_list');
@@ -59,6 +58,7 @@ Route::middleware(['auth', 'admin'])->group(function ()
     Route::patch('/admin/parking/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
     Route::get('/admin/register', [AdminParkingController::class, 'index'])->name('admin.parking.index');
     Route::post('/admin/register', [AdminParkingController::class,'store'])->name('admin.parking.store');
+    Route::get('/admin/update', [AdminParkingController::class, 'updateParking'])->name('admin.parking.update_parking');
 });
 
 Route::group(["middleware"=>"auth"], function()
