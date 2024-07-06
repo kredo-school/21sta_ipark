@@ -8,67 +8,27 @@ use App\Models\ParkingPlace;
 
 class AdminParkingController extends Controller
 {
-    public function parkingsList()
+    private $parkingPlace;
+    public function __construct(ParkingPlace $parkingPlace)
     {
-        $parkingPlaces = ParkingPlace::withTrashed()->latest()->paginate(5);
-        return view('admin.parking.parkings_list', compact('parkingPlaces'));
-    }
-
-    public function index()
-    {
-        return view('admin.parking.index');
-    }
-
-    // Deactivate Parking Place
-    public function deactivate(Request $request)
-    {
-        $selectedIds = $request->input('selected');
-        // ParkingPlace::whereIn('id', $selectedIds)->delete();
-
-        if (is_array($selectedIds) && count($selectedIds) > 0) {
-            ParkingPlace::whereIn('id', $selectedIds)->delete();
-        }
-
-        // Cookieから検索条件を取得
-        $searchConditions = json_decode($request->cookie('search_conditions'), true);
-
-        return redirect()->route('admin.parking.search')->withInput($searchConditions);
-
-        // return redirect()->back();
-    }
-
-    // Activate Parking Place
-    public function activate($id)
-    {
-        // ParkingPlace::onlyTrashed()->findOrFail($id)->restore();
-        // return redirect()->back();
-
-        $parkingPlace = ParkingPlace::withTrashed()->findOrFail($id);
-        $parkingPlace->restore();
-
-        $searchConditions = json_decode(request()->cookie('search_conditions'), true);
-
-        return redirect()->route('admin.parking.search')->withInput($searchConditions);
-
+        $this->parkingPlace = $parkingPlace;
     }
 
     // filter search
-    public function search(Request $request)
+    public function parkingsList(Request $request)
     {
         $query = ParkingPlace::query();
-        // setCookie("search","abcd");
-
 
         if ($request->filled('parking_place_name')) {
-            $query->withTrashed()->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
+            $query->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
         }
 
         if ($request->filled('postal_code')) {
-            $query->withTrashed()->where('postal_code', 'like', '%' . $request->postal_code . '%');
+            $query->where('postal_code', 'like', '%' . $request->postal_code . '%');
         }
 
         if ($request->filled('city')) {
-            $query->withTrashed()->where('city', 'like', '%' . $request->city . '%');
+            $query->where('city', 'like', '%' . $request->city . '%');
         }
 
         if ($request->filled('status')) {
@@ -87,17 +47,40 @@ class AdminParkingController extends Controller
             $query->withTrashed()->where('max_number', '<=', $request->number_of_slots_to);
         }
 
-        $parkingPlaces = $query->get();
+        $all_parkings = $query->orderBy('parking_place_name')->withTrashed()->paginate(5);
 
-        // 検索条件をCookieに保存
-        $response = response()->view('admin.parking.parkings_list', compact('parkingPlaces'));
-        $response->withCookie(cookie('search_conditions', json_encode($request->all()), 60));
-
-        return $response;
+        return view('admin.parking.parkings_list', compact('all_parkings'));
     }
 
-    //     return view('admin.parking.parkings_list', compact('parkingPlaces'));
-    // }
+    // Deactivate Parking Place
+    public function deactivate(Request $request)
+    {
+        $selectedIds = $request->input('parking_ids', []);
+
+        ParkingPlace::whereIn('id', $selectedIds)->delete();
+
+        return redirect()->back();
+    }
+
+    // Activate Parking Place
+    public function activate(Request $request)
+    {
+        $selectedIds = $request->input('parking_ids', []);
+
+        foreach($selectedIds as $id){
+            $this->parkingPlace->onlyTrashed()->findOrFail($id)->restore();
+        }
+
+        ParkingPlace::onlyTrashed()->whereIn('id', $selectedIds)->restore();
+
+        return redirect()->back();
+    }
+
+    // Regiter New parking place
+    public function index()
+    {
+        return view('admin.parking.index');
+    }
 
     public function store(Request $request)
     {

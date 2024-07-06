@@ -52,10 +52,10 @@ class UsersController extends Controller
             }
         }
 
-        $all_users = $query->orderBy('username')->withTrashed()->paginate(10); 
+        $all_users = $query->orderBy('username')->withTrashed()->paginate(10);
 
         return view('admin.users.users_list', compact('all_users'));
-       
+
     }
 
     public function deactivate(Request $request)
@@ -68,7 +68,7 @@ class UsersController extends Controller
     public function activate(Request $request)
     {
         $selectedIds = $request->input('user_ids', []);
-        
+
         foreach($selectedIds as $id){
             $this->user->onlyTrashed()->findOrFail($id)->restore();
         }
@@ -78,7 +78,7 @@ class UsersController extends Controller
 
     public function search(Request $request)
     {
-       
+
         $query = $this->user->newQuery();
 
         if($request->filled('username')){
