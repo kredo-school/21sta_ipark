@@ -8,16 +8,75 @@ use App\Models\ParkingPlace;
 
 class AdminParkingController extends Controller
 {
-    // private $parkingPlace;
-    // public function __construct(ParkingPlace $parkingPlace){
-    //     $this->parkingPlace = $parkingPlace;
-    // }
-
-    public function parkingsList()
+    private $parkingPlace;
+    public function __construct(ParkingPlace $parkingPlace)
     {
-        return view('admin.parking.parkings_list');
+        $this->parkingPlace = $parkingPlace;
     }
 
+    // filter search
+    public function parkingsList(Request $request)
+    {
+        $query = ParkingPlace::query();
+
+        if ($request->filled('parking_place_name')) {
+            $query->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
+        }
+
+        if ($request->filled('postal_code')) {
+            $query->where('postal_code', 'like', '%' . $request->postal_code . '%');
+        }
+
+        if ($request->filled('city')) {
+            $query->where('city', 'like', '%' . $request->city . '%');
+        }
+
+        if ($request->filled('status')) {
+            if ($request->status === 'open') {
+                $query->whereNull('deleted_at');
+            } elseif ($request->status === 'closed') {
+                $query->onlyTrashed();
+            }
+        }
+
+        if ($request->filled('number_of_slots_from')) {
+            $query->withTrashed()->where('max_number', '>=', $request->number_of_slots_from);
+        }
+
+        if ($request->filled('number_of_slots_to')) {
+            $query->withTrashed()->where('max_number', '<=', $request->number_of_slots_to);
+        }
+
+        $all_parkings = $query->orderBy('parking_place_name')->withTrashed()->paginate(5);
+
+        return view('admin.parking.parkings_list', compact('all_parkings'));
+    }
+
+    // Deactivate Parking Place
+    public function deactivate(Request $request)
+    {
+        $selectedIds = $request->input('parking_ids', []);
+
+        ParkingPlace::whereIn('id', $selectedIds)->delete();
+
+        return redirect()->back();
+    }
+
+    // Activate Parking Place
+    public function activate(Request $request)
+    {
+        $selectedIds = $request->input('parking_ids', []);
+
+        foreach($selectedIds as $id){
+            $this->parkingPlace->onlyTrashed()->findOrFail($id)->restore();
+        }
+
+        ParkingPlace::onlyTrashed()->whereIn('id', $selectedIds)->restore();
+
+        return redirect()->back();
+    }
+
+    // Regiter New parking place
     public function index()
     {
         return view('admin.parking.index');

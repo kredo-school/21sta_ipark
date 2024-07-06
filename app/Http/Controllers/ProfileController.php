@@ -139,4 +139,10 @@ class ProfileController extends Controller
 
         return $isWeekend;
     }
+
+    public function update($id){
+        $user = $this->user->findOrFail($id);
+
+        return view('user_info.update_profile')->with('user', $user);
+    }
 }

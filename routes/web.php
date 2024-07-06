@@ -6,12 +6,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParkingPlaceController;
 use App\Http\Controllers\FavoriteController;
-
-# Admin Users
-use App\Http\Controllers\Admin\AdminParkingController;
-use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\PaymentController;
+
+# Admin
+use App\Http\Controllers\Admin\AdminParkingController;
+use App\Http\Controllers\Admin\UsersController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,6 +45,8 @@ Route::middleware(['auth', 'admin'])->group(function ()
 
     // ADMIN(parking)
     Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
+    Route::delete('/admin/parking/deactivate', [AdminParkingController::class, 'deactivate'])->name('admin.parking.deactivate');
+    Route::patch('/admin/parking/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
     Route::get('/admin/register', [AdminParkingController::class, 'index'])->name('admin.parking.index');
     Route::post('/admin/register', [AdminParkingController::class,'store'])->name('admin.parking.store');
 });
@@ -55,6 +57,7 @@ Route::group(["middleware"=>"auth"], function()
     Route::get('/user_info/{id}/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user_info/{id}/reservation', [ProfileController::class, 'reservation'])->name('reservation');
     Route::get('/user_info/{id}/favorite', [ProfileController::class, 'favorite'])->name('favorite');
+    Route::get('/user_info/{id}/update', [ProfileController::class, 'update'])->name('update_profile');
 
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
@@ -67,11 +70,12 @@ Route::group(["middleware"=>"auth"], function()
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
     Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
 
-    //Payment
+    // Payment
     Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');
     Route::get('/payment', [ReservationsController::class, 'payment'])->name('reservation.payment');
     Route::post('/pay/process', [PaymentController::class, 'process'])->name('payment.process');
     Route::get('/pay/success', [PaymentController::class, 'success'])->name('payment.success');
 
 });
+
 

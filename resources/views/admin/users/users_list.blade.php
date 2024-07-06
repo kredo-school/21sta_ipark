@@ -21,7 +21,6 @@
         </div>
 
         <form action="{{ route('admin.users_list')}}" method="get">
-
             <div class="card user-search mt-3">
                 <div class="row justify-content-center">
                     <div class="col-10 mt-3">
@@ -84,7 +83,7 @@
                                 <i class="fa-solid fa-trash-can"></i> Delete
                             </button>
                     </form>
-                
+                    
                     <form id="user-list-form-restore" action="{{ route('admin.users.activate')}}" method="post">
                         @csrf
                         @method('PATCH')
@@ -155,8 +154,8 @@
         <div class="d-flex justify-content-center mt-5 userList-pagination">
             {{ $all_users->links('pagination::bootstrap-4') }}
         </div>
-        
-      
+
+
     </div>
 
 @endsection
