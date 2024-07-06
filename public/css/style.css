@@ -206,6 +206,50 @@ main{
 .table-aboutus-img{
     width: 80%;
     text-align: center;
+}
+
+/* FAQ */
+.faq-section {
+    width: 90%;
+    margin: 20px auto;
+    background-color: white;
+    border: 1px solid #ff9900;
+    border-bottom: none;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.faq-category h3 {
+    background-color: #ff9900;
+    color: white;
+    padding: 10px;
+    margin: 0;
+}
+
+.faq-item{
+    border-bottom: solid 1px #ff9900;
+}
+
+.faq-item .question {
+    font-weight: bold;
+    padding: 10px 10px 0px 10px;
+    margin: 0;
+}
+
+.faq-item .answer {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.faq-q{
+    color: #F54B31;
+}
+
+.faq-a{
+    color: #395470;
+    font-weight: bold;
+}
 
 /* MODAL FOR REGISTRATION */
 .custom-modal .modal-dialog {
