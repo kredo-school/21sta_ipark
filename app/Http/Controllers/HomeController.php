@@ -56,6 +56,10 @@ class HomeController extends Controller
         return view('auth.login_to_favorite');
     }
 
+    public function aboutUs(){
+        return view('about_us');
+    }
+
     public function holiday(){
         $api_key = env('GOOGLE_API_KEY');
         $calendar_id = urlencode('japanese__ja@holiday.calendar.google.com');
