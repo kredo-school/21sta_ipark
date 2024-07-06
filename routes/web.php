@@ -12,6 +12,10 @@ use App\Http\Controllers\PaymentController;
 # Admin
 use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ReservationsController;
+use App\Http\Controllers\PaymentController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +35,9 @@ Route::get('/parking_list', [ParkingPlaceController::class, 'ParkingList'])->nam
 // Favorites
 Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
 Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+
+// ABOUT US
+Route::get('/aboutus', [HomeController::class, 'aboutUs'])->name('aboutUs');
 
 #### Admin Route for Administrator ####
 Route::middleware(['auth', 'admin'])->group(function ()
