@@ -98,12 +98,19 @@
                     <div class="col-3">
                         <a class="navbar-brand ms-5" href="{{ route('home') }}">
                             {{-- Logo imege and link of home --}}
-                            <img src="{{ asset('images/logo.png') }}" alt="iPark" style="height: 50px;">
+                            <img
+                                src="{{ asset('images/logo.png') }}"
+                                alt="iPark"
+                                style="height: 50px;"
+                            >
                         </a>
                     </div>
                     {{-- Serch-bar --}}
                     <div class="col-6 justify-content-center d-flex align-items-center">
-                        <form action="{{route('showParkingList')}}" method="get">
+                        <form
+                            action="{{route('showParkingList')}}"
+                            method="get"
+                        >
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text rounded-pill rounded-end">
                                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -130,17 +137,31 @@
                                 @guest
                                     @if (Route::has('login'))
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                            <a
+                                                class="nav-link"
+                                                href="{{ route('login') }}"
+                                            >
+                                                {{ __('Login') }}
+                                            </a>
                                         </li>
                                     @endif
 
                                     @if (Route::has('register'))
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                            <a
+                                                class="nav-link"
+                                                href="{{ route('register') }}"
+                                            >
+                                                {{ __('Register') }}
+                                            </a>
                                         </li>
                                         <li class="nav-item">
                                             {{-- Add Bars icon for sidebar --}}
-                                            <label for="sidebarToggle" class="btn custom_btn ms-2 me-5" style="width: 50px;">
+                                            <label
+                                                for="sidebarToggle"
+                                                class="btn custom_btn ms-2 me-5"
+                                                style="width: 50px;"
+                                            >
                                                 <i class="fa fa-bars fa-2x"></i>
                                             </label>
                                         </li>
@@ -165,37 +186,53 @@
                                             @auth
                                                 @if (Auth::user()->role_id == 1 || request()->is('admin/*'))
                                                 {{-- Admin Controls --}}
-                                                <a href="#" class="dropdown-item">
+                                                <a href="{{route('admin.parking.parkings_list')}}" class="dropdown-item">
                                                     Admin
                                                 </a>
                                                 <hr class="horizontal-divider">
                                                 {{-- Logout Button/Link --}}
-                                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                                >
                                                 {{ __('Logout') }}
                                                 </a>
                                                 @else
                                                 {{-- Profile Button/Link --}}
-                                                <a href="#" class="dropdown-item">
+                                                <a
+                                                    href="{{ route('profile', ['id' => auth()->user()->id]) }}"
+                                                    class="dropdown-item"
+                                                >
                                                     Profile
                                                 </a>
                                                 <hr class="horizontal-divider">
                                                 {{-- Logout Button/Link --}}
-                                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                                    document.getElementById('logout-form').submit();">
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                                >
                                                     {{ __('Logout') }}
                                                 </a>
 
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                <form
+                                                    id="logout-form"
+                                                    action="{{ route('logout') }}"
+                                                    method="POST"
+                                                    class="d-none"
+                                                >
                                                     @csrf
                                                 </form>
                                                 @endif
                                             @endauth
                                             <li class="nav-item">
                                                 {{-- Add Bars icon for sidebar --}}
-                                                <label for="sidebarToggle" class="btn custom_btn ms-2 me-5" style="width: 50px;">
+                                                <label
+                                                    for="sidebarToggle"
+                                                    class="btn custom_btn ms-2 me-5"
+                                                    style="width: 50px;"
+                                                >
                                                     <i class="fa fa-bars fa-2x"></i>
                                                 </label>
                                             </li>
@@ -213,56 +250,116 @@
         <div  id="sidebar" class="sidebar d-flex bg_navy p-3 vh-100 ">
             @guest
                 {{-- Guest Sidebar --}}
-                <a href="{{ route('home') }}" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
+                <a
+                    href="{{ route('home') }}"
+                    class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-home me-3 fa-2x"></i> Home
                 </a>
-                <a href="{{ route('showParkingList') }}" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a
+                    href="{{ route('showParkingList') }}"
+                    class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-car me-3 fa-2x"></i> Parking list
                 </a>
-                <a href="{{route('login')}}" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a
+                    href="{{route('login')}}"
+                    class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-sign-in-alt me-3 fa-2x"></i> Login
                 </a>
-                <a href="{{route('register')}}" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a
+                    href="{{route('register')}}"
+                    class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-registered me-3 fa-2x"></i> Register
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a
+                    href="#"
+                    class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                <a
+                    href="{{route('aboutUs')}}"
+                    class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
             @else
                 {{-- Registered User Sidebar --}}
-                <a href="{{ route('home') }}" class="d-flex align-items-center ms-3 mb-2 mt-3 text-decoration-none fw-bold">
+                <a
+                    href="{{ route('home') }}"
+                    class="d-flex align-items-center ms-3 mb-2 mt-3 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-home me-3 fa-2x"></i> Home
                 </a>
-                <a href="{{ route('showParkingList') }}" class="d-flex align-items-center ms-3 mb-2 text-decoration-none fw-bold">
+                <a
+                    href="{{ route('showParkingList') }}"
+                    class="d-flex align-items-center ms-3 mb-2 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-car me-3 fa-2x"></i> Parking list
                 </a>
-                <a href="#" class="d-flex align-items-center text-decoration-none fw-bold ms-3">
+                <a
+                    href="{{route('profile', ['id' => auth()->user()->id])}}"
+                    class="d-flex align-items-center text-decoration-none fw-bold ms-3"
+                >
                     <i class="fa fa-user me-3 fa-2x"></i> User Information
                 </a>
                 <div class="ms-3 mb-2">
                     <div class="ps-3 white_line">
-                        <a href="#" class="d-flex align-items-center text-decoration-none">Profile</a>
-                        <a href="#" class="d-flex align-items-center text-decoration-none">Favorite</a>
-                        <a href="#" class="d-flex align-items-center text-decoration-none">Reservation History</a>
+                        <a
+                            href="{{route('profile', ['id' => auth()->user()->id])}}"
+                            class="d-flex align-items-center text-decoration-none"
+                        >
+                            Profile
+                        </a>
+                        <a
+                            href="{{route('favorite', ['id' => auth()->user()->id])}}"
+                            class="d-flex align-items-center text-decoration-none"
+                        >
+                            Favorite
+                        </a>
+                        <a
+                            href="{{route('reservation', ['id' => auth()->user()->id])}}"
+                            class="d-flex align-items-center text-decoration-none"
+                        >
+                            Reservation History
+                        </a>
                     </div>
                 </div>
                 {{-- Admin Controls --}}
                 @if (Auth::user()->isAdmin())
-                <div class="sidebar-section admin">
-                    <a href="#" class="d-flex align-items-center text-decoration-none fw-bold ms-3">
-                        <i class="fa fa-user-cog me-3 fa-2x"></i> Admin
-                    </a>
-                    <div class="ms-3 mb-2">
-                        <div class="ps-3 white_line">
-                            <a href="#" class="d-flex align-items-center text-decoration-none text-white">User List</a>
-                            <a href="#" class="d-flex align-items-center text-decoration-none text-white">Parking places list</a>
-                            <a href="#" class="d-flex align-items-center text-decoration-none text-white">Register new parking</a>
+                    <div class="sidebar-section admin">
+                        <a
+                            href="{{route('admin.parking.parkings_list')}}"
+                            class="d-flex align-items-center text-decoration-none fw-bold ms-3"
+                        >
+                            <i class="fa fa-user-cog me-3 fa-2x"></i> Admin
+                        </a>
+                        <div class="ms-3 mb-2">
+                            <div class="ps-3 white_line">
+                                <a
+                                    href="{{route('admin.users_list')}}"
+                                    class="d-flex align-items-center text-decoration-none text-white"
+                                >
+                                    User List
+                                </a>
+                                <a
+                                    href="{{route('admin.parking.parkings_list')}}"
+                                    class="d-flex align-items-center text-decoration-none text-white"
+                                >
+                                    Parking places list
+                                </a>
+                                <a
+                                    href="{{route('admin.parking.index')}}"
+                                    class="d-flex align-items-center text-decoration-none text-white"
+                                >
+                                    Register new parking
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endif
                 <a
                     href="{{ route('logout') }}"
@@ -271,62 +368,118 @@
                 >
                     <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
                 </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                <form
+                    id="logout-form"
+                    action="{{ route('logout') }}"
+                    method="POST"
+                    class="d-none"
+                >
                     @csrf
                 </form>
-                <a href="#" class="d-flex align-items-center ms-3 mb-2 text-decoration-none fw-bold">
+                <a
+                    href="#"
+                    class="d-flex align-items-center ms-3 mb-2 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
                 </a>
-                <a href="#" class="d-flex align-items-center ms-3 text-decoration-none fw-bold">
+                <a
+                    href="{{route('aboutUs')}}"
+                    class="d-flex align-items-center ms-3 text-decoration-none fw-bold"
+                >
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
 
                 @can('admin')
                     <!-- Admin Sidebar -->
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold">
+                    <a
+                        href="{{ route('home') }}"
+                        class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold"
+                    >
                     <i class="fa fa-home me-3 fa-2x"></i> Home
                     </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                    <a
+                        href="{{route('showParkingList')}}"
+                        class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                    >
                         <i class="fa fa-car me-3 fa-2x"></i> Parking list
                     </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-1 text-decoration-none fw-bold">
+                    <a
+                        href="{{route('profile', ['id' => auth()->user()->id])}}"
+                        class="d-flex align-items-center ms-3 mb-1 text-decoration-none fw-bold"
+                    >
                         <i class="fa fa-user me-3 fa-2x"></i> User Information
                     </a>
                     <div class="ms-3">
                         <div class="ps-3 white_line">
-                            <a href="#" class="d-flex align-items-center text-decoration-none">Profile</a>
-                            <a href="#" class="d-flex align-items-center text-decoration-none">Favorite</a>
-                            <a href="#" class="d-flex align-items-center text-decoration-none">Reservation History</a>
+                            <a
+                                href="{{route('profile', ['id' => auth()->user()->id])}}"
+                                class="d-flex align-items-center text-decoration-none"
+                            >
+                                Profile
+                            </a>
+                            <a
+                                href="{{route('favorite', ['id' => auth()->user()->id])}}"
+                                class="d-flex align-items-center text-decoration-none"
+                            >
+                                Favorite
+                            </a>
+                            <a
+                                href="{{route('reservation', ['id' => auth()->user()->id])}}"
+                                class="d-flex align-items-center text-decoration-none"
+                            >
+                                Reservation History
+                            </a>
                         </div>
                     </div>
                     <div class="sidebar-section admin mt-3">
-                        <a href="#" class="d-flex align-items-centere text-decoration-none fw-bold ms-3 text-white">
+                        <a
+                            href="{{route('admin.parking.parkings_list')}}"
+                            class="d-flex align-items-centere text-decoration-none fw-bold ms-3 text-white"
+                        >
                             <i class="fa fa-user-cog me-3 fa-2x"></i> Admin
                         </a>
                         <div class="ms-3">
                             <div class="ps-4 white_line">
-                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">User List</a>
-                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">Parking places list</a>
-                                <a href="#" class="d-flex align-items-center text-decoration-none text-white">Register new parking</a>
+                                <a
+                                    href="{{route('admin.users_list')}}"
+                                    class="d-flex align-items-center text-decoration-none text-white"
+                                >
+                                    User List
+                                </a>
+                                <a
+                                    href="{{route('admin.parking.parkings_list')}}"
+                                    class="d-flex align-items-center text-decoration-none text-white"
+                                >
+                                    Parking places list
+                                </a>
+                                <a
+                                    href="{{route('admin.parking.index')}}"
+                                    class="d-flex align-items-center text-decoration-none text-white"
+                                >
+                                    Register new parking
+                                </a>
                         </div>
                     </div>
-                    <a href="{{ route('logout') }}" class="d-flex align-items-center mt-3 mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a
+                        href="{{ route('logout') }}"
+                        class="d-flex align-items-center mt-3 mb-3 ms-3 text-white text-decoration-none fw-bold"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    >
                     <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
                     </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                    <a
+                        href="#"
+                        class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                    >
                     <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
                     </a>
-                    <a href="#" class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold">
+                    <a
+                        href="{{ route('aboutUs') }}"
+                        class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
+                    >
                         <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                     </a>
-
                 @endcan
-                    <a href="{{ route('logout') }}" class="d-flex align-items-center mb-3 ms-3 text-white text-decoration-none fw-bold" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
             @endguest
         </div>
         <main class="py-4">
@@ -341,20 +494,42 @@
             <div class="container-fluid py-4">
                 <div class="row">
                     <div class="col-md-4">
-                        <a class="navbar-brand ms-5" href="{{ route('home') }}">
-                            <img src="{{ asset('images/logo.png') }}" alt="iPark Logo" style="height: 50px;">
+                        <a
+                            class="navbar-brand ms-5"
+                            href="{{ route('home') }}"
+                        >
+                            <img
+                                src="{{ asset('images/logo.png') }}"
+                                alt="iPark Logo"
+                                style="height: 50px;"
+                            >
                         </a>
                     </div>
                     <div class="col-md-8 d-flex justify-content-end align-items-center">
                         <ul class="nav">
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('home') }}">Home</a>
+                                <a
+                                    class="nav-link text-white"
+                                    href="{{ route('home') }}"
+                                >
+                                    Home
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white mx-5" href="#">FAQ</a>
+                                <a
+                                    class="nav-link text-white mx-5"
+                                    href="#"
+                                >
+                                    FAQ
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white me-5" href="#">About Us</a>
+                                <a
+                                    class="nav-link text-white me-5"
+                                    href="{{ route('aboutUs')}}"
+                                >
+                                    About Us
+                                </a>
                             </li>
                         </ul>
                     </div>
