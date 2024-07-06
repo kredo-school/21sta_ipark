@@ -10,6 +10,7 @@ use App\Http\Controllers\FavoriteController;
 # Admin Users
 use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\PaymentController;
 
@@ -31,6 +32,9 @@ Route::get('/parking_list', [ParkingPlaceController::class, 'ParkingList'])->nam
 // Favorites
 Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
 Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+
+// ABOUT US
+Route::get('/aboutus', [HomeController::class, 'aboutUs'])->name('aboutUs');
 
 #### Admin Route for Administrator ####
 Route::middleware(['auth', 'admin'])->group(function ()
@@ -63,6 +67,7 @@ Route::group(["middleware"=>"auth"], function()
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
+
 
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');

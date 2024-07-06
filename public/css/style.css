@@ -167,6 +167,46 @@ main{
     color: #FF9900;
 }
 
+/* ABOUT US */
+.card-aboutus{
+    background-color: white;
+    border: solid 0.5px #395470;
+    width: 50%;
+    border-radius: 20px;
+}
+
+.overview_aboutus{
+    color: #395470;
+}
+
+.custom-hr-a{
+    color: #395470;
+    width: 50%;
+    margin: auto;
+}
+
+.aboutus-table{
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.aboutus-table td {
+    border: none; 
+    padding: 8px; 
+    text-align: left; 
+    width: 150px; 
+}
+
+.img-aboutus{
+    width: 150px; 
+    height: 150px;
+}
+
+.table-aboutus-img{
+    width: 80%;
+    text-align: center;
+}
+
 /* USER INFORMATION */
 .row-info{
     text-align: center;
