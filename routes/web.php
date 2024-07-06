@@ -8,13 +8,13 @@ use App\Http\Controllers\ParkingPlaceController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Auth\RegisterController;
 
 # Admin
 use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ReservationsController;
-use App\Http\Controllers\PaymentController;
+
+
 
 
 Route::get('/', function () {
@@ -38,6 +38,9 @@ Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])-
 
 // ABOUT US
 Route::get('/aboutus', [HomeController::class, 'aboutUs'])->name('aboutUs');
+
+// FAQ
+Route::get('/faq',[HomeController::class, 'faq'])->name('faq');
 
 #### Admin Route for Administrator ####
 Route::middleware(['auth', 'admin'])->group(function ()
@@ -70,8 +73,6 @@ Route::group(["middleware"=>"auth"], function()
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
 
-    // Reservation History
-    Route::get('/reservation/{id}/cancel', [ReservationsController::class, 'cancel'])->name('reservation.cancel');
 
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
