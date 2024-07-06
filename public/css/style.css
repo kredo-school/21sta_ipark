@@ -167,6 +167,75 @@ main{
     color: #FF9900;
 }
 
+/* MODAL FOR REGISTRATION */
+.custom-modal .modal-dialog {
+    max-width: 800px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-height: calc(100vh - 1rem); Ensure the modal covers the full viewport height */
+    min-height: 90vh;
+    max-height: calc(100vh - 3rem); /* Ensure the modal content fits within the viewport */
+    overflow: hidden; /* Prevent the modal content from causing a scrollbar */
+}
+
+.custom-modal .modal-content {
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    /* this is where the border is */
+    border-style: solid;
+    border-color: #4CAF50;
+    border-width: 2px;
+}
+
+.custom-modal .modal-header {
+    border-bottom: none;
+    text-align: center;
+}
+
+.custom-modal .modal-header h5 {
+    font-size: 24px;
+    color: #4CAF50; /* Green color for success */
+}
+
+.custom-modal .modal-body {
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 40px;
+}
+
+.custom-modal .modal-body i {
+    font-size: 50px;
+    color: #4CAF50; /* Green color for check icon */
+}
+
+.custom-modal .modal-footer {
+    border-top: none;
+    justify-content: center;
+}
+
+.custom-modal .btn {
+    background-color: #4CAF50; /* Green color for button */
+    color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+.custom-modal .btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.custom-modal .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+}
+
 /* USER INFORMATION */
 .row-info{
     text-align: center;

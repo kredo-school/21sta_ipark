@@ -84,11 +84,27 @@ class RegisterController extends Controller
         $user->phone = $request->input('phone');
 
         if($request->has('car_type')){
-            $user->email = $request->input('car_type');
+            $user->car_type = $request->input('car_type');
         }
 
         $user->save();
 
-        return redirect()->route('register')->with('register_success', true);
+        return response()->json(['success' => true]);
+        // return redirect()->route('register')->with('register_success', true);
+    }
+
+    public function register(Request $request)
+    {
+        $validator = $this->validator($request->all());
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        $user = $this->create($request->all());
+    
+        $this->guard()->login($user);
+    
+        return response()->json(['message' => 'Registration successful'], 201);
     }
 }
