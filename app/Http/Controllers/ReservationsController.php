@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\DB;
 class ReservationsController extends Controller
 {
     private $parkingPlace;
+    private $reservation;
 
-    public function __construct(ParkingPlace $parkingPlace)
+    public function __construct(ParkingPlace $parkingPlace, Reservation $reservation)
     {
         $this->parkingPlace = $parkingPlace;
+        $this->reservation = $reservation;
     }
 
     public function index()
@@ -96,7 +98,7 @@ class ReservationsController extends Controller
         }
     }
 
-    private function calculateAmount($from_time,$to_time,$isWeekend,$parking_no)
+    public function calculateAmount($from_time,$to_time,$isWeekend,$parking_no)
     {
 
         // depend on weekend or weekdays
@@ -272,9 +274,11 @@ class ReservationsController extends Controller
 
     }
 
-    public function destroy($id)
+    public function cancel($id)
     {
-        // ユーザーを削除するロジックなどを追加
-    }
+        $reservation = Reservation::findOrFail($id);
+        $reservation->delete();
 
+        return redirect()->back();
+    }
 }

@@ -84,4 +84,8 @@ class ParkingPlace extends Model
         'maximum_amount',
         'penalty_amount',
     ];
+
+    public function reservation(){
+        return $this->hasMany(Reservation::class);
+    }
 }
