@@ -593,8 +593,3 @@ main{
     border-bottom: 2px solid #D9D9D9;
     text-align: center;
 }
-
-.reservation-History tbody tr:last-child th,
-.reservation-History tbody tr:last-child td {
-    border-bottom: none;
-}

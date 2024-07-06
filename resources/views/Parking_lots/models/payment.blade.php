@@ -18,7 +18,7 @@
                                 You can check it from Reservation History.
                             </div>
                             <div class="bottom text-center justify-content-center">
-                                <a href="{{ route('home') }}" class="btn rounded-pill fw-bold px-4 btn-green fs-5 btn-sm mt-3">Go to History Page</a>
+                                <a href="{{ route('reservation',auth()->id()) }}" class="btn rounded-pill fw-bold px-4 btn-green fs-5 btn-sm mt-3">Go to History Page</a>
                             </div>
                         </div>
                     </div>
