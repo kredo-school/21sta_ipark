@@ -70,7 +70,7 @@
         <span class="underline ms-1">&nbsp;Rec</span>ommendation
     </div>
     <div class="row mt-4">
-        @foreach ($recommendation->take(3) as $parking_place)
+        @foreach ($recommendation as $parking_place)
             <div class="col-4">
                 <div class="row">
                     <div class="col bg-white p-4 shadow m-3">

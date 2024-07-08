@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function __construct(ParkingPlace $parking_places)
     {
         // $this->middleware('auth');
-        
+
         $this->parking_places = $parking_places;
     }
 
@@ -34,7 +34,7 @@ class HomeController extends Controller
         $recommendation = $this->parking_places->get()->map(function ($parking_place) {
             $parking_place->average_star = $parking_place->reviews->avg('star');
             return $parking_place;
-        });
+        })->sortByDesc('average_star')->take(3);
 
         $isTodayHoliday = $this->isTodayHoliday();
         $isTodayWeekend = $this->isTodayWeekend();
