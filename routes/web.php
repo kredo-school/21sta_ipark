@@ -14,9 +14,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
 
-
-
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -67,7 +64,10 @@ Route::group(["middleware"=>"auth"], function()
     Route::get('/user_info/{id}/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user_info/{id}/reservation', [ProfileController::class, 'reservation'])->name('reservation');
     Route::get('/user_info/{id}/favorite', [ProfileController::class, 'favorite'])->name('favorite');
-    Route::get('/user_info/{id}/update', [ProfileController::class, 'update'])->name('update_profile');
+    Route::get('/user_info/{id}/edit', [ProfileController::class, 'edit'])->name('edit_profile');
+    Route::patch('/user_info/{id}/updateProfile', [ProfileController::class, 'updateProfile'])->name('update_profile');
+    Route::patch('/user_info/{id}/updatePassword', [ProfileController::class, 'updatePassword'])->name('update_password');
+    Route::delete('/user_info/{id}/delete', [ProfileController::class, 'delete'])->name('delete_profile');
 
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
