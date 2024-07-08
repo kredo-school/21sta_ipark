@@ -6,10 +6,10 @@ use App\Models\ParkingPlace;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ParkingPlaceController extends Controller
 {
-    //
     private $parking_places;
 
     public function __construct(ParkingPlace $parking_places){
@@ -27,73 +27,65 @@ class ParkingPlaceController extends Controller
                 ->with('average_star', $average_star);
     }
 
-    public function ParkingList(Request $request){
-        $search = $request->input('search');
-        $date = $request->input('date');
-        $fromTime = $request->from_hour . ":" . $request->from_minute;
-        $toTime = $request->to_hour . ":" . $request->to_minute;
+    public function ParkingList(Request $request)
+{
+    $search = $request->input('search');
+    $isTodayHoliday = $this->isTodayHoliday();
+    $isTodayWeekend = $this->isTodayWeekend();
 
-        $query = $this->parking_places->query();
-        // $query = ParkingPlace::query();
-        // $query = DB::table('parking_places');
+    $query = ParkingPlace::query();
 
-        // $parking_place = ParkingPlace::all();
-
-        if ($request->has('parking_place_name') && $request->parking_place_name) {
-            $query->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
-        }
-
-        if ($request->has('postal_code') && $request->postal_code) {
-            $query->where('postal_code', $request->postal_code);
-        }
-
-        if ($request->has('city') && $request->city) {
-            $query->where('city', 'like', '%' . $request->city . '%');
-        }
-
-        // if ($request->has('only_open') && $request->only_open == 'open') {
-        //     $parking_places = $query->get()->filter(function ($parking_place) {
-        //         return $parking_place->isReservationPossible();
-        //     });
-        // } else {
-        //     $parking_places = $query->get();
-        // }
-
-        // $date = $request->date;
-        // $fromTime = $request->from_hour . ":" . $request->from_minute;
-        // $toTime = $request->to_hour . ":" . $request->to_minute;
-
-        if ($request->has('only_open') && $request->only_open == 'open') {
-            $query = $query->get()->filter(function ($parking_place) use ($date, $fromTime, $toTime) {
-                return $parking_place->isReservationPossible($date, $fromTime, $toTime);
-            });
-        } else {
-            $query = $query->get();
-        }
-
-        $parking_places = $query;
-
-        if ($date && $fromTime && $toTime) {
-            $query->where('date', $date)
-                    ->where('planning_time_from', '<=', $toTime)
-                    ->where('planning_time_to', '>=', $fromTime);
-            ;
-        }
-
-        $filteredIds = $parking_places->pluck('id');
-
-        $parking_places = $this->parking_places->whereIn('id', $filteredIds)
-            ->where('city', 'like', '%'.$search.'%')
-            ->paginate(9);
-
-        // $parking_places = $query->paginate(9);
-
-        $isTodayHoliday = $this->isTodayHoliday();
-        $isTodayWeekend = $this->isTodayWeekend();
-
-        return view('parking_lots.parking_list',
-                compact('parking_places', 'search', 'isTodayHoliday', 'isTodayWeekend'));
+    // Filter by parking place name
+    if ($request->has('parking_place_name') && $request->parking_place_name) {
+        $query->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
     }
+
+    // Filter by postal code
+    if ($request->has('postal_code') && $request->postal_code) {
+        $query->where('postal_code', $request->postal_code);
+    }
+
+    // Filter by city
+    if ($request->has('city') && $request->city) {
+        $query->where('city', 'like', '%' . $request->city . '%');
+    }
+
+    // Filter by open availability (only_open)
+    if ($request->has('only_open') && $request->only_open == 'open') {
+        $query->where(function ($query) {
+            $query->whereDoesntHave('reservations', function ($query) {
+                $query->whereDate('date', today());
+            });
+        });
+    }
+
+    // Filter by date
+    if ($request->has('date')) {
+        $inputDate = trim($request->date);
+        Log::info("Input Date: {$inputDate}");
+
+        try {
+            $selectedDate = Carbon::createFromFormat('Y-m-d', $inputDate)->format('Y-m-d');
+            Log::info("Selected Date: {$selectedDate}");
+
+            // Modify the query to filter by selected date
+            $query->where(function ($query) use ($selectedDate) {
+                $query->whereDoesntHave('reservations', function ($query) use ($selectedDate) {
+                    $query->whereDate('date', $selectedDate);
+                });
+            });
+
+        } catch (\Exception $e) {
+            Log::error("Error parsing date: {$inputDate}. Error: {$e->getMessage()}");
+        }
+
+    }
+
+    // Paginate the results
+    $parking_places = $query->paginate(9);
+
+    return view('parking_lots.parking_list', compact('parking_places', 'search', 'isTodayHoliday', 'isTodayWeekend'));
+}
 
     public function holiday(){
         $api_key = env('GOOGLE_API_KEY');
