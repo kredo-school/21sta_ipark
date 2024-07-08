@@ -20,7 +20,7 @@ class HomeController extends Controller
     public function __construct(ParkingPlace $parking_places)
     {
         // $this->middleware('auth');
-
+        
         $this->parking_places = $parking_places;
     }
 
@@ -58,6 +58,10 @@ class HomeController extends Controller
 
     public function aboutUs(){
         return view('about_us');
+    }
+
+    public function faq(){
+        return view('faq');
     }
 
     public function holiday(){

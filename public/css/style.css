@@ -192,20 +192,63 @@ main{
 }
 
 .aboutus-table td {
-    border: none; 
-    padding: 8px; 
-    text-align: left; 
-    width: 150px; 
+    border: none;
+    padding: 8px;
+    text-align: left;
+    width: 150px;
 }
 
 .img-aboutus{
-    width: 150px; 
+    width: 150px;
     height: 150px;
 }
 
 .table-aboutus-img{
     width: 80%;
     text-align: center;
+}
+
+/* FAQ */
+.faq-section {
+    width: 90%;
+    margin: 20px auto;
+    background-color: white;
+    border: 1px solid #ff9900;
+    border-bottom: none;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.faq-category h3 {
+    background-color: #ff9900;
+    color: white;
+    padding: 10px;
+    margin: 0;
+}
+
+.faq-item{
+    border-bottom: solid 1px #ff9900;
+}
+
+.faq-item .question {
+    font-weight: bold;
+    padding: 10px 10px 0px 10px;
+    margin: 0;
+}
+
+.faq-item .answer {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.faq-q{
+    color: #F54B31;
+}
+
+.faq-a{
+    color: #395470;
+    font-weight: bold;
 }
 
 /* MODAL FOR REGISTRATION */
@@ -249,7 +292,7 @@ main{
 }
 
 .custom-modal .modal-body i {
-    font-size: 50px;
+    font-size: 70px;
     color: #4CAF50; /* Green color for check icon */
 }
 
@@ -593,4 +636,61 @@ main{
     padding: 15px;
     border-bottom: 2px solid #D9D9D9;
     text-align: center;
+}
+
+/* Modal for delete account */
+.modal-deleteAccount .modal-dialog {
+    max-width: 800px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    max-height: calc(100vh - 3rem);
+    overflow: hidden;
+}
+
+.modal-deleteAccount .modal-content {
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-style: solid;
+    border-color: #f54b31;
+    border-width: 2px;
+}
+
+.modal-deleteAccount .modal-header {
+    border-bottom: none;
+    text-align: center;
+}
+
+.modal-deleteAccount .modal-header h5 {
+    font-size: 24px;
+    color: #f54b31;
+}
+
+.modal-deleteAccount .modal-body {
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 40px;
+}
+
+.modal-deleteAccount .modal-body i {
+    font-size: 70px;
+    color: #f54b31;
+}
+
+.modal-deleteAccount .modal-footer {
+    border-top: none;
+    justify-content: center;
+}
+
+.modal-deleteAccount .btn-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    color: #343A40;
 }
