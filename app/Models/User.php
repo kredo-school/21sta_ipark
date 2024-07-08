@@ -6,10 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
+
+    const ADMIN_ROLE_ID = 1; //administrator user
+    const USER_ROLE_ID = 2; //regular user
 
     /**
      * The attributes that are mass assignable.
@@ -45,5 +49,26 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Check if the user is an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->role_id === 1;
+
+    }
+
+    public function favorites(){
+        return $this->hasMany(Favorite::class);
+
+    }
+
+    public function reservation(){
+        return $this->hasMany(Reservation::class);
+
     }
 }

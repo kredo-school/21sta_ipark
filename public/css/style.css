@@ -20,6 +20,13 @@ main{
     color: #003566;
 }
 
+<<<<<<< HEAD
+=======
+.color5_green{
+    color:#1AAD17;
+}
+
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
 .text-shadow {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
@@ -35,6 +42,16 @@ main{
     border-width: medium;
 }
 
+<<<<<<< HEAD
+=======
+.btn-white{
+    background-color:white;
+    color: #ff9900;
+    border-color: #ff9900;
+    border-width: medium;
+}
+
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
 .btn-orange:hover {
     border-color: #ff9900;
     border-width: medium;
@@ -55,14 +72,22 @@ main{
 }
 
 .background-image-parkinglot-reservation-top {
+<<<<<<< HEAD
     background-image: url('/images/parking image_harf_top.jpg'); 
+=======
+    background-image: url('/images/parking image_harf_top.jpg');
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
 
 .background-image-parkinglot-reservation-bottom {
+<<<<<<< HEAD
     background-image: url('/images/parking image_harf_bottom.jpg'); 
+=======
+    background-image: url('/images/parking image_harf_bottom.jpg');
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
@@ -72,6 +97,620 @@ main{
 .table.table-background-color-none > tbody > tr > td,
 .table.table-background-color-none > tfoot > tr > td {
     background-color: transparent !important;
+<<<<<<< HEAD
     border: none !important; 
     color: #343A40;
 }
+=======
+    border: none !important;
+    color: #343A40;
+}
+
+.btn-red{
+    background-color: white;
+    color: #f54b31;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.btn-red:hover {
+    background-color: #f54b31;
+    color: white;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.bg-orange{
+    background-color: #FAE9C5;
+}
+
+.border-orange{
+    border-color: #ff9900 !important;
+}
+
+/* LOGIN PAGE */
+.ipark-logo{
+    width: 250px;
+    height: 125px;
+}
+
+.card-login{
+    background-color: white;
+    border-radius: 30px;
+    color: #403734;
+    border: none;
+}
+
+/* REGISTER PAGE */
+.card-register{
+    color: #403734;
+    background-color: #ff99002a;
+    border-radius: 30px;
+}
+
+.btn-r{
+    background-color: #ff9900;
+    color: white;
+}
+
+.btn-r:hover {
+    background-color: #cc7a00;
+    color: white;
+}
+
+.register_img{
+    max-width: 600px;
+    height: 600px;
+}
+
+.pic-icon {
+    position: relative;
+    width: 100%;
+}
+
+.form-element {
+    padding: .5rem .5rem .5rem 2rem;
+    width: 100%;
+}
+
+.form-element+i {
+    position: absolute;
+    top: 50%;
+    left: .5rem;
+    transform: translateY(-50%);
+    content: '';
+    transition: .3s;
+}
+
+.form-element:focus+i {
+    color: #FF9900;
+}
+
+
+/* ABOUT US */
+.card-aboutus{
+    background-color: white;
+    border: solid 0.5px #395470;
+    width: 50%;
+    border-radius: 20px;
+}
+
+.overview_aboutus{
+    color: #395470;
+}
+
+.custom-hr-a{
+    color: #395470;
+    width: 50%;
+    margin: auto;
+}
+
+.aboutus-table{
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.aboutus-table td {
+    border: none;
+    padding: 8px;
+    text-align: left;
+    width: 150px;
+}
+
+.img-aboutus{
+    width: 150px;
+    height: 150px;
+}
+
+.table-aboutus-img{
+    width: 80%;
+    text-align: center;
+}
+
+/* FAQ */
+.faq-section {
+    width: 90%;
+    margin: 20px auto;
+    background-color: white;
+    border: 1px solid #ff9900;
+    border-bottom: none;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.faq-category h3 {
+    background-color: #ff9900;
+    color: white;
+    padding: 10px;
+    margin: 0;
+}
+
+.faq-item{
+    border-bottom: solid 1px #ff9900;
+}
+
+.faq-item .question {
+    font-weight: bold;
+    padding: 10px 10px 0px 10px;
+    margin: 0;
+}
+
+.faq-item .answer {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.faq-q{
+    color: #F54B31;
+}
+
+.faq-a{
+    color: #395470;
+    font-weight: bold;
+}
+
+/* MODAL FOR REGISTRATION */
+.custom-modal .modal-dialog {
+    max-width: 800px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-height: calc(100vh - 1rem); Ensure the modal covers the full viewport height */
+    min-height: 90vh;
+    max-height: calc(100vh - 3rem); /* Ensure the modal content fits within the viewport */
+    overflow: hidden; /* Prevent the modal content from causing a scrollbar */
+}
+
+.custom-modal .modal-content {
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    /* this is where the border is */
+    border-style: solid;
+    border-color: #4CAF50;
+    border-width: 2px;
+}
+
+.custom-modal .modal-header {
+    border-bottom: none;
+    text-align: center;
+}
+
+.custom-modal .modal-header h5 {
+    font-size: 24px;
+    color: #4CAF50; /* Green color for success */
+}
+
+.custom-modal .modal-body {
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 40px;
+}
+
+.custom-modal .modal-body i {
+    font-size: 70px;
+    color: #4CAF50; /* Green color for check icon */
+}
+
+.custom-modal .modal-footer {
+    border-top: none;
+    justify-content: center;
+}
+
+.custom-modal .btn {
+    background-color: #4CAF50; /* Green color for button */
+    color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+
+.custom-modal .btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.custom-modal .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+}
+
+/* USER INFORMATION */
+.row-info{
+    text-align: center;
+}
+
+
+.reviews {
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100%;
+    scrollbar-width: thin;
+}
+
+.reviews.collapsed {
+    max-height: 400px;
+}
+
+/* USER INFORMATION */
+.tab{
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 1px solid orange;
+    padding: 10px;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+.tab-link{
+    text-decoration: none;
+    color: orange;
+}
+
+.tab-link-active{
+    text-decoration: none;
+    color: white;
+}
+
+.tab-active{
+    background-color: orange;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 10px;
+    margin-bottom: 0px;
+    font-weight: bold;
+}
+
+
+
+.profile-card{
+    background-color: white;
+    border-top: 5px solid orange;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* USER PROFILE */
+.table{
+    width: 70%;
+}
+
+.profile-card-body{
+    padding-left: 250px;
+    padding-right: 0px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.table-profile td{
+  background-color: white;
+  padding: 15px;
+  font-size: 18px;
+}
+
+.btn-edit{
+  margin-right: 20em;
+}
+
+/* MODAL SUCCESS */
+.modal-content{
+    border-radius: 50px;
+}
+
+.btn-green{
+    background-color: #1AAD17;
+    color: white;
+    border-color: #1AAD17;
+    border-width: medium;
+}
+
+.btn-green:hover {
+    border-color: #1AAD17;
+    border-width: medium;
+    color: #1AAD17;
+}
+
+
+/* ADMIN (Users) */
+.admin-parking{
+    border-bottom: 3px solid #343A40;
+    vertical-align: text-bottom;
+}
+
+.admin-parking-link{
+    text-decoration: none;
+    color: #343A40;
+}
+
+
+.admin-users-icon{
+    color: #ff9900;
+}
+
+.admin-users{
+    border-bottom: 3px solid #ff9900;
+    vertical-align: text-bottom;
+}
+
+.select-icon {
+    position: relative;
+}
+
+.select-icon select {
+    padding-right: 2rem;
+}
+
+.user-search{
+    background-color: white;
+    border: none;
+}
+
+.custom-select-width {
+    width: 50%;
+}
+
+.admin-user_btn{
+    color: #f54b31;
+
+}
+
+.btn-red-opposite{
+    background-color: #f54b31;
+    color: white;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.btn-red-opposite:hover {
+    background-color: white;
+    color: #f54b31;
+    border-color: #f54b31;
+    border-width: medium;
+}
+
+.apply-btn{
+    padding-top: 30px;
+}
+
+.apply-ft-btn{
+    width: 25%;
+}
+
+.user-search input,
+.user-search select{
+    border-color: #f54b31;
+}
+
+.activate-logo{
+    color: #1AAD17;
+}
+
+.deactivate-logo{
+    color: #f54b31;
+}
+
+.btn-status:hover{
+    color: white;
+    border: 2px solid #1AAD17;
+    background-color: #1AAD17;
+}
+
+.activate-logo{
+    color: #1AAD17;
+}
+
+.deactivate-logo{
+    color: #f54b31;
+}
+
+.btn-status:hover{
+    color: white;
+    border: 2px solid #1AAD17;
+    background-color: #1AAD17;
+}
+
+.admin-username{
+    color: #343A40;
+}
+
+.restore-btn{
+    background-color: #003566;
+    color: white;
+    border-color: #003566;
+    border-width: medium;
+}
+
+.restore-btn:hover{
+    background-color: white;
+    color: #003566;
+    border-color: #003566;
+    border-width: medium;
+}
+
+.parking-list {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.parking-list th,
+.parking-list tbody td {
+    padding: 15px;
+    border-bottom: 3px solid #D9D9D9;
+    text-align: center;
+}
+
+.parking-list th {
+    background-color: #395470;
+    color: white;
+    border: solid 1px white;
+}
+
+.parking-list tbody tr:last-child th,
+.parking-list tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.checked-row {
+    background-color: #F9E8C4;
+}
+
+
+/*PARKING LIST */
+.bg-red{
+    background-color: #f54b31;
+}
+
+.bg-navy{
+    background-color: #003566;
+}
+
+/* REGISTER NEW PARKING */
+.background-image-newparking {
+    background-image: url('/images/parking image_white.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.pagination .page-item .page-link {
+    color: #343A40;
+    background: none;
+    border: none;
+    padding: 0 10px;
+    margin: 0 5px;
+}
+
+.pagination .page-item.active .page-link {
+    color: #FFA500;
+    font-weight: bold;
+    border-bottom: 2px solid #FFA500;
+}
+
+/* Payment */
+.radius-size{
+    border-radius: 30px;
+}
+
+/* Parking list */
+.search-bar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+}
+
+.parking-place-search{
+    background-color: white;
+    border: none;
+}
+
+.parking-place-search input,
+.parking-place-search select{
+    border-color: #f54b31;
+}
+
+/* Update profile */
+.border-red{
+    border-color: #f54b31 !important;
+}
+
+/* Reservation History */
+.reservation-History th,
+.reservation-History tbody td {
+    padding: 15px;
+    border-bottom: 2px solid #D9D9D9;
+    text-align: center;
+}
+
+/* Modal for delete account */
+.modal-deleteAccount .modal-dialog {
+    max-width: 800px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    max-height: calc(100vh - 3rem);
+    overflow: hidden;
+}
+
+.modal-deleteAccount .modal-content {
+    border-radius: 30px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-style: solid;
+    border-color: #f54b31;
+    border-width: 2px;
+}
+
+.modal-deleteAccount .modal-header {
+    border-bottom: none;
+    text-align: center;
+}
+
+.modal-deleteAccount .modal-header h5 {
+    font-size: 24px;
+    color: #f54b31;
+}
+
+.modal-deleteAccount .modal-body {
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 40px;
+}
+
+.modal-deleteAccount .modal-body i {
+    font-size: 70px;
+    color: #f54b31;
+}
+
+.modal-deleteAccount .modal-footer {
+    border-top: none;
+    justify-content: center;
+}
+
+.modal-deleteAccount .btn-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    color: #343A40;
+}
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b

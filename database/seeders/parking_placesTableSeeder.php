@@ -23,6 +23,15 @@ class parking_placesTableSeeder extends Seeder
             'daytime_to' => '19:00',
             'image' => 'https://i.pinimg.com/originals/3c/8d/3d/3c8d3d68888888888888888888888888.jpg',
             'contact_number' => '080-1234-5678',
+<<<<<<< HEAD
+=======
+            'weekday_daytime_amount' => '220',
+            'weekday_night_amount' => '110',
+            'holiday_daytime_amount' => '220',
+            'holiday_night_amount' => '110',
+            'maximum_amount' => '1320',
+            'penalty_amount' => '2000',
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -37,6 +46,15 @@ class parking_placesTableSeeder extends Seeder
             'daytime_to' => '24:00',
             'image' => 'https://i.pinimg.com/originals/3c/8d/3d/3c8d3d68888888888888888888888888.jpg',
             'contact_number' => '080-1234-5678',
+<<<<<<< HEAD
+=======
+            'weekday_daytime_amount' => '250',
+            'weekday_night_amount' => '250',
+            'holiday_daytime_amount' => '250',
+            'holiday_night_amount' => '250',
+            'maximum_amount' => '1300',
+            'penalty_amount' => '2000',
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -51,6 +69,15 @@ class parking_placesTableSeeder extends Seeder
             'daytime_to' => '18:00',
             'image' => 'https://i.pinimg.com/originals/3c/8d/3d/3c8d3d68888888888888888888888888.jpg',
             'contact_number' => '080-1234-5678',
+<<<<<<< HEAD
+=======
+            'weekday_daytime_amount' => '990',
+            'weekday_night_amount' => '990',
+            'holiday_daytime_amount' => '990',
+            'holiday_night_amount' => '990',
+            'maximum_amount' => '4000',
+            'penalty_amount' => '2000',
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
@@ -65,6 +92,15 @@ class parking_placesTableSeeder extends Seeder
             'daytime_to' => '24:00',
             'image' => 'https://i.pinimg.com/originals/3c/8d/3d/3c8d3d68888888888888888888888888.jpg',
             'contact_number' => '080-1234-5678',
+<<<<<<< HEAD
+=======
+            'weekday_daytime_amount' => '400',
+            'weekday_night_amount' => '400',
+            'holiday_daytime_amount' => '400',
+            'holiday_night_amount' => '400',
+            'maximum_amount' => '1500',
+            'penalty_amount' => '2000',
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

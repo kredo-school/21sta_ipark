@@ -78,13 +78,54 @@
                             <div class="col-10">
                                 <a
                                     href="{{route('showParkingDetail', $parking_place->id)}}"
+<<<<<<< HEAD
                                     class="h3 text-decoration-none"
+=======
+                                    class="h3 text-decoration-none fw-bold"
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                                 >
                                     {{$parking_place->parking_place_name}}
                                 </a>
                             </div>
+<<<<<<< HEAD
                             <div class="col-2 text-end h2">
                                 <i class="fa-regular fa-heart"></i>
+=======
+                            <div class="col-2 text-end h2 p-0">
+                                @guest
+                                    <a
+                                        href="{{route('login_to_favorite')}}"
+                                        style="color: #343A40;"
+                                    >
+                                        <i class="fa-regular fa-heart me-3"></i>
+                                    </a>
+                                @else
+                                    @if($parking_place->isFavorited())
+                                        <form
+                                            action="{{route('favorite.destroy', $parking_place->id)}}"
+                                            method="post"
+                                            class="favorite-form"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn p-0">
+                                                <i class="fa-solid fa-heart text-danger me-3 fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form
+                                            action="{{route('favorite.store', $parking_place->id)}}"
+                                            method="post"
+                                            class="favorite-form"
+                                        >
+                                            @csrf
+                                            <button class="btn p-0">
+                                                <i class="fa-regular fa-heart me-3 fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endguest
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -100,11 +141,23 @@
                         </div>
                         <div class="row mt-3">
                             <div class="h4 color2_red">
+<<<<<<< HEAD
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-regular fa-star"></i>
+=======
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= floor($parking_place->average_star))
+                                        <i class="fa-solid fa-star"></i>
+                                    @elseif ($i == ceil($parking_place->average_star))
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                    @else
+                                        <i class="fa-regular fa-star"></i>
+                                    @endif
+                                @endfor
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                             </div>
                         </div>
                         <div class="row mt-2">
@@ -124,7 +177,17 @@
                                         {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                                     </div>
                                     <div class="col d-flex align-items-center">
+<<<<<<< HEAD
                                         <span class="color2_red h3 fw-bold me-1 mb-0">¥400</span>
+=======
+                                        <span class="color2_red h3 fw-bold me-1 mb-0">
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                            @endif
+                                        </span>
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                                         <span>/30mins</span>
                                     </div>
                                 </div>
@@ -140,18 +203,40 @@
                                         {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                                     </div>
                                     <div class="col d-flex align-items-center">
+<<<<<<< HEAD
                                         <span class="color2_red h3 fw-bold me-1 mb-0">¥400</span>
+=======
+                                        <span class="color2_red h3 fw-bold me-1 mb-0">
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                            @endif
+                                        </span>
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                                         <span>/30mins</span>
                                     </div>
                                 </div>
                                 <div class="row h5 d-flex align-items-center">
                                     <div class="col">
                                         <i class="fa-regular fa-clock"></i>
+<<<<<<< HEAD
                                         {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
                                             ¥100
+=======
+                                        {{ $parking_place->daytime_to }} - {{ $parking_place->daytime_from }}
+                                    </div>
+                                    <div class="col d-flex align-items-center">
+                                        <span class="color2_red h3 fw-bold me-1 mb-0">
+                                            @if( $isTodayHoliday || $isTodayWeekend )
+                                                ¥{{$parking_place->holiday_night_amount}}
+                                            @else
+                                                ¥{{$parking_place->weekday_night_amount}}
+                                            @endif
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                                         </span>
                                         <span>/30mins</span>
                                     </div>
@@ -159,7 +244,11 @@
                             @endif
                             <div class="row h5 mt-1">
                                 <div class="col">
+<<<<<<< HEAD
                                     MAX: ¥1500 /24h
+=======
+                                    MAX: ¥{{$parking_place->maximum_amount}} /24h
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                                 </div>
                             </div>
                         </div>
@@ -183,4 +272,43 @@
         View more
         <i class="fa-solid fa-angles-right"></i>
     </a>
+<<<<<<< HEAD
+=======
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.favorite-form').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const url = form.action;
+                    const method = form.querySelector('input[name="_method"]') ? form.querySelector('input[name="_method"]').value : 'POST';
+                    const token = form.querySelector('input[name="_token"]').value;
+
+                    fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify({})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            const icon = form.querySelector('i');
+                            if (data.action === 'added') {
+                                icon.classList.remove('fa-regular');
+                                icon.classList.add('fa-solid', 'text-danger');
+                            } else {
+                                icon.classList.remove('fa-solid', 'text-danger');
+                                icon.classList.add('fa-regular');
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
 @endsection

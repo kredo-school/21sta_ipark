@@ -26,14 +26,22 @@
                         </div>
                         @if (Route::has('login'))
                             <nav class="-mx-3 flex flex-1 justify-end">
+<<<<<<< HEAD
                                 @auth
+=======
+                                {{-- @auth --}}
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                                     <a
                                         href="{{ url('/dashboard') }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                                     >
                                         Dashboard
                                     </a>
+<<<<<<< HEAD
                                 @else
+=======
+                                {{-- @else --}}
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                                     <a
                                         href="{{ route('login') }}"
                                         class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
@@ -49,7 +57,11 @@
                                             Register
                                         </a>
                                     @endif
+<<<<<<< HEAD
                                 @endauth
+=======
+                                {{-- @endauth --}}
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                             </nav>
                         @endif
                     </header>

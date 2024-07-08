@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+<<<<<<< HEAD
 @section('content')
 <style>
 
@@ -16,16 +17,29 @@
 }
 
 </style>
+=======
+@section('title', 'Login')
+
+@section('content')
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 py-5 text-center">
+<<<<<<< HEAD
             <div class="card p-5 shadow">
+=======
+            <div class="card card-login p-5 shadow">
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+<<<<<<< HEAD
                         <img src="{{asset('images/iPark_logo_ss.png')}}" alt="logo" class="logo mb-3">
+=======
+                        <img src="{{asset('images/iPark_logo_ss.png')}}" alt="logo" class="ipark-logo mb-3">
+>>>>>>> c7cdff2c3c131fb7cb30d0cf8444de430e967c4b
                         <h2 class="fw-bold">Welcome Back</h2>
                         <p>Please login to your account</p>
 

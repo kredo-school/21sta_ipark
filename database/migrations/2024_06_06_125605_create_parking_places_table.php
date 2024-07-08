@@ -20,8 +20,14 @@ return new class extends Migration
             $table->integer('max_number');
             $table->time('daytime_from');
             $table->time('daytime_to');
-            $table->longText('image');
+            $table->longText('image')->nullable();
             $table->string('contact_number');
+            $table->double('weekday_daytime_amount');
+            $table->double('weekday_night_amount');
+            $table->double('holiday_daytime_amount');
+            $table->double('holiday_night_amount');
+            $table->double('maximum_amount');
+            $table->double('penalty_amount')->default(2000.00);
             $table->timestamps();
             $table->softDeletes();
         });
