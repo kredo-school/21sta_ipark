@@ -60,6 +60,10 @@ class HomeController extends Controller
         return view('about_us');
     }
 
+    public function faq(){
+        return view('faq');
+    }
+
     public function holiday(){
         $api_key = env('GOOGLE_API_KEY');
         $calendar_id = urlencode('japanese__ja@holiday.calendar.google.com');
