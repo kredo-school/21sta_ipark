@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'string', 'max:15'],
-            'car_type' => ['nullable','string', 'in:standard,compact,large'],
+            'car_type' => ['nullable','string', 'in:standard,compact,large,na'],
         ]);
     }
 
