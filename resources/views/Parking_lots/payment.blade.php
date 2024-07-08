@@ -32,6 +32,7 @@
 
                     @if (!$success)
                         <input type="hidden" name="parkingPlacesId" value="{{ $reservationdata['parkingPlacesId'] }}">
+                        <input type="hidden" name="fee" value="{{ $reservationdata['fee'] }}">
                         <input type="hidden" name="date" value="{{ $reservationdata['date'] }}">
                         <input type="hidden" name="fromtime" value="{{ $reservationdata['fromtime'] }}">
                         <input type="hidden" name="totime" value="{{ $reservationdata['totime'] }}">

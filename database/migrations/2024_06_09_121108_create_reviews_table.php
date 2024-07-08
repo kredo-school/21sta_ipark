@@ -11,23 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservations', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parking_place_id');
-            $table->string('parking_slot_id');
+            $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('user_id');
-            $table->date('date');
-            $table->string('fee');
-            $table->time('planning_time_from');
-            $table->time('planning_time_to');
-            $table->time('actual_start_time')->nullable();
-            $table->time('actual_end_time')->nullable();
-            $table->string('car_type');
+            $table->string('comment');
+            $table->integer('star');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('parking_place_id')->references('id')->on('parking_places');
+            $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
 
@@ -36,7 +33,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reservations');
+        Schema::dropIfExists('reviews');
         Schema::dropIfExists('users');
     }
 };

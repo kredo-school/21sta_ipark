@@ -8,14 +8,12 @@ use App\Http\Controllers\ParkingPlaceController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReviewController;
 
 # Admin
 use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ReservationsController;
-use App\Http\Controllers\PaymentController;
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,6 +37,9 @@ Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])-
 // ABOUT US
 Route::get('/aboutus', [HomeController::class, 'aboutUs'])->name('aboutUs');
 
+// ABOUT US
+Route::get('/aboutus', [HomeController::class, 'aboutUs'])->name('aboutUs');
+
 #### Admin Route for Administrator ####
 Route::middleware(['auth', 'admin'])->group(function ()
 {
@@ -54,6 +55,8 @@ Route::middleware(['auth', 'admin'])->group(function ()
     Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
     Route::delete('/admin/parking/deactivate', [AdminParkingController::class, 'deactivate'])->name('admin.parking.deactivate');
     Route::patch('/admin/parking/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
+    Route::delete('/admin/parking/deactivate', [AdminParkingController::class, 'deactivate'])->name('admin.parking.deactivate');
+    Route::patch('/admin/parking/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
     Route::get('/admin/register', [AdminParkingController::class, 'index'])->name('admin.parking.index');
     Route::post('/admin/register', [AdminParkingController::class,'store'])->name('admin.parking.store');
 });
@@ -65,6 +68,10 @@ Route::group(["middleware"=>"auth"], function()
     Route::get('/user_info/{id}/reservation', [ProfileController::class, 'reservation'])->name('reservation');
     Route::get('/user_info/{id}/favorite', [ProfileController::class, 'favorite'])->name('favorite');
     Route::get('/user_info/{id}/update', [ProfileController::class, 'update'])->name('update_profile');
+    Route::get('/user_info/{id}/update', [ProfileController::class, 'update'])->name('update_profile');
+
+    // review
+    Route::get('/user_info/review/{id}', [ReviewController::class, 'review'])->name('review');
 
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
@@ -84,5 +91,6 @@ Route::group(["middleware"=>"auth"], function()
     Route::get('/pay/success', [PaymentController::class, 'success'])->name('payment.success');
 
 });
+
 
 

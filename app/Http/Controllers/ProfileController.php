@@ -40,12 +40,12 @@ class ProfileController extends Controller
                                 ->orderBy('date', 'desc') 
                                 ->get();
 
+                                
         $reservationController = new ReservationsController($this->parkingPlace,$this->reservation);
         $now = \Carbon\Carbon::now()->setTimezone('Asia/Tokyo');
 
         $future_reservations = [];
         $past_reservations = [];
-
     
         foreach ($reservations as $reservation) {
     
@@ -56,17 +56,6 @@ class ProfileController extends Controller
                 $future_reservations[] = $reservation;
             } else {
                 // 現在時刻が終了時間より後なら過去の予約
-                $carbonDate = Carbon::parse($reservation->date);
-                $dayOfWeek = $carbonDate->shortEnglishDayOfWeek;
-                $isWeekend = ($dayOfWeek == "Sat" 
-                                || $dayOfWeek == "Sun"
-                                || $reservationController->isHoliday($reservation->date));
-    
-                $reservation->fee = $reservationController
-                                    ->calculateAmount($reservation->planning_time_from,
-                                                      $reservation->planning_time_to,
-                                                      $isWeekend,
-                                                      $reservation->parking_place_id);
 
                 if (\Carbon\Carbon::parse($reservation->date . ' ' . $reservation->planning_time_to, 'Asia/Tokyo') >= $now) {
                     $reservation->is_current = true; // 現在進行中の予約フラグ
@@ -77,7 +66,6 @@ class ProfileController extends Controller
                 $past_reservations[] = $reservation;
             }
         }
-
 
         return view('user_info.reservation', [
             'user' => $user_a,
