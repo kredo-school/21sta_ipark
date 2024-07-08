@@ -11,10 +11,10 @@
         </div>
     </div>
 
-    
+
     <div class="row ms-1 text-center">
-      <div class="col-2 me-3 tab-active"> 
-        <a href="{{route('profile', ['id' => $user->id])}}" class="tab-link-active">Profile</a>  
+      <div class="col-2 me-3 tab-active">
+        <a href="{{route('profile', ['id' => $user->id])}}" class="tab-link-active">Profile</a>
       </div>
 
       <div class="col-2 me-3 tab">
@@ -25,7 +25,7 @@
         <a href="{{route('favorite', ['id' => $user->id])}}" class="tab-link">Favorite</a>
       </div>
     </div>
-    
+
 
     <div class="card profile-card mt-0">
       <div class="card-body profile-card-body text-center">
@@ -61,7 +61,7 @@
         </table>
 
         <div>
-          <a href="#" class="btn btn-edit btn-orange rounded-pill px-5 mt-4">
+          <a href="{{route('edit_profile', $user->id)}}" class="btn btn-edit btn-orange rounded-pill px-5 mt-4">
             <i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit Profile
           </a>
         </div>

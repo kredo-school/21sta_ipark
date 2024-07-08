@@ -9,6 +9,7 @@ use App\Models\Reservation;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -32,12 +33,12 @@ class ProfileController extends Controller
 
     public function reservation($id)
     {
-        
+
         $user_a = $this->user->findOrFail($id);
         $reservations = $user_a->reservation()
                                 ->with('ParkingPlace')
                                 ->withTrashed()
-                                ->orderBy('date', 'desc') 
+                                ->orderBy('date', 'desc')
                                 ->get();
 
         $reservationController = new ReservationsController($this->parkingPlace,$this->reservation);
@@ -46,9 +47,9 @@ class ProfileController extends Controller
         $future_reservations = [];
         $past_reservations = [];
 
-    
+
         foreach ($reservations as $reservation) {
-    
+
             $reservation_datetime = \Carbon\Carbon::parse($reservation->date . ' ' . $reservation->planning_time_from, 'Asia/Tokyo');
 
             if ($reservation_datetime > $now && is_null($reservation->deleted_at)) {
@@ -58,10 +59,10 @@ class ProfileController extends Controller
                 // 現在時刻が終了時間より後なら過去の予約
                 $carbonDate = Carbon::parse($reservation->date);
                 $dayOfWeek = $carbonDate->shortEnglishDayOfWeek;
-                $isWeekend = ($dayOfWeek == "Sat" 
+                $isWeekend = ($dayOfWeek == "Sat"
                                 || $dayOfWeek == "Sun"
                                 || $reservationController->isHoliday($reservation->date));
-    
+
                 $reservation->fee = $reservationController
                                     ->calculateAmount($reservation->planning_time_from,
                                                       $reservation->planning_time_to,
@@ -140,9 +141,51 @@ class ProfileController extends Controller
         return $isWeekend;
     }
 
-    public function update($id){
+    public function edit($id){
         $user = $this->user->findOrFail($id);
 
         return view('user_info.update_profile')->with('user', $user);
+    }
+
+    public function updateProfile($id, Request $request){
+        $user = $this->user->findOrFail($id);
+
+        $user->update($request->all());
+
+        return redirect()->route('profile', $user->id);
+    }
+
+    public function updatePassword($id, Request $request){
+        $user = $this->user->findOrFail($id);
+
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ], [
+            'old_password.required' => 'Please enter your current password.',
+            'new_password.required' => 'Please enter a new password.',
+            'new_password.min' => 'The new password must be at least 8 characters long.',
+            'new_password.confirmed' => 'The new password and confirmation password do not match.'
+        ]);
+
+        if (!Hash::check($request->input('old_password'), $user->password)){
+            return back()->withErrors(['old_password' => 'Your current password is incorrect.']);
+        }
+
+        if($request->new_password == $request->old_password){
+            return back()->withErrors(['new_password' => 'New password cannot be the same as current password']);
+        }
+
+        $user->password = bcrypt($request->input('new_password'));
+        $user->save();
+
+        return redirect()->back()->with('success_message', 'Password updated successfully.');
+    }
+
+    public function delete($id){
+        $user = $this->user->findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('home');
     }
 }

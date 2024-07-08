@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ReviewSeeder::class);
 
-        $this->call(ParkingSlotsSeeder::class);
-
         $this->call(ReservationsSeeder::class);
     }
 }
