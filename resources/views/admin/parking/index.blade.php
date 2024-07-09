@@ -146,7 +146,7 @@
                                 placeholder="Street"
                             >
                             <label for="holiday_amount" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
-                                Fee for horiday
+                                Fee for holiday
                                 <span class="color2_red">*</span>
                             </label>
                             <div class="row">

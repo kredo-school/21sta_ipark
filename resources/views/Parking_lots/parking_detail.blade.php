@@ -73,11 +73,20 @@
     </div>
     <div class="row my-4 px-5">
         <div class="col-6 px-5">
-            <img
-                class="w-100"
-                {{-- src="{{$parking_place->image}}" --}}
-                src="{{asset('images/parking_space_image.jpg')}}"
-            >
+            @if ($parking_place->image !== null)
+                <img
+                    class="w-100"
+                    src="{{asset($parking_place->image)}}"
+                    alt="{{$parking_place->parking_place_name}}"
+                    style="height:300px"
+                >
+            @else
+                <div class="no-image" style="height:300px">
+                    <p class="text-center h5">
+                        No image
+                    </p>
+                </div>
+            @endif
 
             <h2 class="color3_bluegray mt-5 fw-bold">
                 <i class="fa-solid fa-coins"></i>&nbsp;
