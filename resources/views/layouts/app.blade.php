@@ -275,7 +275,7 @@
                     <i class="fa fa-registered me-3 fa-2x"></i> Register
                 </a>
                 <a
-                    href="#"
+                    href="{{ route('faq') }}"
                     class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
                 >
                     <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
@@ -377,7 +377,7 @@
                     @csrf
                 </form>
                 <a
-                    href="#"
+                    href="{{ route('faq') }}"
                     class="d-flex align-items-center ms-3 mb-2 text-decoration-none fw-bold"
                 >
                     <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
@@ -468,7 +468,7 @@
                     <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
                     </a>
                     <a
-                        href="#"
+                        href="{{ route('faq') }}"
                         class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
                     >
                     <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
@@ -518,7 +518,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link text-white mx-5"
-                                    href="#"
+                                    href="{{ route('faq') }}"
                                 >
                                     FAQ
                                 </a>
