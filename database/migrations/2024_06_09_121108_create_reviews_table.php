@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parking_place_id');
+            $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('comment');
+            $table->string('comment')->nullable();;
             $table->integer('star');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('parking_place_id')->references('id')->on('parking_places');
+            $table->foreign('reservation_id')->references('id')->on('reservations');
             $table->foreign('user_id')->references('id')->on('users');
 
         });

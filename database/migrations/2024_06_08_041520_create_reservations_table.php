@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('parking_place_id');
-            $table->unsignedBigInteger('parking_slot_id');
+            $table->string('parking_slot_id');
             $table->unsignedBigInteger('user_id');
             $table->date('date');
+            $table->string('fee');
             $table->time('planning_time_from');
             $table->time('planning_time_to');
             $table->time('actual_start_time')->nullable();
@@ -36,5 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('reservations');
+        Schema::dropIfExists('users');
     }
 };

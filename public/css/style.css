@@ -704,3 +704,13 @@ main{
     align-items: center;
     justify-content: center;
 }
+
+.no-image{
+    background-color: #D9D9D9;
+    color: #343A40;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

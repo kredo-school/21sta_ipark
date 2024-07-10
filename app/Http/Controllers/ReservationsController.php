@@ -54,7 +54,10 @@ class ReservationsController extends Controller
 
             $fee = $this->calculateAmount($from_time,$to_time,$isWeekend,$parking_no);
 
-            $request->session()->put('reservation_data', $request->all());
+            $data = $request->all();
+            $data['fee'] = $fee;
+
+            $request->session()->put('reservation_data', $data);
             return redirect()->back()
             ->withInput()
             ->with('date', $date)
@@ -197,6 +200,7 @@ class ReservationsController extends Controller
         $parkingPlacesId = $reservationData['parking_places_id'];
         $cartype = $reservationData['cartype'];
         $date = $reservationData['date'];
+        $fee = $reservationData['fee'];
         $fromtime = $reservationData['from_hour'] . ':' . $reservationData['from_minute'];
         $totime = $reservationData['to_hour'] . ':' .$reservationData['to_minute'];
 
@@ -205,6 +209,7 @@ class ReservationsController extends Controller
             'parkingPlacesId',
             'cartype',
             'date',
+            'fee',
             'fromtime',
             'totime'
         );
@@ -228,6 +233,7 @@ class ReservationsController extends Controller
             = $this->findAvailableParkingSlot($request->parkingPlacesId,$request->date,$request->fromtime,$request->totime);
         $reservations->user_id = auth()->id();
         $reservations->date = $request->date;
+        $reservations->fee = $request->fee;
         $reservations->planning_time_from = $request->fromtime;
         $reservations->planning_time_to = $request->totime;
         $reservations->actual_start_time = "00:00:00";

@@ -3,6 +3,11 @@
 @section('title', 'reservation')
 
 @section('content')
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="container">
   <div class="row text-center">
@@ -48,14 +53,22 @@
           @foreach (array_reverse($future_reservations) as $future_reservation)
             <div class="row border border-2 border-orange rounded-5 mx-5 my-4 p-4 shadow">
               <div class="col-3">
-                <a href="{{route('showParkingDetail', $future_reservation->parking_place_id)}}">
-                    <img
+                <a class ="text-decoration-none" 
+                  href="{{route('showParkingDetail', $future_reservation->parking_place_id)}}">
+                  @if ($future_reservation->ParkingPlace->image != null)
+                      <img
                         class="w-100"
-                        {{-- src="{{$parking_place->image}}" --}}
-                        src="{{asset('images/parking_space_image.jpg')}}"
+                        src="{{asset($future_reservation->ParkingPlace->image)}}"
                         alt="{{$future_reservation->ParkingPlace->parking_place_name}}"
-                        {{-- {{$favorite->parkingPlace->parking_place_name}} --}}
-                    >
+                        style="height:200px"
+                      >
+                  @else
+                      <div class="no-image" style="height:200px">
+                          <p class="text-center h5">
+                              No image
+                          </p>
+                      </div>
+                  @endif
                 </a>  
               </div>
               <div class="col-3 border-end d-flex flex-column">
@@ -120,7 +133,7 @@
       </div>
       <div class="ReservationHistory">
         <h4 class="h1 mx-5 p-4 fw-bold">Reservation History</h4>
-        @if (empty($future_reservations))
+        @if (empty($past_reservations))
           <h4 class="mx-5 p-4">No reservation yet</h4>
         @else
           <table class="reservation-History h5 table-hover align-center text-center w-100">
@@ -134,6 +147,7 @@
                 <th>Review</th>
               </tr>
             </thead>
+            <?php $count = 0; ?>
             @foreach ($past_reservations as $past_reservation)
               <tbody class="bg-white">
                 <tr>
@@ -151,137 +165,29 @@
                       @endif
                       </td>
                     <td>
-                      <a
-                        href="#"
-                        class="btn btn-sm rounded-pill px-3 btn-navy fw-bold"
-                      >
-                        Write a Review
-                      </a>
+                        <input type="hidden" name="userId" value="{{ $user->id }}">
+                        <button
+                          type="submit"
+                          class="btn btn-sm rounded-pill px-3 btn-navy fw-bold review-btn"
+                          data-bs-toggle="modal" data-bs-target="#reviewModal"
+                          data-reservation-id="{{ $past_reservation->id }}"
+                          data-parking-place-id="{{ $past_reservation->parking_place_id }}"
+                          data-parking-name="{{ $past_reservation->ParkingPlace->parking_place_name }}"
+                          data-star="{{ $review[$count]->star }}"
+                          data-comment="{{ $review[$count]->comment }}"
+                        >
+                          Write a Review
+                        </button>
+                        @include('user_info.models.review')
                     </td>
                 </tr>
               </tbody>
-              @endforeach
+              <?php $count++; ?>
+            @endforeach
           </table>
         @endif
-        <div class="row border border-2 border-orange rounded-5 mx-5 my-4 p-4 shadow">
-          <div class="col-3">
-            <a href="{{route('showParkingDetail', "1")}}">
-                <img
-                    class="w-100"
-                    {{-- src="{{$parking_place->image}}" --}}
-                    src="{{asset('images/parking_space_image.jpg')}}"
-                    alt="#"
-                    {{-- {{$favorite->parkingPlace->parking_place_name}} --}}
-                >
-            </a>
-          </div>
-          <div class="col-3 border-end d-flex flex-column">
-            <div class="h4 fw-bold"
-            >
-              Arakawa 3rd Street
-            </div>
-            <h5 class="mt-2 mb-3">
-                <i class="fa-solid fa-location-dot"></i>&nbsp;
-                city
-            </h5>
-            <div class="mt-auto ms-auto me-2">
-                <a
-                    href="{{route('showParkingDetail', "1")}}"
-                    class="btn btn-sm rounded-pill px-3 btn-orange fw-bold"
-                >
-                    See detail
-                </a>
-            </div>
-          </div>
-          <div class="col ms-1 mt-4 align-items-center">
-            <div class="row m-4 align-items-center">
-              <div class="col">
-                <div class="row">
-                  Start Time
-                </div>
-                <div class="row h5 text-center my-2 fw-bold">
-                  10:00 <br>
-                  2024/08/23
-                </div>
-              </div>
-              <div class="col-2">
-                <div class="row">
-
-                </div>
-                <div class="row">
-                  &nbsp;&nbsp;&nbsp;-->
-                </div>
-              </div>
-              <div class="col">
-                <div class="row">
-                  End Time
-                </div>
-                <div class="row h5 text-center my-2 fw-bold">
-                  10:00 <br>
-                  2024/08/23
-                </div>
-              </div>
-              <div class="col">
-                <a
-                  href="{{route('showReservationForm', "1")}}"
-                  class="btn btn-sm rounded-pill px-3 btn-red-opposite fw-bold"
-                >
-                    Cancel Reservation
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ReservationHistory">
-        <h4 class="h1 mx-5 p-4 fw-bold">Reservation History</h4>
-        <table class="reservation-History h5 table-hover align-center text-center w-100">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Place</th>
-              <th>Time</th>
-              <th>Amount</th>
-              <th>Status</th>
-              <th>Review</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white">
-            <tr>
-                <td>2024/03/14</td>
-                <td>Parking place 1</td>
-                <td>9:00 → 14:00</td>
-                <td>¥ 4,000</td>
-                <td>Done</td>
-                <td>
-                  <a
-                    href="{{route('showParkingDetail', "1")}}"
-                    class="btn btn-sm rounded-pill px-3 btn-navy fw-bold"
-                  >
-                    Write a Review
-                  </a>
-                </td>
-            </tr>
-            <tr>
-              <td>2024/03/14</td>
-              <td>Parking place 1</td>
-              <td>9:00 → 14:00</td>
-              <td>¥ 4,000</td>
-              <td>Canceled</td>
-              <td>
-                <a
-                  href="{{route('showParkingDetail', "1")}}"
-                  class="btn btn-sm rounded-pill px-3 btn-navy fw-bold"
-                >
-                  Write a Review
-                </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
-
 </div>
 @endsection
