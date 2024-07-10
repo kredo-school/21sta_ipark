@@ -47,13 +47,24 @@
                 @foreach ($favorites as $favorite)
                     <div class="row border border-2 border-orange rounded-5 mx-5 my-4 p-4 shadow">
                         <div class="col-3">
-                            <a href="{{route('showParkingDetail', $favorite->parkingPlace->id)}}">
-                                <img
-                                    class="w-100"
-                                    {{-- src="{{$parking_place->image}}" --}}
-                                    src="{{asset('images/parking_space_image.jpg')}}"
-                                    alt="{{$favorite->parkingPlace->parking_place_name}}"
-                                >
+                            <a
+                                href="{{route('showParkingDetail', $favorite->parkingPlace->id)}}"
+                                class="text-decoration-none"
+                            >
+                                @if ($favorite->parkingPlace->image !== null)
+                                    <img
+                                        class="w-100"
+                                        src="{{asset($favorite->parkingPlace->image)}}"
+                                        alt="{{$favorite->parkingPlace->parking_place_name}}"
+                                        style="height:160px; object-fit:cover;"
+                                    >
+                                @else
+                                    <div class="no-image" style="height:160px">
+                                        <p class="text-center h5">
+                                            No image
+                                        </p>
+                                    </div>
+                                @endif
                             </a>
                         </div>
                         <div class="col-3 border-end d-flex flex-column">

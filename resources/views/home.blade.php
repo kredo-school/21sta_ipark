@@ -70,7 +70,7 @@
         <span class="underline ms-1">&nbsp;Rec</span>ommendation
     </div>
     <div class="row mt-4">
-        @foreach ($recommendation->take(3) as $parking_place)
+        @foreach ($recommendation as $parking_place)
             <div class="col-4">
                 <div class="row">
                     <div class="col bg-white p-4 shadow m-3">
@@ -120,14 +120,24 @@
                             </div>
                         </div>
                         <div class="row mt-2">
-                            <a href="{{route('showParkingDetail', $parking_place->id)}}">
-                                <img
-                                    class="w-100"
-                                    {{-- src="{{$parking_place->image}}" --}}
-                                    src="{{asset('images/parking_space_image.jpg')}}"
-                                    alt="{{$parking_place->parking_place_name}}"
-                                    style="height:200px"
-                                >
+                            <a
+                                href="{{route('showParkingDetail', $parking_place->id)}}"
+                                class="text-decoration-none"
+                            >
+                                @if ($parking_place->image !== null)
+                                    <img
+                                        class="w-100"
+                                        src="{{asset($parking_place->image)}}"
+                                        alt="{{$parking_place->parking_place_name}}"
+                                        style="height:200px"
+                                    >
+                                @else
+                                    <div class="no-image" style="height:200px">
+                                        <p class="text-center h5">
+                                            No image
+                                        </p>
+                                    </div>
+                                @endif
                             </a>
                         </div>
                         <div class="row mt-3">

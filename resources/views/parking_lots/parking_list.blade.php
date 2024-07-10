@@ -24,6 +24,7 @@
         </a>
     </div>
 
+    {{-- filter search --}}
     <div class="row search-bar d-flex justify-content-center" style="display: none;">
         <div class="col-10">
             <form action="#" method="get">
@@ -244,14 +245,24 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <a href="{{route('showParkingDetail', $parking_place->id)}}">
-                                <img
-                                    class="w-100"
-                                    {{-- src="{{$parking_place->image}}" --}}
-                                    src="{{asset('images/parking_space_image.jpg')}}"
-                                    alt="{{$parking_place->parking_place_name}}"
-                                    style="height:150px"
-                                >
+                            <a
+                                href="{{route('showParkingDetail', $parking_place->id)}}"
+                                class="text-decoration-none"
+                            >
+                                @if ($parking_place->image !== null)
+                                    <img
+                                        class="w-100"
+                                        src="{{asset($parking_place->image)}}"
+                                        alt="{{$parking_place->parking_place_name}}"
+                                        style="height:150px; object-fit:cover;"
+                                    >
+                                @else
+                                    <div class="no-image" style="height:150px">
+                                        <p class="text-center h5">
+                                            No image
+                                        </p>
+                                    </div>
+                                @endif
                             </a>
                         </div>
                         <div class="row mt-3 justify-content-center">

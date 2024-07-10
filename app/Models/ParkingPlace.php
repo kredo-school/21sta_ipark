@@ -54,17 +54,20 @@ class ParkingPlace extends Model
         return $this->hasMany(Reservation::class);
     }
 
+    public function numberOfCurrentReservations(){
+        return $this->reservations()
+            ->where('date', today())
+            ->where('planning_time_from', '<', now()->addHours(9)->format('H:i:s'))
+            ->where('planning_time_to', '>', now()->addHours(9)->format('H:i:s'))
+            ->count();
+    }
+
+    public function slotsLeft(){
+        return $this->max_number - $this->numberOfCurrentReservations();
+    }
+
     public function isReservationPossible(){
-        $numberOfCurrentReservations
-            = $this->reservations()
-                ->where('date', today())
-                ->where('planning_time_from', '<', now()->addHours(9)->format('H:i:s'))
-                ->where('planning_time_to', '>', now()->addHours(9)->format('H:i:s'))
-                ->count();
-
-        $maxNumber = $this->max_number;
-
-        return $numberOfCurrentReservations < $maxNumber;
+        return $this->slotsLeft() > 0;
     }
 
     protected $fillable = [
