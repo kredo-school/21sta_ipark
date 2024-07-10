@@ -59,7 +59,9 @@ Route::middleware(['auth', 'admin'])->group(function ()
     Route::patch('/admin/parking/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
     Route::get('/admin/register', [AdminParkingController::class, 'index'])->name('admin.parking.index');
     Route::post('/admin/register', [AdminParkingController::class,'store'])->name('admin.parking.store');
-    Route::get('/admin/update', [AdminParkingController::class, 'updateParking'])->name('admin.parking.update_parking');
+    Route::patch('/admin/{id}/update', [AdminParkingController::class, 'updateParking'])->name('admin.parking.update');
+    Route::get('admin/parking/{id}/edit', [AdminParkingController::class, 'edit'])->name('admin.parking.edit');
+    Route::get('admin/parking/{id}', [AdminParkingController::class, 'show'])->name('admin.parking.show');
 });
 
 Route::group(["middleware"=>"auth"], function()

@@ -91,11 +91,11 @@
                                     <select
                                         name="status"
                                         id="status"
-                                        class="form-control rounded-pill pic-icon"
+                                        class="form-select rounded-pill pic-icon"
                                     >
                                         <option
                                             value=""
-                                            disabled selected>Please select type
+                                            hidden>Please select type
                                         </option>
                                         <option
                                             value="open"
@@ -107,7 +107,7 @@
                                             value="closed"
                                             {{ request('status') == 'closed' ? 'selected' : '' }}
                                         >
-                                            Cloced
+                                            Closed
                                         </option>
                                     </select>
                                 </div>
@@ -142,7 +142,7 @@
                                 <div class="col-6">
                                     <a
                                         href="{{ route('admin.parking.parkings_list') }}"
-                                        class="btn btn-red rounded-pill w-100"
+                                        class="btn btn-red rounded-pill w-100 fw-bold"
                                     >
                                     Clean All Filter
                                     </a>
@@ -150,7 +150,7 @@
                                 <div class="col-6">
                                     <button
                                         type="submit"
-                                        class="btn btn-red-opposite rounded-pill w-100"
+                                        class="btn btn-red-opposite rounded-pill w-100 fw-bold"
                                     >
                                         Apply Filter
                                     </button>
@@ -167,7 +167,7 @@
                     <div class="col-4">
                         <a
                             href="{{route('admin.parking.index')}}"
-                            class="btn btn-orange rounded-pill w-100"
+                            class="btn btn-orange rounded-pill w-100 fw-bold"
                         >
                             <i class="fa-solid fa-circle-plus"></i> Add
                         </a>
@@ -181,7 +181,7 @@
                             @csrf
                             @method('DELETE')
                                 <button
-                                    class="btn btn-red-opposite rounded-pill w-100"
+                                    class="btn btn-red-opposite rounded-pill w-100 fw-bold"
                                     type="submit"
                                 >
                                     <i class="fa-solid fa-trash-can"></i> Delete
@@ -197,7 +197,7 @@
                             @csrf
                             @method('PATCH')
                             <button
-                                class="btn restore-btn rounded-pill w-100"
+                                class="btn restore-btn rounded-pill w-100 fw-bold"
                                 type="submit"
                             >
                                 <i class="fa-solid fa-trash-can-arrow-up"></i> Restore
@@ -206,7 +206,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col"></div>
+            <div class="col">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+            </div>
             <div class="col"></div>
         </div>
         <div class="d-flex justify-content-center mt-1 userList-pagination">
@@ -268,27 +274,20 @@
                             @endif
                         </td>
                         <td class="d-flex align-items-center justify-content-center" >
-                            <i class="fa-solid fa-edit fa-2x me-1"></i>
+                            <a href="{{ route('admin.parking.edit', $parkingPlace->id) }}">
+                                <i class="fa-solid fa-edit fa-2x me-1" style="color: #343A40"></i>
+                            </a>
                             <span class="dropdown">
                                 <button class="btn btn-sm" data-bs-toggle="dropdown">
                                     <i class="fa-solid fa-ellipsis fa-2x"></i>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button
-                                        class="dropdown-item"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#"
+                                    <a
+                                    href="{{route('admin.parking.show', $parkingPlace->id)}}"
+                                    class="dropdown-item"
                                     >
                                         Detail
-                                    </button>
-                                    <hr class="horizontal-divider">
-                                    <button
-                                        class="dropdown-item"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#"
-                                    >
-                                        Contact
-                                    </button>
+                                    </a>
                                 </div>
                             </span>
                         </td>
