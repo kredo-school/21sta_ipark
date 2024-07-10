@@ -11,7 +11,7 @@
     </div>
 
     <div class="container justify-content-center background-image-newparking">
-        
+
         {{-- Register new parking --}}
         <div class="content py-5 px-5">
             @if(session('success'))
@@ -49,7 +49,7 @@
                         <input type="text" class="form-control rounded-pill" id="contact_number" name="contact_number">
                     </div>
                 </div>
-                   
+
                 <div class="row">
                     <div class="col-md-6 mt-3">
                         <label for="postal_code" class="h5 form-label fw-bold">
@@ -62,6 +62,50 @@
                             </div>
                             <div class="col-6">
                                 <input type="text" class="form-control rounded-pill" id="city" name="city" placeholder="City">
+                        </div>
+                        <div class="col-5">
+                            <label for="contactnumber" class="h5 form-label fw-bold ms-2 my-0">
+                                Contact Number
+                                <span class="color2_red">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control rounded-pill"
+                                id="contact_number"
+                                name="contact_number"
+                            >
+                            <p class="pt-4"></p>
+                            <input
+                                type="text"
+                                class="form-control rounded-pill"
+                                id="street"
+                                name="street"
+                                placeholder="Street"
+                            >
+                            <label for="holiday_amount" class="h5 form-label fw-bold ms-2 mt-3 mb-0">
+                                Fee for holiday
+                                <span class="color2_red">*</span>
+                            </label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input
+                                        type="text"
+                                        class="form-control rounded-pill"
+                                        id="holiday_daytime_amount"
+                                        name="holiday_daytime_amount"
+                                        placeholder="For daytime"
+                                    >
+                                </div>
+                                <div class="col-6">
+                                    <input
+                                        type="text"
+                                        class="form-control rounded-pill"
+                                        id="holiday_night_amount"
+                                        name="holiday_night_amount"
+                                        placeholder="For night"
+                                    >
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -103,7 +147,7 @@
 
                     <div class="col-md-6 mt-3">
                         <label for="holiday_amount" class="h5 form-label fw-bold">
-                            Fee for horiday
+                            Fee for holiday
                             <span class="color2_red">*</span>
                         </label>
 
@@ -129,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6 mt-3">
                         <label for="maximum_amount" class="h5 form-label fw-bold">
@@ -186,7 +230,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6 mt-3">
                         <label for="slotimage" class="h5 form-label fw-bold">
                             Image
@@ -202,7 +246,7 @@
                             <p class="text-danger small">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>  
+                </div>
 
                 <div class="col-12 mt-5">
                     <button type="submit" class="btn btn-orange w-100 rounded-pill fw-bold">
