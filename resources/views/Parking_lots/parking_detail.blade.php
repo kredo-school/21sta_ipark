@@ -209,7 +209,7 @@
             </h2>
             <div class="h4 ms-3">
                 {{$parking_place->max_number}}
-                (<span class="color2_red h3 fw-bold">3</span> slots left)
+                (<span class="color2_red h3 fw-bold">{{$parking_place->slotsLeft()}}</span> slots left)
             </div>
 
             <h2 class="color3_bluegray my-3 fw-bold mt-5">
