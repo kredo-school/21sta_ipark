@@ -3,6 +3,11 @@
 @section('title', 'reservation')
 
 @section('content')
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="container">
   <div class="row text-center">
@@ -48,14 +53,22 @@
           @foreach (array_reverse($future_reservations) as $future_reservation)
             <div class="row border border-2 border-orange rounded-5 mx-5 my-4 p-4 shadow">
               <div class="col-3">
-                <a href="{{route('showParkingDetail', $future_reservation->parking_place_id)}}">
-                    <img
+                <a class ="text-decoration-none" 
+                  href="{{route('showParkingDetail', $future_reservation->parking_place_id)}}">
+                  @if ($future_reservation->ParkingPlace->image != null)
+                      <img
                         class="w-100"
-                        {{-- src="{{$parking_place->image}}" --}}
-                        src="{{asset('images/parking_space_image.jpg')}}"
+                        src="{{asset($future_reservation->ParkingPlace->image)}}"
                         alt="{{$future_reservation->ParkingPlace->parking_place_name}}"
-                        {{-- {{$favorite->parkingPlace->parking_place_name}} --}}
-                    >
+                        style="height:200px"
+                      >
+                  @else
+                      <div class="no-image" style="height:200px">
+                          <p class="text-center h5">
+                              No image
+                          </p>
+                      </div>
+                  @endif
                 </a>  
               </div>
               <div class="col-3 border-end d-flex flex-column">
@@ -134,6 +147,7 @@
                 <th>Review</th>
               </tr>
             </thead>
+            <?php $count = 0; ?>
             @foreach ($past_reservations as $past_reservation)
               <tbody class="bg-white">
                 <tr>
@@ -151,21 +165,24 @@
                       @endif
                       </td>
                     <td>
-                      <form action="{{route('review',['id' => $past_reservation->parking_place_id])}}" method="GET">
                         <input type="hidden" name="userId" value="{{ $user->id }}">
                         <button
                           type="submit"
-                          class="btn btn-sm rounded-pill px-3 btn-navy fw-bold"
+                          class="btn btn-sm rounded-pill px-3 btn-navy fw-bold review-btn"
                           data-bs-toggle="modal" data-bs-target="#reviewModal"
+                          data-reservation-id="{{ $past_reservation->id }}"
+                          data-parking-place-id="{{ $past_reservation->parking_place_id }}"
+                          data-parking-name="{{ $past_reservation->ParkingPlace->parking_place_name }}"
+                          data-star="{{ $review[$count]->star }}"
+                          data-comment="{{ $review[$count]->comment }}"
                         >
                           Write a Review
-                          {{$past_reservation->parking_place_id}}
                         </button>
                         @include('user_info.models.review')
-                      </form>
                     </td>
                 </tr>
               </tbody>
+              <?php $count++; ?>
             @endforeach
           </table>
         @endif

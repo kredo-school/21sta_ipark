@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parking_place_id');
             $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('comment');
+            $table->string('comment')->nullable();;
             $table->integer('star');
             $table->timestamps();
             $table->softDeletes();
@@ -34,6 +34,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('reviews');
-        Schema::dropIfExists('users');
     }
 };

@@ -74,7 +74,7 @@ Route::group(["middleware"=>"auth"], function()
     Route::delete('/user_info/{id}/delete', [ProfileController::class, 'delete'])->name('delete_profile');
 
     // review
-    Route::get('/user_info/review/{id}', [ReviewController::class, 'review'])->name('review');
+    Route::post('/user_info/review/', [ReviewController::class, 'store'])->name('review.store');
 
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
@@ -84,6 +84,7 @@ Route::group(["middleware"=>"auth"], function()
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
     Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
+    Route::get('/reservation/{id}/cancel', [ReservationsController::class, 'cancel'])->name('reservation.cancel');
 
     // Payment
     Route::post('/payment', [ReservationsController::class, 'store'])->name('reservation.store');

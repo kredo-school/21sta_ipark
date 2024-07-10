@@ -6,6 +6,7 @@ use App\Http\Controllers\ReservationsController;
 use App\Models\User;
 use App\Models\ParkingPlace;
 use App\Models\Reservation;
+use App\Models\Review;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -16,12 +17,14 @@ class ProfileController extends Controller
     private $user;
     private $parkingPlace;
     private $reservation;
+    private $review;
 
-    public function __construct(User $user,ParkingPlace $parkingPlace, Reservation $reservation)
+    public function __construct(User $user,ParkingPlace $parkingPlace, Reservation $reservation,Review $review)
     {
         $this->user = $user;
         $this->parkingPlace = $parkingPlace;
         $this->reservation = $reservation;
+        $this->review = $review;
     }
 
     public function profile($id)
@@ -41,20 +44,31 @@ class ProfileController extends Controller
                                 ->orderBy('date', 'desc')
                                 ->get();
 
-                                
         $reservationController = new ReservationsController($this->parkingPlace,$this->reservation);
         $now = \Carbon\Carbon::now()->setTimezone('Asia/Tokyo');
 
+        $review = [];
+        $tempReservations = [];
         $future_reservations = [];
         $past_reservations = [];
     
         foreach ($reservations as $reservation) {
+
+            $reviewItem = $this->review->where('reservation_id', $reservation->id)->first();
+            if (!$reviewItem) {
+                $reviewItem = new Review();
+                $reviewItem->reservation_id = $reservation->id;
+                $reviewItem->star = 0;
+                $reviewItem->comment = "";
+            }
+            $review[] = $reviewItem;
 
             $reservation_datetime = \Carbon\Carbon::parse($reservation->date . ' ' . $reservation->planning_time_from, 'Asia/Tokyo');
 
             if ($reservation_datetime > $now && is_null($reservation->deleted_at)) {
                 // 現在時刻が終了時間より前なら未来の予約
                 $future_reservations[] = $reservation;
+                $tempReservations[] = $reservation;
             } else {
                 // 現在時刻が終了時間より後なら過去の予約
 
@@ -65,6 +79,7 @@ class ProfileController extends Controller
                 }
 
                 $past_reservations[] = $reservation;
+                $tempReservations[] = $reservation;
             }
         }
 
@@ -72,6 +87,8 @@ class ProfileController extends Controller
             'user' => $user_a,
             'future_reservations' => $future_reservations,
             'past_reservations' => $past_reservations,
+            'tempReservations' => $tempReservations,
+            'review' => $review
         ]);
     }
 
