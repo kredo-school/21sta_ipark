@@ -178,7 +178,7 @@
                         >
                           Write a Review
                         </button>
-                        @include('user_info.models.review')
+                        @include('user_info.modals.review')
                     </td>
                 </tr>
               </tbody>

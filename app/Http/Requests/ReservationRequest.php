@@ -20,6 +20,21 @@ class ReservationRequest extends FormRequest
             'from_minute' => 'required|in:00,30',
             'to_hour' => 'required|integer|min:0|max:24',
             'to_minute' => 'required|in:00,30',
+            'date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    // Combine date and time to create Carbon instance
+                    $reservationDateTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $value . ' ' . $this->from_hour . ':' . $this->from_minute);
+                    $currentDateTimeUTC = now();
+                    $currentDateTime = $currentDateTimeUTC->setTimezone('Asia/Tokyo');
+    
+                    // Check if reservationDateTime is before or equal to currentDateTime
+                    if ($reservationDateTime->lte($currentDateTime)) {
+                        $fail('The reservation date and time must be after the current date and time.');
+                    }
+                },
+            ],
             // toの時間がfromの時間よりも後であることを確認
             'to_hour' => [
                 function ($attribute, $value, $fail) {
