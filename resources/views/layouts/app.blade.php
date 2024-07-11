@@ -315,16 +315,16 @@
                             Profile
                         </a>
                         <a
-                            href="{{route('favorite', ['id' => auth()->user()->id])}}"
-                            class="d-flex align-items-center text-decoration-none"
-                        >
-                            Favorite
-                        </a>
-                        <a
                             href="{{route('reservation', ['id' => auth()->user()->id])}}"
                             class="d-flex align-items-center text-decoration-none"
                         >
                             Reservation History
+                        </a>
+                        <a
+                            href="{{route('favorite', ['id' => auth()->user()->id])}}"
+                            class="d-flex align-items-center text-decoration-none"
+                        >
+                            Favorite
                         </a>
                     </div>
                 </div>
@@ -418,16 +418,16 @@
                                 Profile
                             </a>
                             <a
-                                href="{{route('favorite', ['id' => auth()->user()->id])}}"
-                                class="d-flex align-items-center text-decoration-none"
-                            >
-                                Favorite
-                            </a>
-                            <a
                                 href="{{route('reservation', ['id' => auth()->user()->id])}}"
                                 class="d-flex align-items-center text-decoration-none"
                             >
                                 Reservation History
+                            </a>
+                            <a
+                                href="{{route('favorite', ['id' => auth()->user()->id])}}"
+                                class="d-flex align-items-center text-decoration-none"
+                            >
+                                Favorite
                             </a>
                         </div>
                     </div>
