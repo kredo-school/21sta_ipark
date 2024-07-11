@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     @if ($success)
-                        @include('Parking_lots.models.payment')
+                        @include('Parking_lots.modals.payment')
                     @endif
 
                     <button type="submit" class="btn btn-orange w-100 btn-block" id="payButton" data-bs-toggle="modal" data-bs-target="#paymentModal" >

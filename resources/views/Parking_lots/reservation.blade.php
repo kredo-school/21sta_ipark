@@ -1,3 +1,19 @@
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Bootstrap Datepicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+<!-- jQuery (必要であれば読み込み) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap Bundle (含む Popper.js) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Bootstrap Datepicker JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
 @extends('layouts.app')
 
 @section('content')
@@ -53,9 +69,9 @@
                                 </td>
                                 <td colspan="3">
                                     <input
-                                        type="date"
+                                        type="text"
                                         class="form-control"
-                                        id="date"
+                                        id="datepicker"
                                         name="date"
                                         value="{{ old('date') }}"
                                     >
@@ -172,7 +188,7 @@
                     <button type="submit" class="btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm" data-bs-toggle="modal" data-bs-target="#reservationCheckModal">
                         Reserve
                     </button>
-                    @include('Parking_lots.models.Reservation_check')
+                    @include('Parking_lots.modals.Reservation_check')
                 </div>
             </div>
         </div>
@@ -180,3 +196,48 @@
 </div>
 
 @endsection
+
+<script>
+    $(document).ready(function() {
+        // Datepickerの初期化
+        $('#datepicker').datepicker({
+            format: 'yyyy-mm-dd', // 日付のフォーマット
+            todayHighlight: true, // 今日の日付を強調表示
+            autoclose: true, // 日付が選択されたら自動で閉じる
+            startDate: new Date(), // 選択可能な最小の日付を今日に設定
+        }).on('changeDate', function(selected) {
+            var currentDate = new Date();
+            var selectedDate = new Date(selected.date);
+            
+            // 選択された日付が今日と同じ場合
+            if (selectedDate.setHours(0,0,0,0) === currentDate.setHours(0,0,0,0)) {
+                var currentHour = currentDate.getHours();
+                $('#from_hour option').each(function() {
+                    if ($(this).val() < currentHour) {
+                        $(this).prop('disabled', true);
+                    } else {
+                        $(this).prop('disabled', false);
+                    }
+                });
+            } else {
+                // 選択された日付が今日でない場合、全てのオプションを有効にする
+                $('#from_hour option').prop('disabled', false);
+            }
+        });
+    
+        // 初期状態ではFROMの時間を現在の時間以降に制限する
+        var currentHour = new Date().getHours();
+        $('#from_hour option').each(function() {
+            if ($(this).val() < currentHour) {
+                $(this).prop('disabled', true);
+            }
+        });
+    });
+    </script>
+    
+<script>
+    $('form').submit(function(){
+        $('button[type=submit]').prop('disabled', true);
+    });
+
+</script>
