@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Parking Lot Detail')
+
 @section('content')
     <div class="col">
         <a
@@ -11,7 +13,7 @@
         </a>
     </div>
     <div class="row mt-4">
-        <div class="col d-flex align-items-center">
+        <div class="col-9 d-flex align-items-center">
             <div class="h1 fw-bold me-5">
                 {{$parking_place->parking_place_name}}
             </div>
@@ -209,7 +211,8 @@
             </h2>
             <div class="h4 ms-3">
                 {{$parking_place->max_number}}
-                (<span class="color2_red h3 fw-bold">{{$parking_place->slotsLeft()}}</span> slots left)
+                (<span class="color2_red h3 fw-bold">{{$parking_place->slotsLeft()}}</span>
+                slots left for now)
             </div>
 
             <h2 class="color3_bluegray my-3 fw-bold mt-5">
