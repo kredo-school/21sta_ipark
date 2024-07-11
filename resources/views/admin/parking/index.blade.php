@@ -5,13 +5,20 @@
 @section('content')
 
 <div class="col-md-8">
+    <a
+        href="{{route('admin.parking.parkings_list')}}"
+        class="btn btn-orange fw-bold rounded-pill btn-sm close-search-bar"
+    >
+        <i class="fa-solid fa-angles-left"></i>
+        Back
+    </a>
     {{-- title --}}
     <div class="h1 mt-3 mb-5">
         <span class="underline ms-1">&nbsp;Reg</span>ister new parking
     </div>
 
     <div class="container justify-content-center background-image-newparking">
-        
+
         {{-- Register new parking --}}
         <div class="content py-5 px-5">
             @if(session('success'))
@@ -49,7 +56,7 @@
                         <input type="text" class="form-control rounded-pill" id="contact_number" name="contact_number" value="{{ old('contact_number') }}">
                     </div>
                 </div>
-                   
+
                 <div class="row">
                     <div class="col-md-6 mt-3">
                         <label for="postal_code" class="h5 form-label fw-bold">
@@ -133,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6 mt-3">
                         <label for="maximum_amount" class="h5 form-label fw-bold">
@@ -194,7 +201,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6 mt-3">
                         <label for="slotimage" class="h5 form-label fw-bold">
                             Image
@@ -210,7 +217,7 @@
                             <p class="text-danger small">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>  
+                </div>
 
                 <div class="col-12 mt-5">
                     <button type="submit" class="btn btn-orange w-100 rounded-pill fw-bold">
