@@ -54,16 +54,28 @@ class ParkingPlace extends Model
         return $this->hasMany(Reservation::class);
     }
 
-    public function numberOfCurrentReservations(){
+    public function numberOfReservations($date = null, $fromTime = '00:00:00', $toTime = '23:59:59'){
+        // $date = $date ?: today();
+        // $fromTime = $fromTime ?: now()->addHours(9)->format('H:i:s');
+        // $toTime = $toTime ?: now()->addHours(9)->format('H:i:s');
+
+        if (!$date) {
+            $date = today()->format('Y-m-d'); // Ensure today's date if no specific date is provided
+        }
+
+        Log::info("Checking reservations for date: {$date}, from: {$fromTime}, to: {$toTime}");
+
         return $this->reservations()
-            ->where('date', today())
-            ->where('planning_time_from', '<', now()->addHours(9)->format('H:i:s'))
-            ->where('planning_time_to', '>', now()->addHours(9)->format('H:i:s'))
+            ->where('date', $date)
+            ->where(function ($query) use ($fromTime, $toTime) {
+                $query->where('planning_time_from', '<=', $toTime)
+                    ->where('planning_time_to', '>=', $fromTime);
+                })
             ->count();
     }
 
     public function slotsLeft(){
-        return $this->max_number - $this->numberOfCurrentReservations();
+        return $this->max_number - $this->numberOfReservations();
     }
 
     public function isReservationPossible(){
@@ -88,7 +100,4 @@ class ParkingPlace extends Model
         'penalty_amount',
     ];
 
-    public function reservation(){
-        return $this->hasMany(Reservation::class);
-    }
 }

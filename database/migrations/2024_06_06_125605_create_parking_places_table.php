@@ -26,7 +26,7 @@ return new class extends Migration
             $table->double('weekday_night_amount');
             $table->double('holiday_daytime_amount');
             $table->double('holiday_night_amount');
-            $table->double('maximum_amount');
+            $table->double('maximum_amount')->nullable();
             $table->double('penalty_amount')->default(2000.00);
             $table->timestamps();
             $table->softDeletes();

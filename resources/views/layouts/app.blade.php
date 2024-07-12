@@ -105,7 +105,7 @@
                             >
                         </a>
                     </div>
-                    {{-- Serch-bar --}}
+                    {{-- Search-bar --}}
                     <div class="col-6 justify-content-center d-flex align-items-center">
                         <form
                             action="{{route('showParkingList')}}"
@@ -119,6 +119,7 @@
                                     type="text"
                                     name="search"
                                     placeholder="Search by place name"
+                                    {{-- placeholder="Search by anything" --}}
                                     class="form-control rounded-pill rounded-start"
                                     style="width: 300px;"
                                 >
@@ -126,7 +127,7 @@
                                     type="submit"
                                     class="btn rounded-pill fw-bold px-4 btn-navy fs-7 btn-sm ms-3"
                                 >
-                                Show parking spaces
+                                    Show parking spaces
                                 </button>
                             </div>
                         </form>

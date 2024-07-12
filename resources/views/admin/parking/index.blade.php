@@ -145,7 +145,6 @@
                     <div class="col-md-6 mt-3">
                         <label for="maximum_amount" class="h5 form-label fw-bold">
                             Max fee for 24 hours
-                            <span class="color2_red">*</span>
                         </label>
                         <input
                             type="text"

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Parking List')
+@section('title', 'Parking Place List')
 
 @section('content')
     <div class="row align-items-center">
@@ -11,7 +11,7 @@
             @if ($search)
                 {{ $search }}
             @else
-                All parking places
+                Parking Place List
             @endif
         </div>
         <div class="col">
@@ -19,15 +19,18 @@
                 {{ $parking_places->links('vendor.pagination.custom') }}
             </div>
         </div>
-        <a href="javascript:void(0);" class="col h1 text-end filter-button">
-            <i class="fa-solid fa-filter"></i>
-        </a>
+        <div class="col text-end">
+            <a href="javascript:void(0);" class="h1 filter-button">
+                <i class="fa-solid fa-filter"></i>
+            </a>
+        </div>
     </div>
 
     {{-- filter search --}}
     <div class="row search-bar d-flex justify-content-center" style="display: none;">
         <div class="col-10">
-            <form action="#" method="get">
+            <form action="{{route('showParkingList')}}" method="GET">
+                @csrf
                 <div class="card parking-place-search">
                     <div class="card-body">
                         <div class="row">
@@ -47,7 +50,7 @@
                                     for="parking_place_name"
                                     class="h5 form-label fw-bold mt-2 ms-2 mb-0"
                                 >
-                                    Parking place Name
+                                    Parking Place Name
                                 </label>
                                 <input
                                     type="text"
@@ -77,7 +80,7 @@
                                                 <input
                                                     type="text"
                                                     id="city"
-                                                    name="city"
+                                                    ame="city"
                                                     class="form-control rounded-pill"
                                                     placeholder="City"
                                                 >
@@ -86,12 +89,18 @@
                                     </div>
                                     <div class="col-5">
                                         <label
-                                            for="inputStatus"
+                                            for="only_open"
                                             class="h5 form-label fw-bold mt-3 ms-2 mb-0"
                                         >
                                             Only Open
                                         </label><br>
-                                        <input type="checkbox" name="only_open" value="open" class="form-check-input ms-2 mt-2">
+                                        <input
+                                            type="checkbox"
+                                            id="only_open"
+                                            name="only_open"
+                                            value="open"
+                                            class="form-check-input ms-2 mt-2"
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -112,46 +121,66 @@
                                         >
                                     </div>
                                 </div>
-                                <label
-                                    class="h5 form-label fw-bold mt-3 ms-2 mb-0"
-                                >
+                                <label class="h5 form-label fw-bold mt-3 ms-2 mb-0">
                                     Time
                                 </label>
                                 <div class="input-group">
-                                    <select name="from_hour" id="from_hour" class="form-select rounded-pill" value="{{ old('from_hour') }}">
-                                        <?php
-                                        for ($i = 0; $i < 24; $i++) {
-                                            $selected = old('from_hour') == $i ? 'selected' : '';
-                                        ?>
+                                    <select
+                                        name="from_hour"
+                                        id="from_hour"
+                                        class="form-select rounded-pill"
+                                        value="{{ old('from_hour') }}"
+                                    >
+                                        <?php for ($i = 0; $i < 24; $i++) {
+                                            $selected = old('from_hour') == $i ? 'selected' : ''; ?>
                                             <option value="{{$i}}" <?php echo $selected; ?>>
                                                 {{$i}}
                                             </option>
-                                        <?php
-                                        }
-                                        ?>
+                                        <?php } ?>
                                     </select>
                                     <span class="text-center fw-bold mx-2 mt-1">:</span>
-                                    <select name="from_minute" id="from_minute" class="form-select rounded-pill" value="{{ old('date') }}">
-                                        <option value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}>00</option>
-                                        <option value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}>30</option>
+                                    <select
+                                        name="from_minute"
+                                        id="from_minute"
+                                        class="form-select rounded-pill"
+                                        value="{{ old('date') }}"
+                                    >
+                                        <option
+                                            value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}
+                                        >
+                                            00
+                                        </option>
+                                        <option
+                                            value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}
+                                        >
+                                            30
+                                        </option>
                                     </select>
                                     <span class="mx-2 mt-1">〜</span>
                                     <select name="to_hour" id="to_hour" class="form-select rounded-pill">
-                                        <?php
-                                        for ($i = 0; $i < 25; $i++) {
-                                            $selected = old('to_hour') == $i ? 'selected' : '';
-                                        ?>
+                                        <?php for ($i = 0; $i < 25; $i++) {
+                                            $selected = old('to_hour') == $i ? 'selected' : ''; ?>
                                             <option value="{{$i}}" <?php echo $selected; ?>>
                                                 {{$i}}
                                             </option>
-                                        <?php
-                                        }
-                                        ?>
+                                        <?php } ?>
                                     </select>
                                     <span class="text-center fw-bold mx-2 mt-1">:</span>
-                                    <select name="to_minute" id="to_minute" class="form-select rounded-pill">
-                                        <option value="00" {{ old('to_minute') == '00' ? 'selected' : '' }}>00</option>
-                                        <option value="30" {{ old('to_minute') == '30' ? 'selected' : '' }}>30</option>
+                                    <select
+                                        name="to_minute"
+                                        id="to_minute"
+                                        class="form-select rounded-pill"
+                                    >
+                                        <option
+                                            value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}
+                                        >
+                                            00
+                                        </option>
+                                        <option
+                                            value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}
+                                        >
+                                            30
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -162,6 +191,8 @@
                                     <div class="col-6">
                                         <button
                                             type="button"
+                                            id="clear_all"
+                                            name="clear_all"
                                             class="btn btn-red rounded-pill w-100 fw-bold"
                                         >
                                             Clear All Filter
@@ -169,7 +200,7 @@
                                     </div>
                                     <div class="col-6">
                                         <button
-                                            type="button"
+                                            type="submit"
                                             class="btn btn-red-opposite rounded-pill w-100 fw-bold"
                                         >
                                             Apply Filter
@@ -184,34 +215,53 @@
         </div>
     </div>
 
+    {{-- list body --}}
     <div class="row mt-4 px-3">
         @forelse ($parking_places as $parking_place)
             <div class="col-4">
                 <div class="row">
                     <div class="col bg-white p-4 shadow m-3 border border-2 border-orange rounded-4">
                         <div class="row ms-0 me-2 d-flex align-items-center">
-                            @if ( $parking_place->isReservationPossible() )
-                                <div class="col-2 bg-navy rounded-circle text-white shadow d-flex justify-content-center align-items-center" style="width: 70px; height: 70px;">
+                            @if ($parking_place->isReservationPossible())
+                                <div
+                                    class="col-2 bg-navy rounded-circle text-white shadow
+                                            d-flex justify-content-center align-items-center"
+                                    style="width: 70px; height: 70px;"
+                                >
                                     OPEN
                                 </div>
                             @else
-                                <div class="col-2 bg-red rounded-circle text-white shadow d-flex justify-content-center align-items-center" style="width: 70px; height: 70px;">
+                                <div
+                                    class="col-2 bg-red rounded-circle text-white shadow
+                                            d-flex justify-content-center align-items-center"
+                                    style="width: 70px; height: 70px;"
+                                >
                                     FULL
                                 </div>
                             @endif
 
                             <div class="col ms-1">
                                 <div class="row h4 fw-bold justify-content-center text-center">
-                                    {{ $parking_place->parking_place_name }}
+                                    <a
+                                        href="{{ route('showParkingDetail', $parking_place->id) }}"
+                                        class="text-decoration-none"
+                                        style="color: #343A40;"
+                                    >
+                                        {{ $parking_place->parking_place_name }}
+                                    </a>
                                 </div>
                                 <div class="row h6 justify-content-center">
-                                    {{ $parking_place->street }}
+                                    @if ($search)
+                                        {{ $parking_place->street }}
+                                    @else
+                                        {{ $parking_place->street }}, {{ $parking_place->city }}
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-1 float-end h2">
                                 @guest
                                     <a
-                                        href="{{route('login_to_favorite')}}"
+                                        href="{{ route('login_to_favorite') }}"
                                         style="color: #343A40;"
                                     >
                                         <i class="fa-regular fa-heart"></i>
@@ -219,7 +269,7 @@
                                 @else
                                     @if($parking_place->isFavorited())
                                         <form
-                                            action="{{route('favorite.destroy', $parking_place->id)}}"
+                                            action="{{ route('favorite.destroy', $parking_place->id) }}"
                                             method="post"
                                             class="favorite-form"
                                         >
@@ -231,7 +281,7 @@
                                         </form>
                                     @else
                                         <form
-                                            action="{{route('favorite.store', $parking_place->id)}}"
+                                            action="{{ route('favorite.store', $parking_place->id) }}"
                                             method="post"
                                             class="favorite-form"
                                         >
@@ -266,8 +316,7 @@
                             </a>
                         </div>
                         <div class="row mt-3 justify-content-center">
-                            @if (
-                                $parking_place->daytime_from == '00:00'
+                            @if ($parking_place->daytime_from == '00:00'
                                 && $parking_place->daytime_to == '24:00'
                             )
                                 <div class="row h5 d-flex align-items-center">
@@ -278,10 +327,10 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            @if( $isTodayHoliday || $isTodayWeekend )
-                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @if ($isTodayHoliday || $isTodayWeekend)
+                                                ¥{{ $parking_place->holiday_daytime_amount }}
                                             @else
-                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                                ¥{{ $parking_place->weekday_daytime_amount }}
                                             @endif
                                         </span>
                                         <span>/30mins</span>
@@ -301,10 +350,10 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            @if( $isTodayHoliday || $isTodayWeekend )
-                                                ¥{{$parking_place->holiday_daytime_amount}}
+                                            @if ($isTodayHoliday || $isTodayWeekend)
+                                                ¥{{ $parking_place->holiday_daytime_amount }}
                                             @else
-                                                ¥{{$parking_place->weekday_daytime_amount}}
+                                                ¥{{ $parking_place->weekday_daytime_amount }}
                                             @endif
                                         </span>
                                         <span>/30mins</span>
@@ -318,10 +367,10 @@
                                     </div>
                                     <div class="col d-flex align-items-center">
                                         <span class="color2_red h3 fw-bold me-1 mb-0">
-                                            @if( $isTodayHoliday || $isTodayWeekend )
-                                                ¥{{$parking_place->holiday_night_amount}}
+                                            @if ($isTodayHoliday || $isTodayWeekend)
+                                                ¥{{ $parking_place->holiday_night_amount }}
                                             @else
-                                                ¥{{$parking_place->weekday_night_amount}}
+                                                ¥{{ $parking_place->weekday_night_amount }}
                                             @endif
                                         </span>
                                         <span>/30mins</span>
@@ -330,13 +379,29 @@
                             @endif
                             <div class="row h5 mt-1">
                                 <div class="col">
-                                    MAX: ¥{{$parking_place->maximum_amount}} /24h
+                                    MAX: ¥{{ $parking_place->maximum_amount }} /24h
                                 </div>
                             </div>
                         </div>
                         <div class="text-center mt-2">
+                            {{-- If filter search of datetime is working --}}
+                            {{-- @if ($parking_place->isReservationPossible())
+                                <a
+                                    href="{{ route('showReservationForm', $parking_place->id) }}"
+                                    class="btn btn-sm rounded-pill px-5 btn-orange fw-bold fs-5"
+                                >
+                                    Reserve now
+                                </a>
+                            @else
+                                <button
+                                    class="btn btn-sm rounded-pill px-5 btn-orange fw-bold fs-5"
+                                    disabled
+                                >
+                                    Reserve now
+                                </button>
+                            @endif --}}
                             <a
-                                href="{{route('showReservationForm', $parking_place->id)}}"
+                                href="{{ route('showReservationForm', $parking_place->id) }}"
                                 class="btn btn-sm rounded-pill px-5 btn-orange fw-bold fs-5"
                             >
                                 Reserve now
@@ -347,9 +412,18 @@
             </div>
         @empty
             <div class="col-12">
-                <p class="text-center h3 my-5">No parking places found in {{ $search }}.</p>
+                <p class="text-center h3 my-5">
+                    No parking places found in {{ $search }}.
+                </p>
             </div>
         @endforelse
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row fw-bold text-center justify-content-center">
+                {{ $parking_places->links('vendor.pagination.custom') }}
+            </div>
+        </div>
     </div>
 
     <script>
@@ -399,6 +473,24 @@
                     searchBar.style.display = 'none';
                     searchBar.style.transform = 'translateY(-100%)';
                 }
+            });
+
+            // clear filter
+            document.getElementById('clear_all').addEventListener('click', function() {
+                var form = this.closest('form');
+
+                form.reset();
+
+                form.querySelectorAll('input[type="text"], input[type="date"], input[type="checkbox"]').forEach(function(input) {
+                    input.value = '';
+                    if (input.type === 'checkbox') {
+                        input.checked = false;
+                    }
+                });
+
+                form.querySelectorAll('select').forEach(function(select) {
+                    select.selectedIndex = 0;
+                });
             });
 
             // close search bar
