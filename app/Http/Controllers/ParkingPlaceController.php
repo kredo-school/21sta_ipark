@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\ParkingPlace;
 
+use App\Models\ParkingPlace;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class ParkingPlaceController extends Controller
 {
-    //
     private $parking_places;
 
     public function __construct(ParkingPlace $parking_places){
@@ -28,8 +29,81 @@ class ParkingPlaceController extends Controller
 
     public function ParkingList(Request $request){
         $search = $request->input('search');
+        $date = $request->input('date');
+        $fromTime = $request->from_hour . ":" . $request->from_minute;
+        $toTime = $request->to_hour . ":" . $request->to_minute;
 
-        $parking_places = $this->parking_places
+        $query = ParkingPlace::query();
+
+        // if ($search) {
+        //     $query->where(function ($query) use ($search) {
+        //         $query->where('parking_place_name', 'like', '%' . $search . '%')
+        //               ->orWhere('postal_code', 'like', '%' . $search . '%')
+        //               ->orWhere('city', 'like', '%' . $search . '%');
+        //     });
+        // }
+
+        if ($request->has('parking_place_name') && $request->parking_place_name) {
+            $query->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
+        }
+
+        if ($request->has('postal_code') && $request->postal_code) {
+            $query->where('postal_code', $request->postal_code);
+        }
+
+        if ($request->has('city') && $request->city) {
+            $query->where('city', 'like', '%' . $request->city . '%');
+        }
+
+        // if ($request->has('only_open') && $request->only_open == 'open') {
+        //     $query->where(function ($query) {
+        //         $query->whereDoesntHave('reservations', function ($query) {
+        //             $query->whereDate('date', today());
+        //         });
+        //     });
+        // }
+
+        if ($request->has('only_open') && $request->only_open == 'open') {
+            $query = $query->get()->filter(function ($parking_place) use ($date, $fromTime, $toTime) {
+                return $parking_place->isReservationPossible($date, $fromTime, $toTime);
+            });
+        } else {
+            $query = $query->get();
+        }
+
+        if ($request->has('date')) {
+            $inputDate = trim($request->date);
+            Log::info("Input Date: {$inputDate}");
+
+            try {
+                $selectedDate = Carbon::createFromFormat('Y-m-d', $inputDate)->format('Y-m-d');
+                Log::info("Selected Date: {$selectedDate}");
+
+                // Modify the query to filter by selected date
+                $query->where(function ($query) use ($selectedDate) {
+                    $query->whereDoesntHave('reservations', function ($query) use ($selectedDate) {
+                        $query->whereDate('date', $selectedDate);
+                    });
+                });
+            } catch (\Exception $e) {
+                Log::error("Error parsing date: {$inputDate}. Error: {$e->getMessage()}");
+            }
+        }
+
+        // $parking_places = $query->paginate(9);
+
+        $parking_places = $query;
+
+        if ($date && $fromTime && $toTime) {
+            $query->where('date', $date)
+                    ->where('planning_time_from', '<=', $toTime)
+                    ->where('planning_time_to', '>=', $fromTime);
+            ;
+        }
+
+        $filteredIds = $parking_places->pluck('id');
+
+        $parking_places = $this->parking_places->whereIn('id', $filteredIds)
             ->where('city', 'like', '%'.$search.'%')
             ->paginate(9);
 
@@ -80,4 +154,5 @@ class ParkingPlaceController extends Controller
 
         return $isWeekend;
     }
+
 }

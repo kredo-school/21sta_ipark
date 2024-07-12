@@ -89,11 +89,9 @@ class ReservationsController extends Controller
             ->where('parking_place_id', $parking_no);
 
         $conflicting_reservations = $query->first()->conflicting_reservations;
-
         $maxNumber = DB::table('parking_places')
                 ->where('id', $parking_no)
                 ->value('max_number');
-
         if ($conflicting_reservations >= $maxNumber) {
             return false;
         } else {
@@ -229,7 +227,7 @@ class ReservationsController extends Controller
 
         $reservations = new Reservation();
         $reservations->parking_place_id = $request->parkingPlacesId;
-        $reservations->parking_slot_id 
+        $reservations->parking_slot_id
             = $this->findAvailableParkingSlot($request->parkingPlacesId,$request->date,$request->fromtime,$request->totime);
         $reservations->user_id = auth()->id();
         $reservations->date = $request->date;

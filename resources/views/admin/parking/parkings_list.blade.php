@@ -144,7 +144,7 @@
                                         href="{{ route('admin.parking.parkings_list') }}"
                                         class="btn btn-red rounded-pill w-100 fw-bold"
                                     >
-                                    Clean All Filter
+                                    Clear All Filter
                                     </a>
                                 </div>
                                 <div class="col-6">
