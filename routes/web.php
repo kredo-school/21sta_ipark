@@ -77,6 +77,7 @@ Route::group(["middleware"=>"auth"], function()
 
     // review
     Route::post('/user_info/review/', [ReviewController::class, 'store'])->name('review.store');
+    Route::get('/user_info/delete/{id}', [ReviewController::class, 'destroy'])->name('review.destroy');
 
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');

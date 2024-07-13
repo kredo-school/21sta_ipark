@@ -50,4 +50,16 @@ class ReviewController extends Controller
         return redirect()->back();
         
     }
+
+    public function destroy(Request $request){
+
+        $review = Review::where('id', $request->id)->first();
+
+        if ($review) {
+            $review->delete();
+        }
+
+        return redirect()->back();
+        
+    }
 }

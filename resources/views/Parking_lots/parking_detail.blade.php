@@ -256,7 +256,17 @@
                                 </div>
                             </div>
                             <div class="ms-5">
-                                {{$review->comment}}
+                                <div class="row mt-3">
+                                    <div class="col">{{$review->comment}}</div>
+                                    @if (auth()->check() && $review->user_id == auth()->id())
+                                        <a 
+                                            href="{{route('review.destroy',$review->id)}}"
+                                            class="col text-end mx-4 text-decoration-none"
+                                        >
+                                            delete
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
                             <hr class="mx-4">
                         </div>
