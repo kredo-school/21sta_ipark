@@ -153,7 +153,10 @@
                 <tr>
                     <td>{{ $past_reservation->date }}</td>
                     <td>{{ $past_reservation->ParkingPlace->parking_place_name }}</td>
-                    <td>{{ $past_reservation->planning_time_from }} → {{ $past_reservation->planning_time_to }}</td>
+                    <td>{{ \Carbon\Carbon::parse($past_reservation->planning_time_from)->format('H:i') }} 
+                         → 
+                         {{ \Carbon\Carbon::parse($past_reservation->planning_time_to)->format('H:i') }}
+                    </td>
                     <td>¥ {{ $past_reservation->fee }}</td>
                     <td>
                       @if(!is_null($past_reservation->deleted_at))

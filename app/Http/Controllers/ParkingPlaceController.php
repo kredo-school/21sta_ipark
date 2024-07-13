@@ -102,10 +102,12 @@ class ParkingPlaceController extends Controller
             ;
         }
 
-        $filteredIds = $parking_places->pluck('id');
+        $formattedPostalCode = preg_replace('/^(\d{3})(\d{4})$/', '$1-$2', $search);
 
-        $parking_places = $this->parking_places->whereIn('id', $filteredIds)
+        $parking_places = $this->parking_places
             ->where('city', 'like', '%'.$search.'%')
+            ->orwhere('parking_place_name', 'like', '%' . $search . '%')
+            ->orwhere('postal_code', $formattedPostalCode)
             ->paginate(9);
 
         $isTodayHoliday = $this->isTodayHoliday();
