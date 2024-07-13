@@ -163,8 +163,17 @@
                       @else
                         Done
                       @endif
-                      </td>
+                    </td>
                     <td>
+                      @if (!is_null($past_reservation->deleted_at) || !is_null($review[$count]->id))
+                        <button
+                          type="submit"
+                          class="btn btn-sm rounded-pill px-3 btn-navy fw-bold review-btn"
+                          disabled
+                        >
+                          Write a Review
+                        </button>
+                      @else
                         <input type="hidden" name="userId" value="{{ $user->id }}">
                         <button
                           type="submit"
@@ -179,6 +188,7 @@
                           Write a Review
                         </button>
                         @include('user_info.modals.review')
+                      @endif
                     </td>
                 </tr>
               </tbody>
