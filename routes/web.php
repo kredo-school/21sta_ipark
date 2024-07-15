@@ -30,6 +30,7 @@ Route::get('/reservation/{id}', [HomeController::class, 'showReservationForm'])-
 // Parking places
 Route::get('/parking_place/{id}', [ParkingPlaceController::class, 'show'])->name('showParkingDetail');
 Route::get('/parking_list', [ParkingPlaceController::class, 'ParkingList'])->name('showParkingList');
+Route::get('/parking_list/filtersearch', [ParkingPlaceController::class, 'filterSearch'])->name('filterSearch');
 
 // Favorites
 Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
