@@ -29,7 +29,7 @@
     {{-- filter search --}}
     <div class="row search-bar d-flex justify-content-center" style="display: none;">
         <div class="col-10">
-            <form action="{{route('showParkingList')}}" method="GET">
+            <form action="{{route('filterSearch')}}" method="GET">
                 @csrf
                 <div class="card parking-place-search">
                     <div class="card-body">
@@ -80,7 +80,7 @@
                                                 <input
                                                     type="text"
                                                     id="city"
-                                                    ame="city"
+                                                    name="city"
                                                     class="form-control rounded-pill"
                                                     placeholder="City"
                                                 >
@@ -413,7 +413,7 @@
         @empty
             <div class="col-12">
                 <p class="text-center h3 my-5">
-                    No parking places found in {{ $search }}.
+                    No parking place found.
                 </p>
             </div>
         @endforelse

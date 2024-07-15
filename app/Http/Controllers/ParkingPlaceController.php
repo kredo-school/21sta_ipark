@@ -30,26 +30,39 @@ class ParkingPlaceController extends Controller
 
     public function ParkingList(Request $request){
         $search = $request->input('search');
+
+        $formattedPostalCode = preg_replace('/^(\d{3})(\d{4})$/', '$1-$2', $search);
+
+        $parking_places = $this->parking_places
+            ->where('city', 'like', '%'.$search.'%')
+            ->orwhere('parking_place_name', 'like', '%' . $search . '%')
+            ->orwhere('postal_code', $formattedPostalCode)
+            ->paginate(9);
+
+        $isTodayHoliday = $this->isTodayHoliday();
+        $isTodayWeekend = $this->isTodayWeekend();
+
+        return view('parking_lots.parking_list',
+                compact('parking_places', 'search', 'isTodayHoliday', 'isTodayWeekend'));
+    }
+
+    public function filterSearch(Request $request){
+        $search = $request->input('search');
+
+        $formattedPostalCode = preg_replace('/^(\d{3})(\d{4})$/', '$1-$2', $request->postal_code);
+
         $date = $request->input('date');
         $fromTime = $request->from_hour . ":" . $request->from_minute;
         $toTime = $request->to_hour . ":" . $request->to_minute;
 
         $query = ParkingPlace::query();
 
-        // if ($search) {
-        //     $query->where(function ($query) use ($search) {
-        //         $query->where('parking_place_name', 'like', '%' . $search . '%')
-        //               ->orWhere('postal_code', 'like', '%' . $search . '%')
-        //               ->orWhere('city', 'like', '%' . $search . '%');
-        //     });
-        // }
-
         if ($request->has('parking_place_name') && $request->parking_place_name) {
             $query->where('parking_place_name', 'like', '%' . $request->parking_place_name . '%');
         }
 
         if ($request->has('postal_code') && $request->postal_code) {
-            $query->where('postal_code', $request->postal_code);
+            $query->where('postal_code', $formattedPostalCode);
         }
 
         if ($request->has('city') && $request->city) {
@@ -72,26 +85,24 @@ class ParkingPlaceController extends Controller
             $query = $query->get();
         }
 
-        if ($request->has('date')) {
-            $inputDate = trim($request->date);
-            Log::info("Input Date: {$inputDate}");
+        // if ($request->has('date')) {
+        //     $inputDate = trim($request->date);
+        //     Log::info("Input Date: {$inputDate}");
 
-            try {
-                $selectedDate = Carbon::createFromFormat('Y-m-d', $inputDate)->format('Y-m-d');
-                Log::info("Selected Date: {$selectedDate}");
+        //     try {
+        //         $selectedDate = Carbon::createFromFormat('Y-m-d', $inputDate)->format('Y-m-d');
+        //         Log::info("Selected Date: {$selectedDate}");
 
-                // Modify the query to filter by selected date
-                $query->where(function ($query) use ($selectedDate) {
-                    $query->whereDoesntHave('reservations', function ($query) use ($selectedDate) {
-                        $query->whereDate('date', $selectedDate);
-                    });
-                });
-            } catch (\Exception $e) {
-                Log::error("Error parsing date: {$inputDate}. Error: {$e->getMessage()}");
-            }
-        }
-
-        // $parking_places = $query->paginate(9);
+        //         // Modify the query to filter by selected date
+        //         $query->where(function ($query) use ($selectedDate) {
+        //             $query->whereDoesntHave('reservations', function ($query) use ($selectedDate) {
+        //                 $query->whereDate('date', $selectedDate);
+        //             });
+        //         });
+        //     } catch (\Exception $e) {
+        //         Log::error("Error parsing date: {$inputDate}. Error: {$e->getMessage()}");
+        //     }
+        // }
 
         $parking_places = $query;
 
@@ -102,12 +113,9 @@ class ParkingPlaceController extends Controller
             ;
         }
 
-        $formattedPostalCode = preg_replace('/^(\d{3})(\d{4})$/', '$1-$2', $search);
+        $filteredIds = $parking_places->pluck('id');
 
-        $parking_places = $this->parking_places
-            ->where('city', 'like', '%'.$search.'%')
-            ->orwhere('parking_place_name', 'like', '%' . $search . '%')
-            ->orwhere('postal_code', $formattedPostalCode)
+        $parking_places = $this->parking_places->whereIn('id', $filteredIds)
             ->paginate(9);
 
         $isTodayHoliday = $this->isTodayHoliday();
