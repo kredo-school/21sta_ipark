@@ -75,7 +75,7 @@ main{
 
 .background-image-parkinglot-reservation-bottom {
     background-image: url('/images/parking image_harf_bottom.jpg');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }

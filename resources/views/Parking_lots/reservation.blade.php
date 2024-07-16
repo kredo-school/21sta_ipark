@@ -17,7 +17,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-8">
+<div class="col-md-8">
     {{-- title --}}
     <div class="h1 mt-3 mb-5">
         <span class="underline ms-1">&nbsp;Res</span>ervation form
@@ -141,7 +141,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-3 d-flex flex-column justify-content-end pb-1">
+                <div class="col-md-3 d-flex flex-column justify-content-end pb-1">
                     <button type="submit" class="btn rounded-pill fw-bold px-4 btn-navy fs-5 btn-sm">
                         Calculate
                     </button>
@@ -154,13 +154,13 @@
         {{-- Reservation result fee/date --}}
         <div class="main background-image-parkinglot-reservation-bottom">
             <div class="row">
-                <div class="col-8 mt-5 mb-5">
+                <div class="col-md-8 mt-5 mb-5">
                     {{-- Reservation result date --}}
                     <div class="row">
-                        <div class="col-3 h4 color3_bluegray fw-bold text-end">
+                        <div class="col-md-3 h4 color3_bluegray fw-bold text-end">
                             Date
                         </div>
-                        <div class="col-5 h4 fw-bold  text-end">
+                        <div class="col-md-9 h4 fw-bold  text-end">
                             {{-- Display in red on weekends --}}
                             {{ date('Y/m/d', strtotime(session('date'))) }}&nbsp;
                             @if ( session('isWeekend') )
@@ -168,23 +168,21 @@
                             @else
                                 {{ session('dayOfWeek') }}
                             @endif
-                        </div>
-                        <div class="col-4 h4 fw-bold">
                             {{ session('from_time') }} - {{ session('to_time') }}
                         </div>
                     </div>
                     {{-- Reservation result fee --}}
                     <div class="row mt-1 d-flex align-items-center">
-                        <div class="col-3 h4 color3_bluegray fw-bold text-end">
+                        <div class="col-md-3 h4 color3_bluegray fw-bold text-end">
                             Fee
                         </div>
-                        <div class="col-5 h1 fw-bold text-end">
+                        <div class="col-md-9 h1 fw-bold text-end">
                             <i class="fa-solid fa-yen-sign"></i>
                             <span class= "color2_red">&nbsp;&nbsp; {{ session('fee') }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-3 mt-5 mb-5 d-flex flex-column justify-content-end">
+                <div class="col-md-3 mt-5 mb-5 d-flex flex-column justify-content-end">
                     <button type="submit" class="btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm" data-bs-toggle="modal" data-bs-target="#reservationCheckModal">
                         Reserve
                     </button>
