@@ -3,14 +3,14 @@
 @section('title', 'Update parking')
 
 @section('content')
-
+{{-- Update parking --}}
 <div class="col-md-8">
     <a
         href="{{route('admin.parking.parkings_list')}}"
         class="btn btn-orange fw-bold rounded-pill btn-sm close-search-bar"
     >
         <i class="fa-solid fa-angles-left"></i>
-        Back
+        Back to parking places page
     </a>
     {{-- title --}}
     <div class="h1 mt-3 mb-5">
@@ -18,9 +18,8 @@
     </div>
 
     <div class="container justify-content-center background-image-newparking">
-
-        {{-- Update parking --}}
         <div class="content py-5 px-5">
+            {{-- error message --}}
             @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -30,7 +29,6 @@
                 </ul>
             </div>
             @endif
-            {{-- Parking place name --}}
             <form
                 action="{{ route('admin.parking.update', $parking_place->id) }}"
                 method="POST"
@@ -38,6 +36,7 @@
             >
                 @csrf
                 @method('PATCH')
+
                 <div class="row justify-content-center">
                     <div class="col-md-6 mt-3">
                         <label
@@ -228,16 +227,8 @@
 
                         <div class="row">
                             <div class="col-6">
-                                {{-- <input
-                                    type="text"
-                                    class="form-control rounded-pill"
-                                    id="daytime_from"
-                                    name="daytime_from"
-                                    placeholder="From"
-                                    value="{{ $parking_place->daytime_from }}"
-                                > --}}
                                 <select
-                                    class="form-control rounded-pill"
+                                    class="form-select rounded-pill pic-icon"
                                     id="daytime_from"
                                     name="daytime_from"
                                 >
@@ -252,16 +243,8 @@
                                 </select>
                             </div>
                             <div class="col-6">
-                                {{-- <input
-                                    type="text"
-                                    class="form-control rounded-pill"
-                                    id="daytime_to"
-                                    name="daytime_to"
-                                    placeholder="To"
-                                    value="{{ $parking_place->daytime_to }}"
-                                > --}}
                                 <select
-                                    class="form-control rounded-pill"
+                                    class="form-select rounded-pill pic-icon"
                                     id="daytime_to"
                                     name="daytime_to"
                                 >
@@ -310,4 +293,32 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const daytimeFrom = document.getElementById('daytime_from');
+    const daytimeTo = document.getElementById('daytime_to');
+
+    function updateDaytimeToOptions() {
+        const fromValue = parseInt(daytimeFrom.value.split(':')[0]);
+        for (let option of daytimeTo.options) {
+            const toValue = parseInt(option.value.split(':')[0]);
+            option.disabled = !isNaN(fromValue) && toValue <= fromValue;
+        }
+    }
+
+    function updateDaytimeFromOptions() {
+        const toValue = parseInt(daytimeTo.value.split(':')[0]);
+        for (let option of daytimeFrom.options) {
+            const fromValue = parseInt(option.value.split(':')[0]);
+            option.disabled = !isNaN(toValue) && fromValue >= toValue;
+        }
+    }
+
+    daytimeFrom.addEventListener('change', updateDaytimeToOptions);
+    daytimeTo.addEventListener('change', updateDaytimeFromOptions);
+
+    updateDaytimeToOptions();
+    updateDaytimeFromOptions();
+});
+</script>
 @endsection
