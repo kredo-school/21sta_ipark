@@ -30,33 +30,25 @@ class AdminParkingController extends Controller
             'daytime_to' => 'required|date_format:H:i',
             'image' => 'nullable|mimes:jpeg,jpg,png,gif|max:2048',
             'contact_number' => ['required', 'regex:/^\d{10,11}$|^\d{2,4}-\d{3,4}-\d{4}$/'],
-            'weekday_daytime_amount' => 'required|integer|min:0|max:9999',
-            'weekday_night_amount' => 'required|integer|min:0|max:9999',
-            'holiday_daytime_amount' => 'required|integer|min:0|max:9999',
-            'holiday_night_amount' => 'required|integer|min:0|max:9999',
-            'maximum_amount' => 'required|integer|min:0|max:9999',
+            'weekday_daytime_amount' => 'required|integer|min:1|max:9999',
+            'weekday_night_amount' => 'required|integer|min:1|max:9999',
+            'holiday_daytime_amount' => 'required|integer|min:1|max:9999',
+            'holiday_night_amount' => 'required|integer|min:1|max:9999',
+            'maximum_amount' => 'required|integer|min:1|max:9999',
         ];
     }
 
-    // erroe messages
-    private function validationMessages()
+    private function validationAttributes()
     {
         return [
-            'parking_place_name.required' => 'The parking place name is required.',
-            'postal_code.required' => 'The postal code is required.',
-            'city.required' => 'The city is required.',
-            'street.required' => 'The street is required.',
-            'max_number.required' => 'The number of slots is required.',
-            'daytime_from.required' => 'The daytime from is required.',
-            'daytime_to.required' => 'The daytime to is required.',
-            'image.mimes' => 'The image must be a file of type: jpeg, jpg, png, gif.',
-            'image.max' => 'The image must not be greater than 2048 kilobytes.',
-            'contact_number.required' => 'The contact number is required.',
-            'weekday_daytime_amount.required' => 'The fee for weekday daytime is required.',
-            'weekday_night_amount.required' => 'The fee for weekday night is required.',
-            'holiday_daytime_amount.required' => 'The fee for holiday daytime is required.',
-            'holiday_night_amount.required' => 'The fee for holiday night is required.',
-            'maximum_amount.required' => 'The max fee for 24 hours is required.',
+            'max_number' => 'number of slots',
+            'daytime_from' => 'daytime period from',
+            'daytime_to' => 'daytime period to',
+            'weekday_daytime_amount' => 'fee for weekday daytime',
+            'weekday_night_amount' => 'fee for weekday night',
+            'holiday_daytime_amount' => 'fee for holiday daytime',
+            'holiday_night_amount' => 'fee for holiday night',
+            'maximum_amount' => 'max fee for 24 hours',
         ];
     }
 
@@ -139,7 +131,7 @@ class AdminParkingController extends Controller
     // Store a new parking place
     public function store(Request $request)
     {
-        $request->validate($this->validationRules(), $this->validationMessages());
+        $request->validate($this->validationRules(), [], $this->validationAttributes());
 
         $parkingPlace = new ParkingPlace();
         $this->saveParkingPlaceData($parkingPlace, $request);
@@ -151,7 +143,7 @@ class AdminParkingController extends Controller
     // Update an existing parking place
     public function updateParking(Request $request, $id)
     {
-        $request->validate($this->validationRules(), $this->validationMessages());
+        $request->validate($this->validationRules(), [], $this->validationAttributes());
 
         $parkingPlace = ParkingPlace::withTrashed()->findOrFail($id);
         $this->saveParkingPlaceData($parkingPlace, $request);
