@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'reservation')
+@section('title', 'Profile')
 
 @section('content')
 
@@ -46,27 +46,27 @@
         <div class="card-body profile-card-body text-center">
             <table class="table table-profile table-border text-start">
                 <tr class="">
-                    <td>User name</td>
+                    <td class="fw-medium">User name</td>
                     <td>{{ $user->username }}</td>
                 </tr>
 
                 <tr>
-                    <td>Email</td>
+                    <td class="fw-medium">Email</td>
                     <td>{{$user->email }}</td>
                 </tr>
 
                 <tr>
-                    <td>Password</td>
+                    <td class="fw-medium">Password</td>
                     <td>********</td>
                 </tr>
 
                 <tr>
-                    <td>Phone Number</td>
+                    <td class="fw-medium">Phone Number</td>
                     <td>{{ $user->phone }}</td>
                 </tr>
 
                 <tr>
-                    <td>Car Type</td>
+                    <td class="fw-medium">Car Type</td>
                     <td>
                     @if($user->car_type)
                         {{ $user->car_type }}

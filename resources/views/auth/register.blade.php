@@ -135,9 +135,9 @@
                                             <option value="" hidden>
                                                 <i class="fa-solid fa-car"></i>Please select your car type *
                                             </option>
-                                            <option value="Standard">Standard</option>
-                                            <option value="Compact">Compact</option>
-                                            <option value="Large">Large</option>
+                                            <option value="standard">Standard</option>
+                                            <option value="compact">Compact</option>
+                                            <option value="large">Large</option>
                                             <option value="na">No answer</option>
                                         </select>
 

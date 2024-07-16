@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'reservation')
+@section('title', 'Reservation Histroy')
 
 @section('content')
 <!-- Bootstrap Bundle with Popper -->
