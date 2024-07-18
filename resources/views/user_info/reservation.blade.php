@@ -96,7 +96,7 @@
                       Start Time
                     </div>
                     <div class="row h5 text-center my-2 fw-bold">
-                      {{ $future_reservation->planning_time_from }} <br>
+                      {{ \Carbon\Carbon::parse($future_reservation->planning_time_from)->format('H:i') }} <br>
                       {{ $future_reservation->date }}
                     </div>
                   </div>
@@ -113,7 +113,7 @@
                       End Time
                     </div>
                     <div class="row h5 text-center my-2 fw-bold">
-                      {{ $future_reservation->planning_time_to }} <br>
+                      {{ \Carbon\Carbon::parse($future_reservation->planning_time_to)->format('H:i') }} <br>
                       {{ $future_reservation->date }}
                     </div>
                   </div>
