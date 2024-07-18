@@ -123,6 +123,29 @@ main{
     border: none;
 }
 
+@media (max-width: 576px) {
+    .ipark-logo{
+        width: 70%;
+        height: 100%;
+    }
+
+    .login-img{
+        width: 80%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .ipark-logo{
+        width: 70%;
+        height: 100%;
+    }
+
+    .login-img{
+        width: 90%;
+        height: 80%;
+    }
+}
+
 /* REGISTER PAGE */
 .card-register{
     color: #403734;
@@ -168,6 +191,28 @@ main{
     color: #FF9900;
 }
 
+@media (max-width: 576px) {
+    .card-register{
+        width: 90%;
+    }
+
+    .register_img{
+        width: 95%;
+        height: 100%;
+    }
+
+    .card-body-register{
+        width: 80%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .register_img{
+        width: 80%;
+        height: 100%;
+    }
+}
+
 
 /* ABOUT US */
 .card-aboutus{
@@ -199,6 +244,19 @@ main{
     width: 150px;
 }
 
+.aboutus-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.aboutus-img-group{
+    flex: 1 1 200px;
+    margin: 5px;
+    text-align: center;
+}
+
 .img-aboutus{
     width: 150px;
     height: 150px;
@@ -207,6 +265,38 @@ main{
 .table-aboutus-img{
     width: 80%;
     text-align: center;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.table-aboutus-img td {
+    border: none;
+    padding: 8px;
+    text-align: center;
+    vertical-align: top;
+}
+
+@media (max-width: 576px) {
+    .card-aboutus{
+        width: 90%;
+    }
+
+    .table-aboutus-img,
+    .table-aboutus-img thead,
+    .table-aboutus-img tbody,
+    .table-aboutus-img tr,
+    .table-aboutus-img td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-aboutus-img td {
+        margin-bottom: 20px;
+    }
+
+    .table-aboutus-img td:last-child {
+        margin-bottom: 0;
+    }
 }
 
 /* FAQ */
