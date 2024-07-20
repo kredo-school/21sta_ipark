@@ -6,28 +6,24 @@
 
     <div class="container">
         <div class="row mt-4">
-            <div class="col-2 d-flex align-items-center">
-                <i class="fa-solid fa-car fa-2x admin-users-icon"></i>
+            <div class="col-2 d-flex align-items-center admin-title-parking">
+                <i class="fa-solid fa-car fa-2x admin-users-icon page-title"></i>
                 <span class="ms-2">
-                    <span class="admin-users h4">
+                    <span class="admin-users h4 page-title">
                         Parking Places
                     </span>
                 </span>
             </div>
-            <div class="col-2 d-flex align-items-center justify-content-center">
-                <a
-                    href="{{route('admin.users_list')}}"
-                    class="admin-parking-link"
-                >
-                    <i class="fa-solid fa-user fa-2x"></i>
-                    <span class="ms-2">
-                        <span class="admin-parking h4">
-                            Users
-                        </span>
-                    </span>
-                </a>
+            <div class="col-2 d-flex align-items-center admin-title-parking">
+                <i class="fa-solid fa-user fa-2x page-title"></i>
+                <span class="ms-2">
+                    <a href="{{route('admin.users_list')}}" class="admin-parking-link">
+                        <span class="admin-parking h4 page-title"> Users</span>
+                    </a>
+                </span>
             </div>
         </div>
+
         <form
             action="{{route('admin.parking.parkings_list')}}"
             method="get"
@@ -218,85 +214,87 @@
         <div class="d-flex justify-content-center mt-1 userList-pagination">
             {{ $all_parkings->links('pagination::bootstrap-4') }}
         </div>
-        <table class="parking-list h6 table-hover align-center text-center w-100">
-            <thead>
-                <tr>
-                    <th>
-                        <i class="fa-solid fa-check"></i>
-                    </th>
-                    <th>Parking place Name</th>
-                    <th>City</th>
-                    <th>Street</th>
-                    <th><i class="fa-solid fa-car fa-2x"></i></th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="bg-white">
-                @forelse ($all_parkings as $parkingPlace)
+        <div class="admin-table-responsive">
+            <table class="parking-list h6 table-hover align-center text-center w-100">
+                <thead>
                     <tr>
-                        @if ($parkingPlace->deleted_at == null)
-                            <td>
-                                <input
-                                 form="parking-list-form-delete"
-                                 type="checkbox"
-                                 id="parking-list-form-delete"
-                                 name="parking_ids[]"
-                                 value="{{ $parkingPlace->id }}">
-                            </td>
-                        @else
-                            <td>
-                                <input
-                                    form="parking-list-form-restore"
-                                    type="checkbox"
-                                    id="parking-list-form-restore"
-                                    name="parking_ids[]"
-                                    value="{{ $parkingPlace->id }}"
-                                    >
-                            </td>
-
-                        @endif
-                        <td>{{$parkingPlace->parking_place_name}}</td>
-                        <td>{{$parkingPlace->city}}</td>
-                        <td>{{$parkingPlace->street}}</td>
-                        <td>{{$parkingPlace->max_number}}</td>
-                        <td>
-                            @if ($parkingPlace->trashed())
-                                {{-- DEACTIVATE --}}
-                                <div class="deactivate-logo">
-                                    <i class="fa-solid fa-circle"></i>
-                                </div>
-                            @else
-                                {{-- ACTIVATE --}}
-                                <div class="activate-logo">
-                                    <i class="fa-solid fa-circle"></i>
-                                </div>
-                            @endif
-                        </td>
-                        <td class="d-flex align-items-center justify-content-center" >
-                            <a href="{{ route('admin.parking.edit', $parkingPlace->id) }}">
-                                <i class="fa-solid fa-edit fa-2x me-1" style="color: #343A40"></i>
-                            </a>
-                            <span class="dropdown">
-                                <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                    <i class="fa-solid fa-ellipsis fa-2x"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a
-                                    href="{{route('admin.parking.show', $parkingPlace->id)}}"
-                                    class="dropdown-item"
-                                    >
-                                        Detail
-                                    </a>
-                                </div>
-                            </span>
-                        </td>
+                        <th>
+                            <i class="fa-solid fa-check"></i>
+                        </th>
+                        <th>Parking place Name</th>
+                        <th>City</th>
+                        <th>Street</th>
+                        <th><i class="fa-solid fa-car fa-2x"></i></th>
+                        <th>Status</th>
+                        <th></th>
                     </tr>
-                @empty
-                    <tr class="text-center" aria-colspan="6">No parking places found.</tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="bg-white">
+                    @forelse ($all_parkings as $parkingPlace)
+                        <tr>
+                            @if ($parkingPlace->deleted_at == null)
+                                <td>
+                                    <input
+                                    form="parking-list-form-delete"
+                                    type="checkbox"
+                                    id="parking-list-form-delete"
+                                    name="parking_ids[]"
+                                    value="{{ $parkingPlace->id }}">
+                                </td>
+                            @else
+                                <td>
+                                    <input
+                                        form="parking-list-form-restore"
+                                        type="checkbox"
+                                        id="parking-list-form-restore"
+                                        name="parking_ids[]"
+                                        value="{{ $parkingPlace->id }}"
+                                        >
+                                </td>
+
+                            @endif
+                            <td>{{$parkingPlace->parking_place_name}}</td>
+                            <td>{{$parkingPlace->city}}</td>
+                            <td>{{$parkingPlace->street}}</td>
+                            <td>{{$parkingPlace->max_number}}</td>
+                            <td>
+                                @if ($parkingPlace->trashed())
+                                    {{-- DEACTIVATE --}}
+                                    <div class="deactivate-logo">
+                                        <i class="fa-solid fa-circle"></i>
+                                    </div>
+                                @else
+                                    {{-- ACTIVATE --}}
+                                    <div class="activate-logo">
+                                        <i class="fa-solid fa-circle"></i>
+                                    </div>
+                                @endif
+                            </td>
+                            <td class="d-flex align-items-center justify-content-center" >
+                                <a href="{{ route('admin.parking.edit', $parkingPlace->id) }}">
+                                    <i class="fa-solid fa-edit fa-2x me-1" style="color: #343A40"></i>
+                                </a>
+                                <span class="dropdown">
+                                    <button class="btn btn-sm" data-bs-toggle="dropdown">
+                                        <i class="fa-solid fa-ellipsis fa-2x"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a
+                                        href="{{route('admin.parking.show', $parkingPlace->id)}}"
+                                        class="dropdown-item"
+                                        >
+                                            Detail
+                                        </a>
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr class="text-center" aria-colspan="6">No parking places found.</tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex justify-content-center mt-1 userList-pagination pt-4">
             {{ $all_parkings->links('pagination::bootstrap-4') }}
         </div>
