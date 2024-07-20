@@ -10,7 +10,7 @@
         class="btn btn-orange fw-bold rounded-pill btn-sm close-search-bar"
     >
         <i class="fa-solid fa-angles-left"></i>
-        Back
+        Back to parking places page
     </a>
     {{-- title --}}
     <div class="h1 mt-3 mb-5">
@@ -179,24 +179,38 @@
 
                         <div class="row">
                             <div class="col-6">
-                                <input
-                                    type="text"
-                                    class="form-control rounded-pill"
+                                <select
+                                    class="form-select rounded-pill pic-icon"
                                     id="daytime_from"
                                     name="daytime_from"
-                                    placeholder="From"
-                                    value="{{ old('daytime_from') }}"
                                 >
+                                    <option value="" hidden>From</option>
+                                    @for ($i = 0; $i < 24; $i++)
+                                        <option
+                                            value="{{ sprintf('%02d:00', $i) }}"
+                                            {{ old('daytime_from') == sprintf('%02d:00', $i) ? 'selected' : '' }}
+                                        >
+                                            {{ sprintf('%02d:00', $i) }}
+                                        </option>
+                                    @endfor
+                                </select>
                             </div>
                             <div class="col-6">
-                                    <input
-                                    type="text"
-                                    class="form-control rounded-pill"
+                                <select
+                                    class="form-select rounded-pill pic-icon"
                                     id="daytime_to"
                                     name="daytime_to"
-                                    placeholder="To"
-                                    value="{{ old('daytime_to') }}"
                                 >
+                                    <option value="" hidden>To</option>
+                                    @for ($i = 0; $i < 24; $i++)
+                                        <option
+                                            value="{{ sprintf('%02d:00', $i) }}"
+                                            {{ old('daytime_to') == sprintf('%02d:00', $i) ? 'selected' : '' }}
+                                        >
+                                            {{ sprintf('%02d:00', $i) }}
+                                        </option>
+                                    @endfor
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -227,4 +241,32 @@
         </div>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const daytimeFrom = document.getElementById('daytime_from');
+    const daytimeTo = document.getElementById('daytime_to');
+
+    function updateDaytimeToOptions() {
+        const fromValue = parseInt(daytimeFrom.value.split(':')[0]);
+        for (let option of daytimeTo.options) {
+            const toValue = parseInt(option.value.split(':')[0]);
+            option.disabled = !isNaN(fromValue) && toValue <= fromValue;
+        }
+    }
+
+    function updateDaytimeFromOptions() {
+        const toValue = parseInt(daytimeTo.value.split(':')[0]);
+        for (let option of daytimeFrom.options) {
+            const fromValue = parseInt(option.value.split(':')[0]);
+            option.disabled = !isNaN(toValue) && fromValue >= toValue;
+        }
+    }
+
+    daytimeFrom.addEventListener('change', updateDaytimeToOptions);
+    daytimeTo.addEventListener('change', updateDaytimeFromOptions);
+
+    updateDaytimeToOptions();
+    updateDaytimeFromOptions();
+});
+</script>
 @endsection

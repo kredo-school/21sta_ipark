@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'reservation')
+@section('title', 'Reservation Histroy')
 
 @section('content')
 <!-- Bootstrap Bundle with Popper -->
@@ -11,12 +11,12 @@
 
 <div class="container">
   <div class="row text-center">
-      <div class="col-md-8 mb-4">
+      <div class="col-md-8 mb-4 page-title">
           <div class="h1 text-start"><span class="underline">&nbsp;Res</span>ervation History</div>
       </div>
   </div>
   <div class="row ms-1 text-center">
-    <div class="col-2 me-3 tab">
+    <div class="col-md-2 tab-inactive user-info-tab">
         <a
             href="{{route('profile', ['id' => $user->id])}}"
             class="tab-link"
@@ -24,7 +24,7 @@
             Profile
         </a>
     </div>
-    <div class="col-2 me-3 tab-active">
+    <div class="col-md-2 tab-active user-info-tab">
         <a
             href="{{route('reservation', ['id' => $user->id])}}"
             class="tab-link-active"
@@ -32,7 +32,7 @@
             Reservation
         </a>
     </div>
-    <div class="col-2 tab">
+    <div class="col-md-2 tab-inactive user-info-tab">
         <a
             href="{{route('favorite', ['id' => $user->id])}}"
             class="tab-link"
@@ -44,7 +44,7 @@
   
 
   <div class="card mt-0 profile-card p-3 shadow mb-5">
-    <div class="card-body" style="color: #343A40;">
+    <div class="card-body" style="color: #343A40; overflow-x: auto;">
       <div class="currentReservation">
         <h4 class="h1 mx-5 p-4 fw-bold">Current Reservation</h4>
         @if (empty($future_reservations))
@@ -52,7 +52,7 @@
         @else
           @foreach (array_reverse($future_reservations) as $future_reservation)
             <div class="row border border-2 border-orange rounded-5 mx-5 my-4 p-4 shadow">
-              <div class="col-3">
+              <div class="col-md-3">
                 <a class ="text-decoration-none" 
                   href="{{route('showParkingDetail', $future_reservation->parking_place_id)}}">
                   @if ($future_reservation->ParkingPlace->image != null)
@@ -71,7 +71,7 @@
                   @endif
                 </a>  
               </div>
-              <div class="col-3 border-end d-flex flex-column">
+              <div class="col-md-3 border-end d-flex flex-column">
                 <div class="h4 fw-bold"
                 >
                   {{$future_reservation->ParkingPlace->parking_place_name}}
@@ -89,18 +89,18 @@
                     </a>
                 </div>
               </div>
-              <div class="col ms-1 mt-4 align-items-center">
+              <div class="col-md ms-1 mt-4 align-items-center">
                 <div class="row m-4 align-items-center">
-                  <div class="col">
+                  <div class="col-md">
                     <div class="row">
                       Start Time
                     </div>
                     <div class="row h5 text-center my-2 fw-bold">
-                      {{ $future_reservation->planning_time_from }} <br>
+                      {{ \Carbon\Carbon::parse($future_reservation->planning_time_from)->format('H:i') }} <br>
                       {{ $future_reservation->date }}
                     </div>
                   </div>
-                  <div class="col-2">
+                  <div class="col-md-2">
                     <div class="row">
 
                     </div>
@@ -108,16 +108,16 @@
                       &nbsp;&nbsp;&nbsp;-->
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <div class="row">
                       End Time
                     </div>
                     <div class="row h5 text-center my-2 fw-bold">
-                      {{ $future_reservation->planning_time_to }} <br>
+                      {{ \Carbon\Carbon::parse($future_reservation->planning_time_to)->format('H:i') }} <br>
                       {{ $future_reservation->date }}
                     </div>
                   </div>
-                  <div class="col">
+                  <div class="col-md">
                     <a
                       href="{{route('reservation.cancel', $future_reservation->id)}}"
                       class="btn btn-sm rounded-pill px-3 btn-red-opposite fw-bold"

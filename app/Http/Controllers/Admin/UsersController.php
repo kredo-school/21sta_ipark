@@ -52,7 +52,7 @@ class UsersController extends Controller
             }
         }
 
-        $all_users = $query->orderBy('username')->withTrashed()->paginate(10);
+        $all_users = $query->orderBy('username')->withTrashed()->paginate(20);
 
         return view('admin.users.users_list', compact('all_users'));
 
@@ -93,7 +93,7 @@ class UsersController extends Controller
             });
         }
 
-       $users = $query->orderBy('username')->withTrashed()->paginate(10);
+       $users = $query->orderBy('username')->withTrashed()->paginate(20);
 
         return view('admin.users.users_list', compact('users'));
     }

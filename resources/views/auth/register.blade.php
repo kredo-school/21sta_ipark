@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row justify-content-center my-5">
             <div class="card card-register shadow">
-                <div class="card-body">
+                <div class="card-body-register">
                     <div class="row">
                         <div class="col-md-6 ms-6 mt-5">
                             <form id="registerForm">
@@ -23,7 +23,7 @@
 
                                 <div class="row mb-3 mt-5">
                                     <div class="col-md ms-4">
-                                    <div class="pic-icon">
+                                        <div class="pic-icon">
                                             <input
                                                 id="username"
                                                 type="text"
@@ -135,9 +135,9 @@
                                             <option value="" hidden>
                                                 <i class="fa-solid fa-car"></i>Please select your car type *
                                             </option>
-                                            <option value="Standard">Standard</option>
-                                            <option value="Compact">Compact</option>
-                                            <option value="Large">Large</option>
+                                            <option value="standard">Standard</option>
+                                            <option value="compact">Compact</option>
+                                            <option value="large">Large</option>
                                             <option value="na">No answer</option>
                                         </select>
 

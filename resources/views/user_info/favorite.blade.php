@@ -7,13 +7,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mb-4">
-            <div class="h1 text-start">
+            <div class="h1 text-start page-title">
                 <span class="underline">&nbsp;Fav</span>orite Parking Spaces
             </div>
         </div>
     </div>
     <div class="row ms-1 text-center">
-        <div class="col-2 me-3 tab">
+        <div class="col-2 tab-inactive user-info-tab">
             <a
                 href="{{route('profile', ['id' => $user->id])}}"
                 class="tab-link"
@@ -21,7 +21,7 @@
                 Profile
             </a>
         </div>
-        <div class="col-2 me-3 tab">
+        <div class="col-2 tab-inactive user-info-tab">
             <a
                 href="{{route('reservation', ['id' => $user->id])}}"
                 class="tab-link"
@@ -29,7 +29,7 @@
                 Reservation
             </a>
         </div>
-        <div class="col-2 tab-active">
+        <div class="col-2 tab-active user-info-tab">
             <a
                 href="{{route('favorite', ['id' => $user->id])}}"
                 class="tab-link-active"

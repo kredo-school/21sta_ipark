@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AdminParkingController;
 use App\Http\Controllers\Admin\UsersController;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -54,8 +55,6 @@ Route::middleware(['auth', 'admin'])->group(function ()
 
     // ADMIN(parking)
     Route::get('/admin/parking', [AdminParkingController::class, 'parkingsList'])->name('admin.parking.parkings_list');
-    Route::delete('/admin/parking/deactivate', [AdminParkingController::class, 'deactivate'])->name('admin.parking.deactivate');
-    Route::patch('/admin/parking/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
     Route::delete('/admin/parking/deactivate', [AdminParkingController::class, 'deactivate'])->name('admin.parking.deactivate');
     Route::patch('/admin/parking/activate', [AdminParkingController::class, 'activate'])->name('admin.parking.activate');
     Route::get('/admin/register', [AdminParkingController::class, 'index'])->name('admin.parking.index');

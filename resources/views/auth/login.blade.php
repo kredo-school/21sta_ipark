@@ -6,9 +6,9 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6 py-5 text-center">
+        <div class="col-md-6 col-sm-12 py-5 text-center">
             <div class="card card-login p-5 shadow">
-                <div class="card-body">
+                <div class="card-body card-body-login">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -62,8 +62,8 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <img src="{{asset('images/login-removebg-preview.png')}}" alt="" class="ms-5 my-5">
+        <div class="col-md-6 col-sm-12">
+            <img src="{{asset('images/login-removebg-preview.png')}}" alt="login-img" class="ms-5 my-5 login-img">
         </div>
     </div>
 </div>
