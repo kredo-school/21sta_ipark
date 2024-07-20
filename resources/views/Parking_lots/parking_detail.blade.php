@@ -12,31 +12,38 @@
             Back to previous page
         </a>
     </div>
-    <div class="row mt-4">
-        <div class="col-9 d-flex align-items-center">
-            <div class="h1 fw-bold me-5">
-                {{$parking_place->parking_place_name}}
-            </div>
-            <div class="h4 color2_red">
-                @for ($i = 1; $i <= 5; $i++)
-                    @if ($i <= floor($average_star))
-                        <i class="fa-solid fa-star"></i>
-                    @elseif ($i == ceil($average_star))
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    @else
-                        <i class="fa-regular fa-star"></i>
-                    @endif
-                @endfor
+    <div class="row mt-4 parking-detail">
+        <div class="col-lg-9 d-flex align-items-center">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-8">
+                    <div class="h1 fw-bold me-5 parking-place-name">
+                        {{$parking_place->parking_place_name}}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="h4 color2_red star">
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= floor($average_star))
+                                <i class="fa-solid fa-star"></i>
+                            @elseif ($i == ceil($average_star))
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            @else
+                                <i class="fa-regular fa-star"></i>
+                            @endif
+                        @endfor
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col d-flex align-items-center justify-content-end">
+            {{-- heart button --}}
             <div class="me-3">
                 @guest
                     <a
                         href="{{route('login_to_favorite')}}"
                         style="color: #343A40;"
                     >
-                        <i class="fa-regular fa-heart fa-2x"></i>
+                        <i class="fa-regular fa-heart fa-2x heart-button"></i>
                     </a>
                 @else
                     @if($parking_place->isFavorited())
@@ -48,7 +55,7 @@
                             @csrf
                             @method('DELETE')
                             <button class="btn p-0">
-                                <i class="fa-solid fa-heart text-danger fa-2x"></i>
+                                <i class="fa-solid fa-heart text-danger fa-2x heart-button"></i>
                             </button>
                         </form>
                     @else
@@ -65,128 +72,133 @@
                     @endif
                 @endguest
             </div>
+            {{-- reserve button --}}
             <a
                 href="{{route('showReservationForm', $parking_place->id)}}"
-                class="btn rounded-pill px-5 btn-orange fw-bold fs-5"
+                class="btn rounded-pill px-5 btn-orange fw-bold fs-5 reserve-button"
             >
                 Reserve now
             </a>
         </div>
     </div>
-    <div class="row my-4 px-5">
-        <div class="col-6 px-5">
+    <div class="row my-4 custom-padding parking-detail">
+        <div class="col-xl-6 px-5">
+            {{-- image --}}
             @if ($parking_place->image !== null)
                 <img
                     class="w-100"
                     src="{{asset($parking_place->image)}}"
                     alt="{{$parking_place->parking_place_name}}"
-                    style="height:300px"
+                    style="object-fit:cover"
                 >
             @else
-                <div class="no-image" style="height:300px">
+                <div class="no-image">
                     <p class="text-center h5">
                         No image
                     </p>
                 </div>
             @endif
 
-            <h2 class="color3_bluegray mt-5 fw-bold">
+            {{-- price --}}
+            <h2 class="color3_bluegray mt-5 fw-bold title">
                 <i class="fa-solid fa-coins"></i>&nbsp;
                 Price
             </h2>
-            <div class="row bg-orange p-4 rounded-5 mt-3 mx-3">
+            <div class="row bg-orange p-4 rounded-5 mt-3 mx-3 mb-5">
                 {{-- Weekday --}}
                 <h3
-                    class="color1_orange fw-bold border-bottom border-3 border-orange pb-2"
+                    class="color1_orange fw-bold border-bottom border-3 border-orange pb-2 price-title"
                 >
                     Weekday
                 </h3>
                 @if ( $parking_place->daytime_from == '00:00' && $parking_place->daytime_to == '24:00')
-                    <div class="row mt-3 h4 d-flex align-items-center">
-                        <div class="col ms-3">
+                    <div class="row mt-3 ms-1 h4 d-flex align-items-center price-item">
+                        <div class="time-column">
                             <i class="fa-regular fa-clock"></i>
                             {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                         </div>
-                        <div class="col">
+                        <div class="amount-column">
                             <span class="color2_red h3 fw-bold">
                                 ¥{{$parking_place->weekday_daytime_amount}}
                             </span> /30mins
                         </div>
                     </div>
                 @else
-                    <div class="row mt-3 h4 d-flex align-items-center">
-                        <div class="col ms-3">
+                    <div class="row mt-3 ms-1 h4 d-flex align-items-center price-item">
+                        <div class="time-column">
                             <i class="fa-regular fa-clock"></i>
                             {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                         </div>
-                        <div class="col">
+                        <div class="amount-column">
                             <span class="color2_red h3 fw-bold">
                                 ¥{{$parking_place->weekday_daytime_amount}}
                             </span> /30mins
                         </div>
                     </div>
-                    <div class="row h4 d-flex align-items-center">
-                        <div class="col ms-3">
+                    <div class="row ms-1 h4 d-flex align-items-center price-item">
+                        <div class="time-column">
                             <i class="fa-regular fa-clock"></i>
                             {{ $parking_place->daytime_to }} - {{ $parking_place->daytime_from }}
                         </div>
-                        <div class="col">
+                        <div class="amount-column">
                             <span class="color2_red h3 fw-bold">
                                 ¥{{$parking_place->weekday_night_amount}}
                             </span> /30mins
                         </div>
                     </div>
                 @endif
+
                 {{-- Holiday --}}
                 <h3
-                    class="mt-4 color1_orange fw-bold border-bottom border-3 border-orange pb-2"
+                    class="mt-4 color1_orange fw-bold border-bottom border-3 border-orange pb-2 price-title"
                 >
                     Holiday
                 </h3>
                 @if ( $parking_place->daytime_from == '00:00' && $parking_place->daytime_to == '24:00')
-                    <div class="row mt-3 h4 d-flex align-items-center">
-                        <div class="col ms-3">
+                    <div class="row mt-3 ms-1 h4 d-flex align-items-center price-item">
+                        <div class="time-column">
                             <i class="fa-regular fa-clock"></i>
                             {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                         </div>
-                        <div class="col">
+                        <div class="amount-column">
                             <span class="color2_red h3 fw-bold">
                                 ¥{{$parking_place->holiday_daytime_amount}}
                             </span> /30mins
                         </div>
                     </div>
                 @else
-                    <div class="row mt-3 h4 d-flex align-items-center">
-                        <div class="col ms-3">
+                    <div class="row mt-3 ms-1 h4 d-flex align-items-center price-item">
+                        <div class="time-column">
                             <i class="fa-regular fa-clock"></i>
                             {{ $parking_place->daytime_from }} - {{ $parking_place->daytime_to }}
                         </div>
-                        <div class="col">
+                        <div class="amount-column">
                             <span class="color2_red h3 fw-bold">
                                 ¥{{$parking_place->holiday_daytime_amount}}
                             </span> /30mins
                         </div>
                     </div>
-                    <div class="row h4 d-flex align-items-center">
-                        <div class="col ms-3">
+                    <div class="row h4 ms-1 d-flex align-items-center price-item">
+                        <div class="time-column">
                             <i class="fa-regular fa-clock"></i>
                             {{ $parking_place->daytime_to }} - {{ $parking_place->daytime_from }}
                         </div>
-                        <div class="col">
+                        <div class="amount-column">
                             <span class="color2_red h3 fw-bold">
                                 ¥{{$parking_place->holiday_night_amount}}
                             </span> /30mins
                         </div>
                     </div>
                 @endif
+
                 {{-- Max --}}
                 <h3
-                    class="mt-4 color1_orange fw-bold border-bottom border-3 border-orange pb-2"
+                    class="mt-4 color1_orange fw-bold border-bottom border-3 border-orange pb-2 price-title"
                 >
                     Max
                 </h3>
-                <div class="row mt-3 h4 d-flex align-items-center">
-                    <div class="col ms-3">
+                <div class="row mt-3 ms-1 h4 d-flex align-items-center price-item">
+                    <div class="col max-amount">
                         <span class="color2_red h3 fw-bold">
                             ¥{{$parking_place->maximum_amount}}
                         </span> /24h
@@ -194,42 +206,44 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 px-5">
-            <h2 class="color3_bluegray my-3 fw-bold">
+
+        <div class="col-xl-6 px-5 parking-detail">
+            <h2 class="color3_bluegray my-3 fw-bold title">
                 <i class="fa-solid fa-location-dot"></i>&nbsp;
                 Address
             </h2>
-            <div class="h4 ms-3">
+            <div class="h4 ms-3 content">
                 {{$parking_place->street}},
                 {{$parking_place->city}},
                 {{$parking_place->postal_code}}
             </div>
 
-            <h2 class="color3_bluegray my-3 fw-bold mt-5">
+            <h2 class="color3_bluegray my-3 fw-bold mt-5 title">
                 <i class="fa-solid fa-car"></i>&nbsp;
                 Number of slots
             </h2>
-            <div class="h4 ms-3">
+            <div class="h4 ms-3 content">
                 {{$parking_place->max_number}}
                 (<span class="color2_red h3 fw-bold">{{$parking_place->slotsLeft()}}</span>
                 slots left for now)
             </div>
 
-            <h2 class="color3_bluegray my-3 fw-bold mt-5">
+            <h2 class="color3_bluegray my-3 fw-bold mt-5 title">
                 <i class="fa-solid fa-phone"></i>&nbsp;
                 Contact
             </h2>
-            <div class="h4 ms-3">
+            <div class="h4 ms-3 content">
                 {{$parking_place->contact_number}}
             </div>
 
-            <h2 class="color3_bluegray my-3 fw-bold mt-5">
+            {{-- review --}}
+            <h2 class="color3_bluegray my-3 fw-bold mt-5 title">
                 <i class="fa-regular fa-comment-dots"></i>&nbsp;
                 Reviews ({{$parking_place->reviews->count()}})
             </h2>
-            <div class="reviews collapsed">
+            <div class="reviews collapsed content">
                 @if ($parking_place->reviews->isEmpty())
-                    <h4 class="ms-3">No review yet</h4>
+                    <h4 class="ms-3 content">No review yet</h4>
                 @else
                     @foreach ($parking_place->reviews as $index => $review)
                         <div
@@ -237,7 +251,7 @@
                             @if($index >= 3) style="display:none;" @endif
                         >
                             <div class="row ms-3 d-flex align-items-center">
-                                <div class="col-8 d-flex align-items-center">
+                                <div class="col-lg-8 d-flex align-items-center">
                                     <div class="h4 fw-bold me-4">
                                         {{$review->user->username}}
                                     </div>
@@ -256,10 +270,10 @@
                                 </div>
                             </div>
                             <div class="ms-5">
-                                <div class="row mt-3">
-                                    <div class="col">{{$review->comment}}</div>
+                                <div class="row mt-1">
+                                    <div class="col-lg-9">{{$review->comment}}</div>
                                     @if (auth()->check() && $review->user_id == auth()->id())
-                                        <a 
+                                        <a
                                             href="{{route('review.destroy',$review->id)}}"
                                             class="col text-end mx-4 text-decoration-none"
                                         >

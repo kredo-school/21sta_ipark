@@ -112,7 +112,7 @@
 
                     <div class="col-md-6 mt-3">
                         <label for="holiday_amount" class="h5 form-label fw-bold">
-                            Fee for horiday
+                            Fee for holiday
                             <span class="color2_red">*</span>
                         </label>
 

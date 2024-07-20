@@ -118,8 +118,7 @@
                                 <input
                                     type="text"
                                     name="search"
-                                    placeholder="Search by place name"
-                                    {{-- placeholder="Search by anything" --}}
+                                    placeholder="Search by name, city or postal code"
                                     class="form-control rounded-pill rounded-start"
                                     style="width: 300px;"
                                 >
@@ -127,7 +126,7 @@
                                     type="submit"
                                     class="btn rounded-pill fw-bold px-4 btn-navy fs-7 btn-sm ms-3"
                                 >
-                                    Show parking spaces
+                                    Show parking places
                                 </button>
                             </div>
                         </form>
