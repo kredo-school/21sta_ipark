@@ -64,6 +64,7 @@ main{
     border-color: #003566;
     border-width: medium;
     color: #003566;
+    background-color: white;
 }
 
 .background-image-parkinglot-reservation-top {
@@ -705,12 +706,224 @@ main{
     justify-content: center;
 }
 
-.no-image{
-    background-color: #D9D9D9;
-    color: #343A40;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Favorite */
+.favorite-list {
+    max-height: 800px;
+    overflow-y: auto;
 }
 
+/* Parking detail */
+.custom-padding {
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+}
+
+.parking-detail img {
+    max-width: 100%;
+    height: 300px;
+}
+
+.parking-detail .no-image {
+    height: 300px;
+}
+
+.favorite-list img {
+    max-width: 100%;
+    height: 160px;
+}
+
+.favorite-list .no-image {
+    height: 160px;
+}
+
+.price-item .time-column, .price-item .amount-column,
+.home-price-item .time-column, .home-price-item .amount-column,
+.list-price-item .time-column, .list-price-item .amount-column,
+.favorite-list .time-column, .favorite-list .amount-column {
+    width: 50%;
+    display: inline-block;
+}
+
+@media (max-width: 1000px) {
+    .favorite-list .border-end {
+        border: 0 !important;
+        border-bottom: solid #edf0f2 !important;
+        padding-bottom: 20px;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-padding {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .parking-detail img {
+        max-width: 100%;
+        height: 200px;
+    }
+
+    .parking-detail .no-image {
+        height: 200px;
+    }
+
+    .price-item .time-column, .price-item .amount-column {
+        width: 100%;
+        display: block;
+    }
+
+    .price-item .time-column {
+        margin-bottom: 5px;
+    }
+
+    .price-item .amount-column {
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+
+    .favorite-list .parking-place-name {
+        font-size: 14px;
+    }
+
+    .favorite-list .city-name, .favorite-list .reserve-button{
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 430px) {
+    .parking-detail img {
+        max-width: 100%;
+        height: 180px;
+    }
+
+    .parking-detail .no-image {
+        height: 180px;
+    }
+
+    .home-price-item .time-column, .home-price-item .amount-column,
+    .list-price-item .time-column, .list-price-item .amount-column,
+    .favorite-list .time-column, .favorite-list .amount-column {
+        width: 100%;
+        display: block;
+        font-size: 14px;
+    }
+
+    .home-price-item .time-column, .list-price-item .time-column, .favorite-list .time-column {
+        margin-bottom: 5px;
+    }
+
+    .home-price-item .amount-column, .list-price-item .amount-column, .favorite-list .amount-column {
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+
+    .home .max-amount {
+        font-size: 14px;
+    }
+
+    .home .reserve-button {
+        font-size: 16px !important;
+    }
+
+    .home .info {
+        margin-top: 30px !important;
+    }
+
+    .home .margin-none {
+        margin: 0 !important;
+    }
+
+    .home .search-window {
+        font-size: 16px !important;
+    }
+
+    .home .show-button {
+        font-size: 14px !important;
+    }
+
+    .home .parking-place-name {
+        font-size: 20px !important;
+    }
+
+    .home .no-image {
+        height: 160px !important;
+    }
+
+    .home .star {
+        font-size: 18px !important;
+    }
+
+    .favorite-list img {
+        max-width: 100%;
+        height: 100px;
+    }
+
+    .favorite-list .no-image {
+        height: 100px;
+    }
+
+    .favorite-list .max-amount {
+        font-size: 14px;
+    }
+
+    .favorite-list .heart-button {
+        font-size: 10px;
+        margin-top: 10px;
+    }
+
+    .margin-none {
+        margin: 0 !important;
+        margin-top: 20px !important;
+    }
+
+    .parking-detail .parking-place-name {
+        font-size: 20px !important;
+    }
+
+    .parking-detail .heart-button {
+        font-size: 22px;
+    }
+
+    .parking-detail .reserve-button {
+        font-size: 12px !important;
+    }
+
+    .price-item .time-column, .price-item .amount-column, .price-item .max-amount {
+        font-size: 16px;
+    }
+
+    .parking-detail .title {
+        font-size: 20px;
+    }
+
+    .parking-detail .content {
+        font-size: 16px;
+    }
+
+    .parking-place-list .title {
+        font-size: 20px !important;
+    }
+
+    .parking-place-list .parking-place-name {
+        font-size: 16px !important;
+    }
+
+    .parking-place-list .address {
+        font-size: 12px !important;
+    }
+
+    .parking-place-list .heart-button {
+        font-size: 24px !important;
+    }
+
+    .parking-place-list .status {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 12px !important;
+    }
+
+    .parking-place-list .reserve-button {
+        font-size: 12px !important;
+    }
+}

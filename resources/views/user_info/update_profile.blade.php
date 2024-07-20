@@ -16,7 +16,7 @@
         <span class="underline ms-1">&nbsp;Upd</span>ate Profile
     </div>
     <div class="row justify-content-center my-4">
-        <div class="col-8 bg-white border border-2 border-orange rounded-4">
+        <div class="col-lg-8 bg-white border border-2 border-orange rounded-4">
             {{-- update profile --}}
             <form action="{{route('update_profile', $user->id)}}" method="post">
                 @csrf
@@ -26,16 +26,16 @@
                         Profile
                     </h3>
                 </div>
-                <div class="row mt-3 px-5 justify-content-center">
+                <div class="row mt-3 custom-padding justify-content-center">
                     <div class="col-10">
                         <div class="row d-flex align-items-center">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <label for="username" class="h5 form-label">
                                     Username
                                     <span class="text-danger">*</span>
                                 </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <input
                                     type="text"
                                     name="username"
@@ -46,13 +46,13 @@
                             </div>
                         </div>
                         <div class="row d-flex align-items-center mt-3">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <label for="email" class="h5 form-label">
                                     Email
                                     <span class="text-danger">*</span>
                                 </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <input
                                     type="email"
                                     name="email"
@@ -63,13 +63,13 @@
                             </div>
                         </div>
                         <div class="row d-flex align-items-center mt-3">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <label for="phone" class="h5 form-label">
                                     Phone Number
                                     <span class="text-danger">*</span>
                                 </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <input
                                     type="text"
                                     name="phone"
@@ -80,12 +80,12 @@
                             </div>
                         </div>
                         <div class="row d-flex align-items-center mt-3">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <label for="car_type" class="h5 form-label">
                                     Car Type
                                 </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <select id="car_type" name="car_type" class="form-control">
                                     <option value="{{$user->car_type}}" hidden>{{$user->car_type}}</option>
                                     <option value="Standard">Standard</option>
@@ -117,15 +117,15 @@
                 @if (session('success_message'))
                     <h5 class="text-success text-center mb-3">{{ session('success_message') }}</h5>
                 @endif
-                <div class="row mt-3 px-5 justify-content-center">
+                <div class="row mt-3 custom-padding justify-content-center">
                     <div class="col-10">
                         <div class="row d-flex align-items-center">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <label for="old_password" class="h5 form-label">
                                     Old Password
                                 </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <input
                                     type="password"
                                     name="old_password"
@@ -140,12 +140,12 @@
                             </div>
                         </div>
                         <div class="row d-flex align-items-center mt-3">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <label for="new_password" class="h5 form-label">
                                     New Password
                                 </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <input
                                     type="password"
                                     name="new_password"
@@ -163,12 +163,12 @@
                             </div>
                         </div>
                         <div class="row d-flex align-items-center mt-3">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <label for="new_password_confirmation" class="h5 form-label">
                                     Confirm Password
                                 </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
                                 <input
                                     type="password"
                                     name="new_password_confirmation"
@@ -201,7 +201,7 @@
 
     {{-- delete account --}}
     <div class="row justify-content-center mt-4 mb-5">
-        <div class="col-8 bg-white border border-2 border-red rounded-4">
+        <div class="col-lg-8 bg-white border border-2 border-red rounded-4">
             <div class="row">
                 <h3 class="fw-bold mt-4 ms-5">
                     <i class="fa-solid fa-triangle-exclamation"></i>
@@ -209,7 +209,7 @@
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </h3>
             </div>
-            <div class="row mt-3 px-5 justify-content-center">
+            <div class="row mt-3 custom-padding justify-content-center">
                 <div class="col-10">
                     <p class="h5">
                         Deleting your account will result in removing all the data on your iPark account from our services.
