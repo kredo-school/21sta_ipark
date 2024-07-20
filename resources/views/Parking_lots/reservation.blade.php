@@ -16,6 +16,8 @@
 
 @extends('layouts.app')
 
+@section('title', 'Reservation Form')
+
 @section('content')
 <div class="col-md-8">
     {{-- title --}}
@@ -57,9 +59,9 @@
                                         class ='form-select'
                                         value="{{ old('cartype') }}"
                                     >
-                                        <option value="standard">standard</option>
-                                        <option value="compact">compact</option>
-                                        <option value="large">large</option>
+                                        <option value="Standard">Standard</option>
+                                        <option value="Compact">Compact</option>
+                                        <option value="Large">Large</option>
                                     </select>
                                 </td>
                             </tr>
@@ -206,7 +208,7 @@
         }).on('changeDate', function(selected) {
             var currentDate = new Date();
             var selectedDate = new Date(selected.date);
-            
+
             // 選択された日付が今日と同じ場合
             if (selectedDate.setHours(0,0,0,0) === currentDate.setHours(0,0,0,0)) {
                 var currentHour = currentDate.getHours();
@@ -222,7 +224,7 @@
                 $('#from_hour option').prop('disabled', false);
             }
         });
-    
+
         // 初期状態ではFROMの時間を現在の時間以降に制限する
         var currentHour = new Date().getHours();
         $('#from_hour option').each(function() {
@@ -232,7 +234,7 @@
         });
     });
     </script>
-    
+
 <script>
     $('form').submit(function(){
         $('button[type=submit]').prop('disabled', true);
