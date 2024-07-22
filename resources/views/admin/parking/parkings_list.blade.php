@@ -24,6 +24,7 @@
             </div>
         </div>
 
+        {{-- filter search --}}
         <form
             action="{{route('admin.parking.parkings_list')}}"
             method="get"
@@ -157,49 +158,45 @@
                 </div>
             </div>
         </form>
-        <div class="row d-flex align-items-center mt-5">
-            <div class="col">
-                <div class="row">
-                    <div class="col-4">
-                        <a
-                            href="{{route('admin.parking.index')}}"
-                            class="btn btn-orange rounded-pill w-100 fw-bold"
+
+        {{-- button --}}
+        <div class="row align-items-center mt-5">
+            <div class="col-md-8">
+                <div class="d-flex">
+                    <a
+                        href="{{route('admin.parking.index')}}"
+                        class="btn btn-orange rounded-pill fw-bold me-3"
+                    >
+                        <i class="fa-solid fa-circle-plus"></i> Add
+                    </a>
+                    <form
+                        id="parking-list-form-delete"
+                        action="{{route('admin.parking.deactivate')}}"
+                        method="post"
+                    >
+                        @csrf
+                        @method('DELETE')
+                        <button
+                            class="btn btn-red-opposite rounded-pill fw-bold me-3"
+                            type="submit"
                         >
-                            <i class="fa-solid fa-circle-plus"></i> Add
-                        </a>
-                    </div>
-                    <div class="col-4">
-                        <form
-                            id="parking-list-form-delete"
-                            action="{{route('admin.parking.deactivate')}}"
-                            method="post"
+                            <i class="fa-solid fa-trash-can"></i> Delete
+                        </button>
+                    </form>
+                    <form
+                        id="parking-list-form-restore"
+                        action="{{ route('admin.parking.activate')}}"
+                        method="post"
+                    >
+                        @csrf
+                        @method('PATCH')
+                        <button
+                            class="btn restore-btn rounded-pill fw-bold"
+                            type="submit"
                         >
-                            @csrf
-                            @method('DELETE')
-                                <button
-                                    class="btn btn-red-opposite rounded-pill w-100 fw-bold"
-                                    type="submit"
-                                >
-                                    <i class="fa-solid fa-trash-can"></i> Delete
-                                </button>
-                        </form>
-                    </div>
-                    <div class="col-4">
-                        <form
-                            id="parking-list-form-restore"
-                            action="{{ route('admin.parking.activate')}}"
-                            method="post"
-                        >
-                            @csrf
-                            @method('PATCH')
-                            <button
-                                class="btn restore-btn rounded-pill w-100 fw-bold"
-                                type="submit"
-                            >
-                                <i class="fa-solid fa-trash-can-arrow-up"></i> Restore
-                            </button>
-                        </form>
-                    </div>
+                            <i class="fa-solid fa-trash-can-arrow-up"></i> Restore
+                        </button>
+                    </form>
                 </div>
             </div>
             <div class="col">
@@ -211,9 +208,13 @@
             </div>
             <div class="col"></div>
         </div>
+
+        {{-- page number --}}
         <div class="d-flex justify-content-center mt-1 userList-pagination">
             {{ $all_parkings->links('pagination::bootstrap-4') }}
         </div>
+
+        {{-- list --}}
         <div class="admin-table-responsive">
             <table class="parking-list h6 table-hover align-center text-center w-100">
                 <thead>
@@ -235,11 +236,12 @@
                             @if ($parkingPlace->deleted_at == null)
                                 <td>
                                     <input
-                                    form="parking-list-form-delete"
-                                    type="checkbox"
-                                    id="parking-list-form-delete"
-                                    name="parking_ids[]"
-                                    value="{{ $parkingPlace->id }}">
+                                        form="parking-list-form-delete"
+                                        type="checkbox"
+                                        id="parking-list-form-delete"
+                                        name="parking_ids[]"
+                                        value="{{ $parkingPlace->id }}"
+                                    >
                                 </td>
                             @else
                                 <td>
@@ -249,9 +251,8 @@
                                         id="parking-list-form-restore"
                                         name="parking_ids[]"
                                         value="{{ $parkingPlace->id }}"
-                                        >
+                                    >
                                 </td>
-
                             @endif
                             <td>{{$parkingPlace->parking_place_name}}</td>
                             <td>{{$parkingPlace->city}}</td>
@@ -270,23 +271,25 @@
                                     </div>
                                 @endif
                             </td>
-                            <td class="d-flex align-items-center justify-content-center" >
-                                <a href="{{ route('admin.parking.edit', $parkingPlace->id) }}">
-                                    <i class="fa-solid fa-edit fa-2x me-1" style="color: #343A40"></i>
-                                </a>
-                                <span class="dropdown">
-                                    <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                        <i class="fa-solid fa-ellipsis fa-2x"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a
-                                        href="{{route('admin.parking.show', $parkingPlace->id)}}"
-                                        class="dropdown-item"
-                                        >
-                                            Detail
-                                        </a>
-                                    </div>
-                                </span>
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="{{ route('admin.parking.edit', $parkingPlace->id) }}">
+                                        <i class="fa-solid fa-edit fa-2x me-1" style="color: #343A40"></i>
+                                    </a>
+                                    <span class="dropdown">
+                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
+                                            <i class="fa-solid fa-ellipsis fa-2x"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a
+                                                href="{{route('admin.parking.show', $parkingPlace->id)}}"
+                                                class="dropdown-item"
+                                            >
+                                                Detail
+                                            </a>
+                                        </div>
+                                    </span>
+                                </div>
                             </td>
                         </tr>
                     @empty

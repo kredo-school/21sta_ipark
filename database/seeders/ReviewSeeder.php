@@ -16,6 +16,7 @@ class ReviewSeeder extends Seeder
         //
         DB::table('reviews')->insert([
             'parking_place_id' => '1',
+            'reservation_id' => '2',
             'user_id' => '1',
             'comment' => 'Comment Comment Comment Comment Comment Comment Comment Comment1',
             'star' => '1',
@@ -25,6 +26,7 @@ class ReviewSeeder extends Seeder
 
         DB::table('reviews')->insert([
             'parking_place_id' => '1',
+            'reservation_id' => '3',
             'user_id' => '1',
             'comment' => 'Comment Comment Comment Comment Comment Comment Comment Comment2',
             'star' => '2',
@@ -34,6 +36,7 @@ class ReviewSeeder extends Seeder
 
         DB::table('reviews')->insert([
             'parking_place_id' => '1',
+            'reservation_id' => '4',
             'user_id' => '1',
             'comment' => 'Comment Comment Comment Comment Comment Comment Comment Comment3',
             'star' => '3',
@@ -42,7 +45,8 @@ class ReviewSeeder extends Seeder
         ]);
 
         DB::table('reviews')->insert([
-            'parking_place_id' => '1',
+            'parking_place_id' => '2',
+            'reservation_id' => '5',
             'user_id' => '1',
             'comment' => 'Comment Comment Comment Comment Comment Comment Comment Comment4',
             'star' => '4',
@@ -51,7 +55,8 @@ class ReviewSeeder extends Seeder
         ]);
 
         DB::table('reviews')->insert([
-            'parking_place_id' => '1',
+            'parking_place_id' => '3',
+            'reservation_id' => '6',
             'user_id' => '1',
             'comment' => 'Comment Comment Comment Comment Comment Comment Comment Comment5',
             'star' => '5',

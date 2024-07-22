@@ -68,9 +68,10 @@
                 <tr>
                     <td class="fw-medium">Car Type</td>
                     <td>
-                    @if($user->car_type)
-                        {{ $user->car_type }}
-                    @endif
+                        @if ($user->car_type == "NA")
+                        @elseif ($user->car_type)
+                            {{ $user->car_type }}
+                        @endif
                     </td>
                 </tr>
             </table>

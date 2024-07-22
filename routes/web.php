@@ -25,8 +25,9 @@ Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login/favorite', [HomeController::class, 'login'])->name('login_to_favorite');
-
 Route::get('/reservation/{id}', [HomeController::class, 'showReservationForm'])->name('showReservationForm');
+
+Route::post('/register', [RegisterController::class, 'store'])->name('register');
 
 // Parking places
 Route::get('/parking_place/{id}', [ParkingPlaceController::class, 'show'])->name('showParkingDetail');
@@ -85,7 +86,6 @@ Route::group(["middleware"=>"auth"], function()
     // Favorites
     Route::post('/favorite/store/{id}', [FavoriteController::class, 'store'])->name('favorite.store');
     Route::delete('/favorite/destroy/{id}', [FavoriteController::class, 'destroy'])->name('favorite.destroy');
-
 
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');

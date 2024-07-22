@@ -540,13 +540,13 @@ main{
     .user-info-tab{
         margin-left: 10px;
     }
-    
+
     .tab-inactive,
     .tab-active {
         padding: 0;
         width: 25%;
     }
-    
+
     .tab-link,
     .tab-link-active {
         font-size: 6px;
@@ -767,7 +767,7 @@ main{
 
     .parking-list{
         width: 50%;
-    }    
+    }
 }
 
 
@@ -788,7 +788,7 @@ main{
         font-size: 8px
     }
 
-   
+
 }
 
 /* REGISTER NEW PARKING */
@@ -974,6 +974,10 @@ main{
         padding-bottom: 20px;
         margin-top: 10px;
     }
+
+    .admin-button {
+        margin-bottom: 5px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1006,11 +1010,19 @@ main{
     }
 
     .favorite-list .parking-place-name {
-        font-size: 14px;
+        font-size: 18px;
     }
 
     .favorite-list .city-name, .favorite-list .reserve-button{
-        font-size: 13px;
+        font-size: 16px;
+    }
+
+    .favorite-list .time-column, .favorite-list .amount-column, .favorite-list .max-amount {
+        font-size: 14px;
+    }
+
+    .favorite-list .heart-button {
+        font-size: 12px;
     }
 
 }
@@ -1103,6 +1115,11 @@ main{
     .favorite-list .heart-button {
         font-size: 10px;
         margin-top: 10px;
+    }
+
+    .favorite-list .no-data {
+        font-size: 16px;
+        margin: 0 !important;
     }
 
     .margin-none {
