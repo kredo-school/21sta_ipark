@@ -19,7 +19,7 @@
 @section('content')
 <div class="col-md-8">
     {{-- title --}}
-    <div class="h1 mt-3 mb-5">
+    <div class="page-title h1 mt-3 mb-5">
         <span class="underline ms-1">&nbsp;Res</span>ervation form
     </div>
 
@@ -41,10 +41,14 @@
             @csrf
             <input type="hidden" name="parking_places_id" value="{{ $parking_places->id }}">
             <div class="row p-3 mb-3">
-                <div class="col-8">
+                <div class="col-lg-8">
                     <div class="form text-center fw-bold">
                         <table
-                            class="table table-background-color-none text-aline-center d-inline"
+                            class="table 
+                                    table-background-color-none
+                                    text-aline-center
+                                    d-inline
+                                    reserve-table"
                         >
                             <tr>
                                 <td style="font-family:'Inter'">
@@ -81,7 +85,7 @@
                                 <td style="font-family:'Inter'">
                                     <label for="from" class = "form-label">From</label>
                                 </td>
-                                <td>
+                                <td class="col-4">
                                     <select name="from_hour" id="from_hour" class="form-select" value="{{ old('from_hour') }}">
                                         <?php
                                         for ($i = 0; $i < 24; $i++) {
@@ -95,8 +99,8 @@
                                         ?>
                                     </select>
                                 </td>
-                                <td class="text-center fw-bold">:</td>
-                                <td>
+                                <td class="text-center fw-bold col-2">:</td>
+                                <td class="col-4">
                                     <select name="from_minute" id="from_minute" class="form-select" value="{{ old('date') }}">
                                         <option value="00" {{ old('from_minute') == '00' ? 'selected' : '' }}>00</option>
                                         <option value="30" {{ old('from_minute') == '30' ? 'selected' : '' }}>30</option>
@@ -141,8 +145,8 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-md-3 d-flex flex-column justify-content-end pb-1">
-                    <button type="submit" class="btn rounded-pill fw-bold px-4 btn-navy fs-5 btn-sm">
+                <div class="col-lg-3 d-flex flex-column justify-content-end pb-1">
+                    <button type="submit" class="btn ad-btn rounded-pill fw-bold px-4 btn-navy fs-5 btn-sm">
                         Calculate
                     </button>
                 </div>
@@ -154,7 +158,7 @@
         {{-- Reservation result fee/date --}}
         <div class="main background-image-parkinglot-reservation-bottom">
             <div class="row">
-                <div class="col-md-8 mt-5 mb-5">
+                <div class="col-md-8 mt-5 mb-1">
                     {{-- Reservation result date --}}
                     <div class="row">
                         <div class="col-md-3 h4 color3_bluegray fw-bold text-end">
@@ -182,8 +186,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 mt-5 mb-5 d-flex flex-column justify-content-end">
-                    <button type="submit" class="btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm" data-bs-toggle="modal" data-bs-target="#reservationCheckModal">
+                <div class="col-md-3  mb-3 d-flex flex-column justify-content-end">
+                    <button type="submit" class="btn ad-btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm" data-bs-toggle="modal" data-bs-target="#reservationCheckModal">
                         Reserve
                     </button>
                     @include('Parking_lots.modals.Reservation_check')

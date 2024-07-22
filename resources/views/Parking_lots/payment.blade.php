@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="col-8">
+<div class="col-8 payment-box">
 
     <a
         href="javascript:history.back()"
@@ -10,7 +10,7 @@
         <i class="fa-solid fa-angles-left"></i>
         Back to previous page
     </a>
-    <div class="h1 mt-3 mb-3">
+    <div class="h1 mt-3 mb-3 page-title">
         <span class="underline ms-1">&nbsp;Pay</span>ment
     </div>
 </div>
@@ -19,7 +19,15 @@
         *Reservation has not completed yet
     </div>
 </div>
-<div class="col-4 bg-white p-4 m-3 border border-2 border-orange radius-size">
+<div class="col-4 bg-white 
+            p-4 
+            m-3 
+            border 
+            border-2 
+            border-orange 
+            radius-size
+            payment-box"
+>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-10">

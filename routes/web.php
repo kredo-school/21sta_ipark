@@ -43,6 +43,9 @@ Route::get('/aboutus', [HomeController::class, 'aboutUs'])->name('aboutUs');
 // FAQ
 Route::get('/faq',[HomeController::class, 'faq'])->name('faq');
 
+// Reservarion calculate fee
+Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
+
 #### Admin Route for Administrator ####
 Route::middleware(['auth', 'admin'])->group(function ()
 {
@@ -86,7 +89,6 @@ Route::group(["middleware"=>"auth"], function()
 
     //Reservations
     Route::get('/reservation/show/{id}', [ReservationsController::class, 'show'])->name('reservation.show');
-    Route::post('/reservation/{id}', [ReservationsController::class, 'create'])->name('reservation.create');
     Route::get('/reservation/{id}/cancel', [ReservationsController::class, 'cancel'])->name('reservation.cancel');
 
     // Payment
