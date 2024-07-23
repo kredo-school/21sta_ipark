@@ -26,67 +26,191 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
     <style>
-        .navbar{
-            color: #343A40;
-            font-family: "Inter";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
+    .navbar{
+        color: #343A40;
+        font-family: "Inter";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .navbar-brand img {
+        height: 50px;
+        margin-left: 3rem;
+    }
+
+    .search-container .lg-search-input {
+        width: 300px;
+        margin-right: 0.75rem;
+    }
+
+    .input-group-sm .btn-sm-nav{
+        display: none;
+    }
+
+    .input-group-sm .btn-lg-nav{
+        padding: 0 1.25rem;
+    }
+
+    .nav-item .btn {
+        margin-left: 0.5rem;
+        margin-right: 3rem;
+    }
+
+    .navbar-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    }
+
+    .navbar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    }
+
+    body {
+        padding-top: 70px;
+    }
+
+    footer{
+        font-family: "Inter";
+        color:white
+    }
+
+    .sidebar_font{
+        font-family: "Inter";
+        color: white;
+    }
+
+    .white_line {
+        padding-left: 10px;
+        margin-left: 12px;
+        border-left: 1px solid white;
+    }
+
+    #sidebar {
+        position: fixed;
+        right:0;
+        width: 250px;
+        height: 100%;
+        transition: transform 0.3s ease;
+        transform: translateX(100%);
+        flex-direction: column;
+        background-color: #003566;
+        z-index: 1000;
+    }
+
+    #sidebarToggle:checked ~ #sidebar {
+        transform: translateX(0);
+    }
+
+    #sidebarToggle {
+        display: none;
+        width: 50px;
+    }
+
+    .sidebar a {
+        color: white;
+        font-family: "Inter";
+        text-decoration: none;
+        padding: 10px 2px;
+    }
+
+    .bg_footer{
+        background-color: #343A40;
+    }
+
+    .bg_footer .navbar-brand {
+        margin-left: 3.25rem;
+    }
+
+    .bg_footer .nav-item .nav-link {
+        margin-right: 3rem;
+    }
+
+    @media (max-width: 901px) {
+
+        .search-container .lg-search-input {
+            width: auto;
+        }
+        .input-group-sm .btn-sm-nav{
+            display: block !important;
+            margin-left: 0.5rem;
         }
 
-        body {
-            padding-top: 70px;
-        }
-
-        footer{
-            font-family: "Inter";
-            color:white
-        }
-
-        .sidebar_font{
-            font-family: "Inter";
-            color: white;
-        }
-
-        .white_line {
-            padding-left: 10px;
-            margin-left: 12px;
-            border-left: 1px solid white;
-        }
-
-        #sidebar {
-            position: fixed;
-            right:0;
-            width: 250px;
-            height: 100%;
-            transition: transform 0.3s ease;
-            transform: translateX(100%);
-            flex-direction: column;
-            background-color: #003566;
-            z-index: 1000;
-        }
-
-        #sidebarToggle:checked ~ #sidebar {
-            transform: translateX(0);
-        }
-
-        #sidebarToggle {
+        .input-group-sm .btn-lg-nav{
             display: none;
         }
 
-        .sidebar a {
-            color: white;
-            font-family: "Inter";
-            text-decoration: none;
-            padding: 10px 2px;
+    }
+
+    @media (max-width: 576px) {
+
+        .input-group-sm .form-control,
+        .input-group-sm .input-group-text,
+        .input-group-sm .btn {
+            font-size: 9px;
         }
 
-        .bg_footer{
-            background-color: #343A40;
+        .search-container .form-control {
+            width: auto !important;
         }
 
+        .nav-item .btn {
+            margin: 0;
+            padding: 0 5px;
+            width: 100%;
+        }
+
+        .navbar-brand img {
+            height: 25px;
+            margin: 0;
+        }
+
+        .input-group-sm .btn-sm-nav{
+            display: block;
+            text-align: center;
+            padding: 0 0.25rem;
+            margin-left: 0.25rem;
+        }
+
+        .input-group-sm .btn-lg-nav{
+            display: none;
+        }
+
+        .navbar-nav .nav-item{
+            font-size: 9px;
+        }
+
+        .navbar-nav .fa-bars{
+            font-size: 15px;
+        }
+
+        .nav .nav-item .nav-link,
+        .bg_footer p {
+            font-size: 10px;
+        }
+
+        #sidebar {
+            width: 200px;
+            font-size: 9px;
+        }
+
+        body {
+            padding-top: 50px;
+        }
+
+        .bg_footer .navbar-brand {
+            margin-left: 0.5rem;
+        }
+
+        .bg_footer .nav-item .nav-link {
+            margin: auto;
+        }
+
+    }
     </style>
 
 </head>
@@ -95,21 +219,21 @@
         <div class="row">
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container-fluid">
-                    <div class="col-3">
-                        <a class="navbar-brand ms-5" href="{{ route('home') }}">
+                    <div class="col-md-3 col-2">
+                        <a class="navbar-brand" href="{{ route('home') }}">
                             {{-- Logo imege and link of home --}}
                             <img
                                 src="{{ asset('images/logo.png') }}"
                                 alt="iPark"
-                                style="height: 50px;"
                             >
                         </a>
                     </div>
                     {{-- Search-bar --}}
-                    <div class="col-6 justify-content-center d-flex align-items-center">
+                    <div class="col-md-6 col-9 justify-content-center d-flex align-items-center search-container">
                         <form
                             action="{{route('showParkingList')}}"
                             method="get"
+                            class="form-inline"
                         >
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text rounded-pill rounded-end">
@@ -119,55 +243,62 @@
                                     type="text"
                                     name="search"
                                     placeholder="Search by name, city or postal code"
-                                    class="form-control rounded-pill rounded-start"
-                                    style="width: 300px;"
+                                    class="form-control rounded-pill rounded-start lg-search-input"
                                 >
                                 <button
                                     type="submit"
-                                    class="btn rounded-pill fw-bold px-4 btn-navy fs-7 btn-sm ms-3"
+                                    class="btn btn-lg-nav rounded-pill fw-bold px-4 btn-navy fs-7 btn-sm"
                                 >
                                     Show parking places
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm-nav rounded-pill fw-bold btn-navy fs-7 btn-sm"
+                                >
+                                    Search
                                 </button>
                             </div>
                         </form>
                     </div>
-                    <div class="col-3">
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto">
-                                @guest
-                                    @if (Route::has('login'))
-                                        <li class="nav-item">
-                                            <a
-                                                class="nav-link"
-                                                href="{{ route('login') }}"
-                                            >
-                                                {{ __('Login') }}
-                                            </a>
-                                        </li>
-                                    @endif
+                    <div class="col-md-3 col-1">
+                        <ul class="navbar-nav">
+                            @guest
+                                @if (Route::has('login'))
+                                <div class="collapse navbar-collapse">
+                                    <li class="nav-item">
+                                        <a
+                                            class="nav-link"
+                                            href="{{ route('login') }}"
+                                        >
+                                            {{ __('Login') }}
+                                        </a>
+                                    </li>
+                                @endif
 
-                                    @if (Route::has('register'))
-                                        <li class="nav-item">
-                                            <a
-                                                class="nav-link"
-                                                href="{{ route('register') }}"
-                                            >
-                                                {{ __('Register') }}
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            {{-- Add Bars icon for sidebar --}}
-                                            <label
-                                                for="sidebarToggle"
-                                                class="btn custom_btn ms-2 me-5"
-                                                style="width: 50px;"
-                                            >
-                                                <i class="fa fa-bars fa-2x"></i>
-                                            </label>
-                                        </li>
-                                    @endif
-                                @else
-                                    <li class="nav-item dropdown">
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a
+                                            class="nav-link"
+                                            href="{{ route('register') }}"
+                                        >
+                                            {{ __('Register') }}
+                                        </a>
+                                    </li>
+                                </div>
+                                    <li class="nav-item">
+                                        {{-- Add Bars icon for sidebar --}}
+                                        <label
+                                            for="sidebarToggle"
+                                            class="btn custom_btn"
+                                            {{-- style="width: 50px;" --}}
+                                        >
+                                            <i class="fa fa-bars fa-2x"></i>
+                                        </label>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="nav-item dropdown">
+                                    <div class="collapse navbar-collapse">
                                         <a
                                             id="navbarDropdown"
                                             class="nav-link dropdown-toggle d-flex align-items-center border rounded-pill shadow-sm"
@@ -179,68 +310,70 @@
                                         >
                                             <i class="fas fa-user-circle fa-2x"></i>
                                             <span class="mx-2">
+                                                {{-- <span class="mx-2"> --}}
                                                 {{ Auth::user()->username }}
                                             </span>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
-                                            @auth
-                                                @if (Auth::user()->role_id == 1 || request()->is('admin/*'))
-                                                {{-- Admin Controls --}}
-                                                <a href="{{route('admin.parking.parkings_list')}}" class="dropdown-item">
-                                                    Admin
-                                                </a>
-                                                <hr class="horizontal-divider">
-                                                {{-- Logout Button/Link --}}
-                                                <a
-                                                    class="dropdown-item"
-                                                    href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                                                >
+                                    </div>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
+                                        @auth
+                                            @if (Auth::user()->role_id == 1 || request()->is('admin/*'))
+                                            {{-- Admin Controls --}}
+                                            <a href="{{route('admin.parking.parkings_list')}}" class="dropdown-item">
+                                                Admin
+                                            </a>
+                                            <hr class="horizontal-divider">
+                                            {{-- Logout Button/Link --}}
+                                            <a
+                                                class="dropdown-item"
+                                                href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                            >
+                                            {{ __('Logout') }}
+                                            </a>
+                                            @else
+                                            {{-- Profile Button/Link --}}
+                                            <a
+                                                href="{{ route('profile', ['id' => auth()->user()->id]) }}"
+                                                class="dropdown-item"
+                                            >
+                                                Profile
+                                            </a>
+                                            <hr class="horizontal-divider">
+                                            {{-- Logout Button/Link --}}
+                                            <a
+                                                class="dropdown-item"
+                                                href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                            >
                                                 {{ __('Logout') }}
-                                                </a>
-                                                @else
-                                                {{-- Profile Button/Link --}}
-                                                <a
-                                                    href="{{ route('profile', ['id' => auth()->user()->id]) }}"
-                                                    class="dropdown-item"
-                                                >
-                                                    Profile
-                                                </a>
-                                                <hr class="horizontal-divider">
-                                                {{-- Logout Button/Link --}}
-                                                <a
-                                                    class="dropdown-item"
-                                                    href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                                                >
-                                                    {{ __('Logout') }}
-                                                </a>
+                                            </a>
 
-                                                <form
-                                                    id="logout-form"
-                                                    action="{{ route('logout') }}"
-                                                    method="POST"
-                                                    class="d-none"
-                                                >
-                                                    @csrf
-                                                </form>
-                                                @endif
-                                            @endauth
-                                            <li class="nav-item">
-                                                {{-- Add Bars icon for sidebar --}}
-                                                <label
-                                                    for="sidebarToggle"
-                                                    class="btn custom_btn ms-2 me-5"
-                                                    style="width: 50px;"
-                                                >
-                                                    <i class="fa fa-bars fa-2x"></i>
-                                                </label>
-                                            </li>
-                                        </div>
-                                    </li>
-                                @endguest
-                            </ul>
-                        </div>
+                                            <form
+                                                id="logout-form"
+                                                action="{{ route('logout') }}"
+                                                method="POST"
+                                                class="d-none"
+                                            >
+                                                @csrf
+                                            </form>
+                                            @endif
+                                        @endauth
+                                        <li class="nav-item">
+                                            {{-- Add Bars icon for sidebar --}}
+                                            <label
+                                                for="sidebarToggle"
+                                                class="btn custom_btn"
+                                                {{-- class="btn custom_btn ms-2 me-5" --}}
+                                                {{-- style="width: 50px;" --}}
+                                            >
+                                                <i class="fa fa-bars fa-2x"></i>
+                                            </label>
+                                        </li>
+                                    </div>
+                                </li>
+                            @endguest
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -388,9 +521,7 @@
                 >
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
-
-                @can('admin')
-                    <!-- Admin Sidebar -->
+                {{-- @can('admin')
                     <a
                         href="{{ route('home') }}"
                         class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold"
@@ -479,7 +610,7 @@
                     >
                         <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                     </a>
-                @endcan
+                @endcan --}}
             @endguest
         </div>
         <main class="py-4">
@@ -495,17 +626,16 @@
                 <div class="row">
                     <div class="col-md-4">
                         <a
-                            class="navbar-brand ms-5"
+                            class="navbar-brand"
                             href="{{ route('home') }}"
                         >
                             <img
                                 src="{{ asset('images/logo.png') }}"
                                 alt="iPark Logo"
-                                style="height: 50px;"
                             >
                         </a>
                     </div>
-                    <div class="col-md-8 d-flex justify-content-end align-items-center">
+                    <div class="col-md-8 col-12 d-flex justify-content-end align-items-center">
                         <ul class="nav">
                             <li class="nav-item">
                                 <a
@@ -517,7 +647,7 @@
                             </li>
                             <li class="nav-item">
                                 <a
-                                    class="nav-link text-white mx-5"
+                                    class="nav-link text-white"
                                     href="{{ route('faq') }}"
                                 >
                                     FAQ
@@ -525,7 +655,7 @@
                             </li>
                             <li class="nav-item">
                                 <a
-                                    class="nav-link text-white me-5"
+                                    class="nav-link text-white"
                                     href="{{ route('aboutUs')}}"
                                 >
                                     About Us
