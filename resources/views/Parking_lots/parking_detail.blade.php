@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Parking Lot Detail')
+@section('title', 'Parking Place Detail')
 
 @section('content')
     <div class="col">
@@ -14,13 +14,13 @@
     </div>
     <div class="row mt-4 parking-detail">
         <div class="col-lg-9 d-flex align-items-center">
-            <div class="row d-flex align-items-center">
-                <div class="col-md-8">
+            <div class="row d-flex align-items-center w-100">
+                <div class="col">
                     <div class="h1 fw-bold me-5 parking-place-name">
                         {{$parking_place->parking_place_name}}
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col">
                     <div class="h4 color2_red star">
                         @for ($i = 1; $i <= 5; $i++)
                             @if ($i <= floor($average_star))
