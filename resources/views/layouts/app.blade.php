@@ -59,6 +59,10 @@
         margin-right: 3rem;
     }
 
+    .nav-item .custom_btn_sm {
+        display: none;
+    }
+
     .navbar-nav {
     display: flex;
     justify-content: flex-end;
@@ -130,7 +134,7 @@
         margin-right: 3rem;
     }
 
-    @media (max-width: 901px) {
+    @media (max-width: 767px) {
 
         .search-container .lg-search-input {
             width: auto;
@@ -144,9 +148,15 @@
             display: none;
         }
 
+        .nav-item .custom_btn_sm {
+            display: block !important;
+            margin: 0;
+            padding: 0 5px;
+            width: 100%;
+        }
     }
 
-    @media (max-width: 576px) {
+    @media (max-width: 588px) {
 
         .input-group-sm .form-control,
         .input-group-sm .input-group-text,
@@ -158,7 +168,8 @@
             width: auto !important;
         }
 
-        .nav-item .btn {
+        .nav-item .custom_btn_sm {
+            display: block !important;
             margin: 0;
             padding: 0 5px;
             width: 100%;
@@ -261,44 +272,62 @@
                         </form>
                     </div>
                     <div class="col-md-3 col-1">
-                        <ul class="navbar-nav">
-                            @guest
-                                @if (Route::has('login'))
-                                <div class="collapse navbar-collapse">
-                                    <li class="nav-item">
-                                        <a
-                                            class="nav-link"
-                                            href="{{ route('login') }}"
-                                        >
-                                            {{ __('Login') }}
-                                        </a>
-                                    </li>
-                                @endif
+                        <div
+                            class="collapse navbar-collapse"
+                            id="navbarSupportedContent"
+                        >
+                            <ul class="navbar-nav ms-auto">
+                                @guest
+                                    @if (Route::has('login'))
+                                        <li class="nav-item">
+                                            <a
+                                                class="nav-link"
+                                                href="{{ route('login') }}"
+                                            >
+                                                {{ __('Login') }}
+                                            </a>
+                                        </li>
+                                    @endif
 
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a
-                                            class="nav-link"
-                                            href="{{ route('register') }}"
-                                        >
-                                            {{ __('Register') }}
-                                        </a>
-                                    </li>
-                                </div>
-                                    <li class="nav-item">
-                                        {{-- Add Bars icon for sidebar --}}
-                                        <label
-                                            for="sidebarToggle"
-                                            class="btn custom_btn"
-                                            {{-- style="width: 50px;" --}}
-                                        >
-                                            <i class="fa fa-bars fa-2x"></i>
-                                        </label>
-                                    </li>
+                                    @if (Route::has('register'))
+                                        <li class="nav-item">
+                                            <a
+                                                class="nav-link"
+                                                href="{{ route('register') }}"
+                                            >
+                                                {{ __('Register') }}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            {{-- Add Bars icon for sidebar --}}
+                                            <label
+                                                for="sidebarToggle"
+                                                class="btn custom_btn"
+                                            >
+                                                <i class="fa fa-bars fa-2x"></i>
+                                            </label>
+                                        </li>
+                                    </div>{{-- part of collapse　end --}}
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            {{-- Add Bars icon for sidebar --}}
+                                            <label
+                                                for="sidebarToggle"
+                                                class="btn custom_btn_sm"
+                                            >
+                                                <i class="fa fa-bars fa-2x"></i>
+                                            </label>
+                                        </li>
+                                    </ul>
+
                                 @endif
                             @else
                                 <li class="nav-item dropdown">
-                                    <div class="collapse navbar-collapse">
+                                    <div
+                                        class="collapse navbar-collapse"
+                                        id="navbarSupportedContent"
+                                    >
                                         <a
                                             id="navbarDropdown"
                                             class="nav-link dropdown-toggle d-flex align-items-center border rounded-pill shadow-sm"
@@ -310,66 +339,75 @@
                                         >
                                             <i class="fas fa-user-circle fa-2x"></i>
                                             <span class="mx-2">
-                                                {{-- <span class="mx-2"> --}}
                                                 {{ Auth::user()->username }}
                                             </span>
                                         </a>
-                                    </div>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
-                                        @auth
-                                            @if (Auth::user()->role_id == 1 || request()->is('admin/*'))
-                                            {{-- Admin Controls --}}
-                                            <a href="{{route('admin.parking.parkings_list')}}" class="dropdown-item">
-                                                Admin
-                                            </a>
-                                            <hr class="horizontal-divider">
-                                            {{-- Logout Button/Link --}}
-                                            <a
-                                                class="dropdown-item"
-                                                href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                                            >
-                                            {{ __('Logout') }}
-                                            </a>
-                                            @else
-                                            {{-- Profile Button/Link --}}
-                                            <a
-                                                href="{{ route('profile', ['id' => auth()->user()->id]) }}"
-                                                class="dropdown-item"
-                                            >
-                                                Profile
-                                            </a>
-                                            <hr class="horizontal-divider">
-                                            {{-- Logout Button/Link --}}
-                                            <a
-                                                class="dropdown-item"
-                                                href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                                            >
-                                                {{ __('Logout') }}
-                                            </a>
 
-                                            <form
-                                                id="logout-form"
-                                                action="{{ route('logout') }}"
-                                                method="POST"
-                                                class="d-none"
-                                            >
-                                                @csrf
-                                            </form>
-                                            @endif
-                                        @endauth
-                                        <li class="nav-item">
-                                            {{-- Add Bars icon for sidebar --}}
-                                            <label
-                                                for="sidebarToggle"
-                                                class="btn custom_btn"
-                                                {{-- class="btn custom_btn ms-2 me-5" --}}
-                                                {{-- style="width: 50px;" --}}
-                                            >
-                                                <i class="fa fa-bars fa-2x"></i>
-                                            </label>
-                                        </li>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="account-dropdown">
+                                            @auth
+                                                @if (Auth::user()->role_id == 1 || request()->is('admin/*'))
+                                                {{-- Admin Controls --}}
+                                                <a href="{{route('admin.parking.parkings_list')}}" class="dropdown-item">
+                                                    Admin
+                                                </a>
+                                                <hr class="horizontal-divider">
+                                                {{-- Logout Button/Link --}}
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                                >
+                                                {{ __('Logout') }}
+                                                </a>
+                                                @else
+                                                {{-- Profile Button/Link --}}
+                                                <a
+                                                    href="{{ route('profile', ['id' => auth()->user()->id]) }}"
+                                                    class="dropdown-item"
+                                                >
+                                                    Profile
+                                                </a>
+                                                <hr class="horizontal-divider">
+                                                {{-- Logout Button/Link --}}
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                                >
+                                                    {{ __('Logout') }}
+                                                </a>
+
+                                                <form
+                                                    id="logout-form"
+                                                    action="{{ route('logout') }}"
+                                                    method="POST"
+                                                    class="d-none"
+                                                >
+                                                    @csrf
+                                                </form>
+                                                @endif
+                                            @endauth
+                                            <li class="nav-item">
+                                                {{-- Add Bars icon for sidebar --}}
+                                                <label
+                                                    for="sidebarToggle"
+                                                    class="btn custom_btn "
+                                                >
+                                                    <i class="fa fa-bars fa-2x"></i>
+                                                </label>
+                                            </li>
+                                        </div>{{-- part of collapse　end --}}
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item">
+                                                {{-- Add Bars icon for sidebar --}}
+                                                <label
+                                                    for="sidebarToggle"
+                                                    class="btn custom_btn_sm"
+                                                >
+                                                    <i class="fa fa-bars fa-2x"></i>
+                                                </label>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </li>
                             @endguest
@@ -521,96 +559,6 @@
                 >
                     <i class="fa fa-info-circle me-3 fa-2x"></i> About us
                 </a>
-                {{-- @can('admin')
-                    <a
-                        href="{{ route('home') }}"
-                        class="d-flex align-items-center ms-3 mb-3 mt-4 text-decoration-none fw-bold"
-                    >
-                    <i class="fa fa-home me-3 fa-2x"></i> Home
-                    </a>
-                    <a
-                        href="{{route('showParkingList')}}"
-                        class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
-                    >
-                        <i class="fa fa-car me-3 fa-2x"></i> Parking list
-                    </a>
-                    <a
-                        href="{{route('profile', ['id' => auth()->user()->id])}}"
-                        class="d-flex align-items-center ms-3 mb-1 text-decoration-none fw-bold"
-                    >
-                        <i class="fa fa-user me-3 fa-2x"></i> User Information
-                    </a>
-                    <div class="ms-3">
-                        <div class="ps-3 white_line">
-                            <a
-                                href="{{route('profile', ['id' => auth()->user()->id])}}"
-                                class="d-flex align-items-center text-decoration-none"
-                            >
-                                Profile
-                            </a>
-                            <a
-                                href="{{route('reservation', ['id' => auth()->user()->id])}}"
-                                class="d-flex align-items-center text-decoration-none"
-                            >
-                                Reservation History
-                            </a>
-                            <a
-                                href="{{route('favorite', ['id' => auth()->user()->id])}}"
-                                class="d-flex align-items-center text-decoration-none"
-                            >
-                                Favorite
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sidebar-section admin mt-3">
-                        <a
-                            href="{{route('admin.parking.parkings_list')}}"
-                            class="d-flex align-items-centere text-decoration-none fw-bold ms-3 text-white"
-                        >
-                            <i class="fa fa-user-cog me-3 fa-2x"></i> Admin
-                        </a>
-                        <div class="ms-3">
-                            <div class="ps-4 white_line">
-                                <a
-                                    href="{{route('admin.users_list')}}"
-                                    class="d-flex align-items-center text-decoration-none text-white"
-                                >
-                                    User List
-                                </a>
-                                <a
-                                    href="{{route('admin.parking.parkings_list')}}"
-                                    class="d-flex align-items-center text-decoration-none text-white"
-                                >
-                                    Parking places list
-                                </a>
-                                <a
-                                    href="{{route('admin.parking.index')}}"
-                                    class="d-flex align-items-center text-decoration-none text-white"
-                                >
-                                    Register new parking
-                                </a>
-                        </div>
-                    </div>
-                    <a
-                        href="{{ route('logout') }}"
-                        class="d-flex align-items-center mt-3 mb-3 ms-3 text-white text-decoration-none fw-bold"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                    >
-                    <i class="fa fa-sign-out-alt me-3 fa-2x"></i> Logout
-                    </a>
-                    <a
-                        href="{{ route('faq') }}"
-                        class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
-                    >
-                    <i class="fa fa-question-circle me-3 fa-2x"></i> FAQ
-                    </a>
-                    <a
-                        href="{{ route('aboutUs') }}"
-                        class="d-flex align-items-center ms-3 mb-3 text-decoration-none fw-bold"
-                    >
-                        <i class="fa fa-info-circle me-3 fa-2x"></i> About us
-                    </a>
-                @endcan --}}
             @endguest
         </div>
         <main class="py-4">
