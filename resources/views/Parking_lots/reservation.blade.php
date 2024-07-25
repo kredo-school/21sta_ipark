@@ -187,10 +187,18 @@
                     </div>
                 </div>
                 <div class="col-md-3  mb-3 d-flex flex-column justify-content-end">
-                    <button type="submit" class="btn ad-btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm" data-bs-toggle="modal" data-bs-target="#reservationCheckModal">
-                        Reserve
-                    </button>
-                    @include('Parking_lots.modals.Reservation_check')
+                    @auth {{-- ユーザーがログインしている場合 --}}
+                        <button type="submit" class="btn ad-btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm" data-bs-toggle="modal" data-bs-target="#reservationCheckModal">
+                            Reserve
+                        </button>
+                        @include('Parking_lots.modals.Reservation_check')
+                    @else {{-- ユーザーがログインしていない場合 --}}
+                        <form action="{{ route('login') }}" method="GET">
+                            <button type="submit" class="btn ad-btn rounded-pill fw-bold px-4 btn-orange fs-5 btn-sm">
+                                Reserve
+                            </button>
+                        </form>
+                    @endauth
                 </div>
             </div>
         </div>
