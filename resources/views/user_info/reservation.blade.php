@@ -166,7 +166,14 @@
               <tbody class="bg-white">
                 <tr>
                     <td>{{ $past_reservation->date }}</td>
-                    <td>{{ $past_reservation->ParkingPlace->parking_place_name }}</td>
+                    <td>
+                      <a
+                      href="{{route('showParkingDetail', $past_reservation->parking_place_id)}}"
+                      class="reservationHistory-parking-name text-decoration-none"
+                      >
+                      {{ $past_reservation->ParkingPlace->parking_place_name }}
+                      </a>
+                    </td>
                     <td>{{ \Carbon\Carbon::parse($past_reservation->planning_time_from)->format('H:i') }} 
                          → 
                          {{ \Carbon\Carbon::parse($past_reservation->planning_time_to)->format('H:i') }}
